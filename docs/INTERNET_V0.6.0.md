@@ -33,7 +33,9 @@ A pesquisa usa o endpoint público:
 
 `https://archive.org/advancedsearch.php`
 
-As consultas pedem JSON e os campos `identifier`, `title`, `creator`, `year` e `mediatype`. A busca utiliza a frase digitada e, quando um filtro é escolhido, acrescenta o filtro de tipo de mídia.
+A consulta principal usa a busca geral de metadados do Archive.org, sem limitar o termo a uma frase exata em `title`, `creator` ou `subject`. Assim, o índice pode localizar itens por título, criador, descrição, assunto e outros metadados disponíveis na ficha. As aspas não são adicionadas automaticamente ao termo digitado. Quando um filtro é escolhido, o tipo de mídia é acrescentado à consulta.
+
+A resposta solicita os campos `identifier`, `title`, `creator`, `date`, `year`, `mediatype` e `subject` para montar os cartões de resultado. A busca geral continua limitada aos metadados indexados pelo Archive.org; ela não pesquisa o texto OCR dentro dos livros.
 
 Filtros disponíveis:
 
