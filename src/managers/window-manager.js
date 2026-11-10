@@ -232,6 +232,7 @@ function beginWindowResize(event) {
     width: rect.width, height: rect.height, right: left + rect.width, bottom: top + rect.height
   };
   desktop.classList.add('is-window-resizing');
+  desktop.style.cursor = direction + '-resize';
   desktop.classList.remove('topbar-open', 'sidebar-open', 'dock-open');
   win.classList.add('resizing');
   try { scene.setPointerCapture(event.pointerId); } catch (error) { /* Pointer capture is optional. */ }
@@ -284,6 +285,7 @@ function finishWindowResize(event) {
   const win = current.windowElement;
   resizeState = null;
   elements.desktop.classList.remove('is-window-resizing');
+  elements.desktop.style.cursor = '';
   win.classList.remove('resizing');
   try {
     if (elements.scene.hasPointerCapture(current.pointerId)) elements.scene.releasePointerCapture(current.pointerId);
