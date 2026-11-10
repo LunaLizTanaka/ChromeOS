@@ -60,3 +60,12 @@
   .internet-link-grid,.internet-tools-grid{grid-template-columns:1fr 1fr;}
   .internet-address-row .pixel-btn{font-size:9px;padding:6px 5px;}
 }
+
+.internet-tumblr-box{display:flex;flex-direction:column;gap:7px;padding:9px;border:2px solid #e7bfd0;border-radius:8px;background:#fff7fb;}
+.internet-tumblr-box>div:first-child{display:flex;flex-direction:column;gap:3px;}
+.internet-tumblr-box strong{font-size:10px;color:#916078;}
+.internet-tumblr-box small{font-size:9px;line-height:1.4;color:#a17c8c;}
+.internet-tumblr-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center;}
+.internet-tumblr-row .field{min-width:0;margin:0;height:36px;font-size:10px;}
+.internet-tumblr-row .pixel-btn{min-height:36px;padding:6px 8px;font-size:9px;white-space:nowrap;}
+@media(max-width:420px){.internet-tumblr-row{grid-template-columns:1fr;}.internet-tumblr-row .pixel-btn{width:100%;}}
