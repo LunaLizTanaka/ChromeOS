@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Estado:** início do projeto / protótipo visual v0.1.0  
+**Estado:** protótipo funcional v0.2.0 (janelas e responsividade)  
 **Plataforma principal:** Chromebook com ChromeOS  
 **Formato:** website/PWA, sem aplicativo Android nativo  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -81,3 +81,22 @@ Uma pesquisa de integração nativa poderá ser feita no futuro, mas não é dep
 ## Estado atual
 
 A direção visual e a arquitetura inicial estão sendo registradas. O código do protótipo será adicionado incrementalmente; a instalação PWA depende de publicação HTTPS e teste no Chromebook. Nuvem, autenticação e sincronização ainda não estão conectadas.
+
+
+## Interações e layout responsivo — v0.2.0
+
+A v0.2.0 retoma o comportamento de janelas do protótipo antigo do tablet:
+
+- Arrastar janelas por sua barra de título com mouse, touchpad, toque ou caneta.
+- Minimizar, maximizar e fechar pelos controles do cabeçalho.
+- Fechar também arrastando a janela até o alvo inferior.
+- Entrar no modo de aplicativo em tela cheia pelo controle, por duplo clique no cabeçalho ou arrastando a janela até o topo.
+- Retornar ao desktop com Esc ou pelo botão de voltar, preservando o conteúdo existente do aplicativo.
+- Reabrir aplicativos minimizados/fechados pelos atalhos.
+- Ajustar o desktop à largura e altura disponíveis, incluindo viewports estreitos e de pouca altura.
+
+O modo de tela cheia é interno ao Galaxy Legacy e não substitui a tela cheia global do ChromeOS.
+
+Consulte [Interações de janelas e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md).
+
+**Entrega de teste v0.2.0:** HTML independente e pacote ZIP disponibilizados nesta conversa. O código ainda precisa ser sincronizado como fonte versionado do repositório antes de publicar a PWA.
