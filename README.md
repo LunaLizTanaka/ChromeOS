@@ -72,7 +72,13 @@ Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notific
 O `index.html` é a entrada do projeto modular e usa ES Modules. Ele deve ser servido por HTTPS ou por um servidor local (ex.: `python3 -m http.server 8000`); abrir por duplo clique em `file://` pode bloquear os módulos no Chrome. O `standalone.html` é uma edição independente com CSS/JS incorporados, adequada para abrir diretamente. As duas edições compartilham a mesma direção visual, mas seus dados locais podem ficar em contextos de armazenamento diferentes.
 
 
-## Internet v0.5.0\n\nA janela Internet tenta abrir páginas compatíveis em um iframe isolado. Inclui atalhos para Tumblr, Neocities, Internet Archive e uma seleção de páginas Neocities; links de vídeo do YouTube, itens do Internet Archive, conteúdo do Spotify e projetos do CodePen são convertidos para endpoints de incorporação quando reconhecidos. Os controles voltar/avançar acompanham as navegações feitas pelos atalhos e pela barra do Galaxy.\n\nA exibição interna é experimental: o evento de carregamento do iframe não garante que o conteúdo foi renderizado. Sites podem bloquear enquadramento, exigir autenticação/cookies ou impedir recursos de terceiros. **ABRIR NO CHROME** permanece disponível como alternativa. O Galaxy não injeta scripts de terceiros no DOM principal nem tenta contornar políticas de segurança dos sites. Veja [INTERNET_V0.5.0.md](docs/INTERNET_V0.5.0.md) e [a pesquisa de embeds](docs/PESQUISA_INTERNET_EMBEDS_E_SITES.md).\n\n## Notes v0.4.0
+## Internet v0.5.0
+
+A janela Internet tenta abrir páginas compatíveis em um iframe isolado. Inclui atalhos para Tumblr, Neocities, Internet Archive e uma seleção de páginas Neocities; links de vídeo do YouTube, itens do Internet Archive, conteúdo do Spotify e projetos do CodePen são convertidos para endpoints de incorporação quando reconhecidos. Os controles voltar/avançar acompanham as navegações feitas pelos atalhos e pela barra do Galaxy.
+
+A exibição interna é experimental: o evento de carregamento do iframe não garante que o conteúdo foi renderizado. Sites podem bloquear enquadramento, exigir autenticação/cookies ou impedir recursos de terceiros. **ABRIR NO CHROME** permanece disponível como alternativa. O Galaxy não injeta scripts de terceiros no DOM principal nem tenta contornar políticas de segurança dos sites. Veja [INTERNET_V0.5.0.md](docs/INTERNET_V0.5.0.md) e [a pesquisa de embeds](docs/PESQUISA_INTERNET_EMBEDS_E_SITES.md).
+
+## Notes v0.4.0
 
 O Notes mantém várias notas independentes, com autosave, busca, cores, texto/checklist, favoritas, arquivamento, duplicação e importação/exportação JSON. O antigo conteúdo `gl-notes` é migrado para “Minha primeira nota” sem apagar a cópia legada.
 
