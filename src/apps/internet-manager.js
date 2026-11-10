@@ -277,7 +277,7 @@ export function initializeInternetApp(win) {
     const term = append ? currentSearchTerm : elements.archiveInput.value.trim();
     const type = append ? currentSearchType : elements.archiveType.value;
     if (!term) {
-      setArchiveStatus('Digite o título, assunto, autor ou palavra que deseja encontrar no Archive.org.');
+      setArchiveStatus('Digite o título ou o nome do autor/criador que deseja encontrar no Archive.org.');
       elements.archiveInput.focus();
       return;
     }
