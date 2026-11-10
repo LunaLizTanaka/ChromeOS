@@ -142,3 +142,29 @@ Chromium headless: 1920×1080, 1600×900, 1366×768, 1280×800, 1024×768, 800×
 | Erros JavaScript nos fluxos testados | Nenhum observado |
 
 A validação usa Chromium automatizado e armazenamento em memória para isolar os fluxos. A instalação PWA via HTTPS e a homologação no Chromebook físico permanecem pendentes.
+
+
+## 9. Refatoração modular v0.3.0 — regressão
+
+O window manager foi extraído para `src/managers/window-manager.js`. Desktop/eventos, painéis, registro de apps, templates, personalização, armazenamento e Picatsso também foram separados em módulos.
+
+Regressão automatizada no Chromium (montagem temporária de teste com armazenamento em memória):
+
+| Fluxo | Resultado |
+|---|---|
+| Inicialização do desktop | Aprovado |
+| Notas: persistir, minimizar e reabrir | Aprovado |
+| Tema, escala e preferências | Aprovado |
+| Files: selecionar e listar arquivos | Aprovado |
+| Tela cheia/restauração preservando o mesmo DOM | Aprovado |
+| Arrastar janela pela barra de título | Aprovado |
+| Fechar e reabrir janela fixa | Aprovado |
+| Fechar arrastando até o alvo inferior | Aprovado |
+| Picatsso: desenho, ferramentas, paleta e limpar | Aprovado |
+| Internet: normalização de endereço e iframe | Aprovado |
+| Layout e janelas em dez viewports | Aprovado |
+| Erros JavaScript nos fluxos exercitados | Nenhum observado |
+
+Viewports: 1920×1080, 1600×900, 1366×768, 1280×800, 1024×768, 800×600, 768×1024, 600×500, 390×844 e 320×568.
+
+O ambiente restringiu a navegação automatizada por `file://` e `localhost`; os fluxos foram exercitados em Chromium usando montagem temporária do código e shim de LocalStorage. A entrega de produção continua usando ES Modules nativos. A persistência por origem HTTPS e a homologação no Chromebook físico permanecem pendentes.

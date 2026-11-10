@@ -145,3 +145,20 @@ As posições das janelas são proporcionais à dimensão da cena. Durante o arr
 ## 13. Referências open source
 
 A pesquisa comparativa está em [PESQUISA_REFERENCIAS_DESKTOP_WEB.md](PESQUISA_REFERENCIAS_DESKTOP_WEB.md). A direção é manter a identidade e o código original do Galaxy Legacy, usar a divisão modular do WebDEX como modelo principal, SimplexOS como referência de funcionalidades vanilla e YukiOS apenas para padrões de persistência e separação de shell/estado. Nenhum código de terceiros foi incorporado à v0.2.2.
+
+
+## 14. Refatoração modular v0.3.0
+
+A implementação passou de um script inline único para ES Modules nativos, sem framework de UI e sem bundler obrigatório.
+
+- `src/core/`: DOM, notificações/relógio, armazenamento e personalização.
+- `src/managers/`: gerenciador de janelas, desktop/eventos e painéis das bordas.
+- `src/apps/`: templates/registro de aplicativos e editor Picatsso.
+- `src/main.js`: inicialização e composição dos módulos.
+- O CSS original é preservado em folha externa no pacote entregue.
+
+A extração foi incremental: a marcação visual e o CSS da v0.2.2 foram mantidos; somente o código foi separado por responsabilidade. Não foi incorporado código de terceiros.
+
+Para desenvolvimento local, servir a pasta por HTTP (por exemplo `python -m http.server 8000`). ES Modules podem ser bloqueados se o HTML for aberto diretamente por `file://`.
+
+**Estado:** módulos nativos criados e verificados. Publicação HTTPS e homologação no Chromebook físico pendentes.

@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Estado:** protótipo funcional v0.2.2 (viewport fluido, janelas proporcionais e workspace imersivo)  
+**Estado:** v0.3.0 — refatoração modular incremental  
 **Plataforma principal:** Chromebook com ChromeOS  
 **Formato:** website/PWA, sem aplicativo Android nativo  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -125,3 +125,14 @@ Consulte:
 - [Interações, janelas e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md)
 - [Arquitetura e limites do ChromeOS](docs/ARQUITETURA_E_LIMITES_CHROMEOS.md)
 - [Pesquisa de referências desktop web](docs/PESQUISA_REFERENCIAS_DESKTOP_WEB.md)
+
+
+## v0.3.0 — refatoração modular
+
+O JavaScript foi separado em módulos nativos por responsabilidade: core, managers e apps. A divisão preserva o shell visual pixel/coquette e o comportamento anterior de janelas, tela cheia, painéis auto-ocultáveis e viewport fluido.
+
+O código modular está em [src/](src/). O pacote completo v0.3.0, com index.html, CSS externo, manifesto, ícones e estrutura executável, foi entregue nesta conversa. A publicação/execução de ES Modules exige uma origem HTTP/HTTPS.
+
+- [Mapa da refatoração v0.3.0](docs/MODULARIZACAO_V0.3.0.md)
+- [Arquitetura ChromeOS](docs/ARQUITETURA_E_LIMITES_CHROMEOS.md)
+- [Interações e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md)
