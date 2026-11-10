@@ -9,12 +9,18 @@ import { initializePaintApp } from './paint-app.js';
 function normalizeWebAddress(value) {
   const input = String(value || '').trim();
   if (!input) return '';
-  if (/^https?:\/\//i.test(input)) {
-    try {
-      const url = new URL(input);
-      return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
-    } catch (error) { return ''; }
+
+  const candidate = /^https?:\\/\\//i.test(input) ? input : `https://${input}`;
+  try {
+    const url = new URL(candidate);
+    const looksLikeDomain = input.includes('.') && !/\\s/.test(input);
+    if (['http:', 'https:'].includes(url.protocol) && (looksLikeDomain || /^https?:\\/\\//i.test(input))) {
+      return url.href;
+    }
+  } catch (error) {
+    // A plain phrase is treated as a web search below.
   }
+
   return `https://www.google.com/search?q=${encodeURIComponent(input)}`;
 }
 
@@ -33,26 +39,79 @@ function bindApp(name, win) {
   if (name === 'internet') {
     const address = $('#webAddress', win);
     const view = $('#browserView', win);
-    const navigate = () => {
+    const openChrome = $('#openChrome', win);
+    let currentUrl = '';
+
+    const showStatus = (title, message) => {
+      view.replaceChildren();
+      const box = document.createElement('div');
+      const heading = document.createElement('strong');
+      const paragraph = document.createElement('p');
+      paragraph.className = 'muted';
+      heading.textContent = title;
+      paragraph.textContent = message;
+      box.append(heading, paragraph);
+      view.appendChild(box);
+    };
+
+    const navigateInChrome = () => {
       const url = normalizeWebAddress(address.value);
-      if (!url) { toast('Enter a valid HTTP or HTTPS address.'); return; }
+      if (!url) {
+        toast('Digite um endereço ou termo para pesquisar.');
+        address.focus();
+        return;
+      }
+      currentUrl = url;
       address.value = url;
+      openChrome.disabled = false;
+      window.open(url, '_blank', 'noopener,noreferrer');
+      showStatus(
+        'ABERTURA SOLICITADA',
+        'O Chrome recebeu o endereço para abrir em uma nova aba. Se a nova aba não aparecer, clique em ABRIR NO CHROME.'
+      );
+      toast('Abrindo em uma nova aba do Chrome ♡');
+    };
+
+    const tryInside = () => {
+      const url = normalizeWebAddress(address.value);
+      if (!url) {
+        toast('Digite um endereço válido primeiro.');
+        address.focus();
+        return;
+      }
+      currentUrl = url;
+      address.value = url;
+      openChrome.disabled = false;
       view.replaceChildren();
       const frame = document.createElement('iframe');
       frame.src = url;
-      frame.title = 'External webpage';
-      frame.loading = 'lazy';
+      frame.title = 'Página externa incorporada';
+      frame.loading = 'eager';
       frame.referrerPolicy = 'strict-origin-when-cross-origin';
       frame.setAttribute('sandbox', 'allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
       view.appendChild(frame);
-      view.dataset.url = url;
-      toast('Trying to open the page inside the desktop ♡');
+      toast('Tentando exibir dentro da janela. Alguns sites bloqueiam isso.');
     };
-    $('#goWeb', win).addEventListener('click', navigate);
-    address.addEventListener('keydown', event => { if (event.key === 'Enter') navigate(); });
-    $('#openChrome', win).addEventListener('click', () => {
-      const url = view.dataset.url || normalizeWebAddress(address.value);
-      if (url) window.open(url, '_blank', 'noopener,noreferrer');
+
+    $('#goWeb', win).addEventListener('click', navigateInChrome);
+    $('#openHere', win).addEventListener('click', tryInside);
+    address.addEventListener('keydown', event => {
+      if (event.key === 'Enter') navigateInChrome();
+    });
+    openChrome.addEventListener('click', () => {
+      if (!currentUrl) currentUrl = normalizeWebAddress(address.value);
+      if (currentUrl) window.open(currentUrl, '_blank', 'noopener,noreferrer');
+    });
+    $$('[data-quick-url]', win).forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        const url = link.getAttribute('href');
+        currentUrl = url;
+        address.value = url;
+        openChrome.disabled = false;
+        window.open(url, '_blank', 'noopener,noreferrer');
+        showStatus('ATALHO ABERTO NO CHROME', `O site ${url} foi solicitado em uma nova aba.`);
+      });
     });
   }
 

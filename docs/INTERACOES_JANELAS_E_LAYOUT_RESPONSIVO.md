@@ -198,3 +198,18 @@ O ambiente restringiu a navegação automatizada por `file://` e `localhost`; os
 | Erros JavaScript nos fluxos testados | Nenhum observado |
 
 Os testes foram feitos em Chromium automatizado com armazenamento de teste em memória. O comportamento real no Chromebook físico ainda precisa de homologação.
+
+
+## 11. v0.3.3 — navegador sem domínio de exemplo e remoção de Cat Club
+
+O endereço inicial example.com foi removido porque é um domínio reservado à documentação e não um serviço de navegação. O aplicativo Internet agora inicia sem URL preenchida, com atalhos reais e campo de pesquisa/endereço.
+
+- NAVEGAR envia URL ou pesquisa para uma nova aba do Chrome.
+- TENTAR ABRIR AQUI é um modo opcional para destinos que aceitam iframe.
+- ABRIR NO CHROME fica disponível como alternativa explícita.
+- Domínio digitado sem protocolo é normalizado para HTTPS.
+- Texto simples vira pesquisa Google.
+- Aplicativo Cat Club/Catz, ícone do dock, registro e CSS específico foram removidos.
+- O texto demonstrativo Mail foi atualizado para eliminar a referência ao sticker club.
+
+Testes de Chromium: endereço em branco na primeira abertura; domínio wikipedia.org normalizado para HTTPS; texto "flores kawaii" convertido para pesquisa Google; modo iframe opcional criado; ausência de Catz/strings de exemplo na interface; notas, arraste, fullscreen, Picatsso e 10 viewports continuam aprovados. A navegação externa real depende da rede e das políticas/pop-up do Chrome do usuário.

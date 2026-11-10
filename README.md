@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Estado:** v0.3.2 — aplicativos abertos sob demanda e arraste reforçado  
+**Estado:** v0.3.3 — navegador corrigido e Cat Club removido
 **Plataforma principal:** Chromebook com ChromeOS  
 **Formato:** website/PWA, sem aplicativo Android nativo  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -145,3 +145,14 @@ O desktop inicia sem janelas de aplicativos. Nenhum popup de demonstração é a
 Cats e Picatsso agora são criados sob demanda. Picatsso inicializa o Canvas e seus eventos somente depois que a janela é criada. O gerenciador de janelas usa captura de Pointer Events na cena, impedindo que eventos de aplicativos interfiram no início do arraste.
 
 **Como arrastar:** pressione o botão esquerdo sobre a barra superior da janela, onde aparece o nome do aplicativo, mantenha pressionado e mova. Não comece sobre os controles circulares, pois eles minimizam, maximizam ou fecham.
+
+
+## v0.3.3 — correção de navegação e remoção do Cat Club
+
+- Removido o aplicativo Catz/Cat Club, seu atalho do dock, seu registro e seus estilos.
+- Removidas referências a "sticker club" do aplicativo Mail.
+- O navegador não inicia mais com example.com, domínio reservado para exemplos e não um serviço de navegação.
+- A tela inicial da Internet começa vazia e inclui atalhos para Google, DuckDuckGo e Wikipedia.
+- NAVEGAR abre URL ou pesquisa em uma nova aba do Chrome, sem depender de iframe.
+- TENTAR ABRIR AQUI é uma opção separada para os sites que permitem incorporação; ABRIR NO CHROME fica disponível como alternativa.
+- Endereços de domínio sem protocolo recebem https://; texto simples é convertido em pesquisa Google.

@@ -162,3 +162,12 @@ A extração foi incremental: a marcação visual e o CSS da v0.2.2 foram mantid
 Para desenvolvimento local, servir a pasta por HTTP (por exemplo `python -m http.server 8000`). ES Modules podem ser bloqueados se o HTML for aberto diretamente por `file://`.
 
 **Estado:** módulos nativos criados e verificados. Publicação HTTPS e homologação no Chromebook físico pendentes.
+
+
+## 15. Navegador web e limpeza do Cat Club — v0.3.3
+
+O domínio example.com não é página inicial apropriada: ele é reservado a exemplos de documentação. O navegador do Galaxy Legacy inicia com o campo vazio e os atalhos Google, DuckDuckGo e Wikipedia.
+
+A ação principal NAVEGAR abre uma nova aba do Chrome. Assim o usuário navega no navegador real, sem a falsa expectativa de que todos os sites aceitam iframe. A ação opcional TENTAR ABRIR AQUI tenta incorporar a página dentro da janela; sites com X-Frame-Options ou Content-Security-Policy podem bloquear. ABRIR NO CHROME é uma contingência explícita.
+
+O Cat Club/Catz foi removido da lista de apps, do dock, templates, registro e estilos. O Mail demonstrativo não possui mais referência a sticker club.
