@@ -20,6 +20,10 @@ Não é necessário executar `npm install`. O projeto usa HTML, CSS e ES Modules
 
 Use o arquivo standalone incluído em `standalone/` e abra-o pelo aplicativo Arquivos com o Google Chrome. Essa edição reúne HTML, CSS e JavaScript em um único arquivo, mas não substitui a versão modular principal.
 
+## Biblioteca de leitura
+
+Abra **Biblioteca** pelo atalho lateral ou pelo dock. Ela reúne 16 plataformas, pesquisas no Internet Archive e Open Library e uma estante local. Alguns sites bloqueiam incorporação; nesses casos, use **ABRIR NO CHROME**. Consulte `docs/BIBLIOTECA_V0.7.0.md` para detalhes.
+
 ## Abrir os menus
 
 Mova o ponteiro até os primeiros 44 pixels da borda esquerda para abrir os atalhos ou até a borda inferior para abrir o dock. Ao abrir, a zona invisível deixa de interceptar os cliques. Na tela de toque, toque na borda correspondente.
