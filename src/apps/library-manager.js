@@ -9,15 +9,15 @@ export const LIBRARY_PLATFORMS = Object.freeze([
   { id:'ao3', name:'Archive of Our Own (AO3)', category:'fanfic', url:'https://archiveofourown.org/', mode:'try', badge:'Teste interno', description:'Arquivo comunitário de fanworks, fanfics e obras transformativas.', note:'Mantém avisos, classificações e exigências próprias de acesso.' },
   { id:'novelupdates', name:'Novel Updates', category:'novels', url:'https://www.novelupdates.com/', mode:'try', badge:'Catálogo', description:'Índice de web novels, traduções, gêneros e grupos de tradução.', note:'Lista de leitura e conta permanecem no próprio Novel Updates.' },
   { id:'wattpad', name:'Wattpad', category:'fanfic', url:'https://www.wattpad.com/', mode:'try', badge:'Teste interno', description:'Histórias originais, romances, fantasia e fanfics.', note:'Login, cookies ou políticas de enquadramento podem exigir o Chrome.' },
-  { id:'spirit', name:'Spirit Fanfics', category:'fanfic', url:'https://www.spiritfanfiction.com/', mode:'external', badge:'Acesso oficial', description:'Plataforma brasileira de histórias e fanfics.', note:'Os termos mencionam um player incorporável; ele não foi integrado nesta versão.' },
-  { id:'mangaplus', name:'MANGA Plus', category:'manga', url:'https://mangaplus.shueisha.co.jp/', mode:'external', badge:'Acesso oficial', description:'Mangás oficiais publicados pela Shueisha.', note:'Leitura e disponibilidade regional são controladas pela plataforma.' },
-  { id:'comikey', name:'Comikey Brasil', category:'manga', url:'https://comikey.com.br/', mode:'external', badge:'Acesso oficial', description:'Mangás, manhwas, manhuas e webcomics licenciados.', note:'Conteúdo destinado à visualização nos serviços oficiais Comikey.' },
-  { id:'webtoon', name:'WEBTOON', category:'manga', url:'https://www.webtoons.com/pt-br/', mode:'external', badge:'Acesso oficial', description:'Webtoons, romances, fantasia, ação e histórias originais.', note:'Catálogo e disponibilidade variam por região e licença.' },
-  { id:'viz', name:'VIZ / Shonen Jump', category:'manga', url:'https://www.viz.com/', mode:'external', badge:'Disponibilidade regional', description:'Catálogo oficial de mangás e publicações da VIZ.', note:'O serviço digital pode não estar disponível para contas no Brasil.' },
+  { id:'spirit', name:'Spirit Fanfics', category:'fanfic', url:'https://www.spiritfanfiction.com/', mode:'try', badge:'Teste interno', description:'Plataforma brasileira de histórias e fanfics.', note:'Os termos mencionam um player incorporável; ele não foi integrado nesta versão.' },
+  { id:'mangaplus', name:'MANGA Plus', category:'manga', url:'https://mangaplus.shueisha.co.jp/', mode:'try', badge:'Teste interno', description:'Mangás oficiais publicados pela Shueisha.', note:'Leitura e disponibilidade regional são controladas pela plataforma.' },
+  { id:'comikey', name:'Comikey Brasil', category:'manga', url:'https://comikey.com.br/', mode:'try', badge:'Teste interno', description:'Mangás, manhwas, manhuas e webcomics licenciados.', note:'Conteúdo destinado à visualização nos serviços oficiais Comikey.' },
+  { id:'webtoon', name:'WEBTOON', category:'manga', url:'https://www.webtoons.com/pt-br/', mode:'try', badge:'Teste interno', description:'Webtoons, romances, fantasia, ação e histórias originais.', note:'Catálogo e disponibilidade variam por região e licença.' },
+  { id:'viz', name:'VIZ / Shonen Jump', category:'manga', url:'https://www.viz.com/', mode:'try', badge:'Teste interno', description:'Catálogo oficial de mangás e publicações da VIZ.', note:'O serviço digital pode não estar disponível para contas no Brasil.' },
   { id:'wuxiaworld', name:'Wuxiaworld', category:'novels', url:'https://www.wuxiaworld.com/', mode:'external', badge:'Acesso oficial', description:'Web novels chinesas e coreanas com traduções licenciadas.', note:'Os termos proíbem enquadrar ou incorporar a plataforma sem autorização escrita.' },
   { id:'royalroad', name:'Royal Road', category:'novels', url:'https://www.royalroad.com/', mode:'try', badge:'Teste interno', description:'Ficção original, fantasia, LitRPG e histórias de progressão.', note:'Incorporação não confirmada; abra no Chrome se o quadro não carregar.' },
   { id:'scribblehub', name:'Scribble Hub', category:'novels', url:'https://www.scribblehub.com/', mode:'try', badge:'Teste interno', description:'Histórias originais em inglês, fantasia, romance e ficção científica.', note:'Os termos exigem permissão de responsável para menores de 18 anos.' },
-  { id:'ciweimao', name:'Ciweimao', category:'novels', url:'https://www.ciweimao.com/', mode:'external', badge:'Publicação original', description:'Plataforma chinesa de publicação original de web novels.', note:'Interface e conteúdo predominantemente em chinês.' }
+  { id:'ciweimao', name:'Ciweimao', category:'novels', url:'https://www.ciweimao.com/', mode:'try', badge:'Teste interno', description:'Plataforma chinesa de publicação original de web novels.', note:'Interface e conteúdo predominantemente em chinês.' }
 ]);
 
 export const FEATURED_READING = Object.freeze([{
@@ -117,23 +117,107 @@ export function initializeLibraryApp(win) {
     else toast('O Chrome bloqueou a nova aba. Permita pop-ups para o Galaxy Legacy.');
   };
 
-  const showFrame = (title, value, source) => {
+  const readerAddress = $('#libraryReaderAddress');
+  const readerAddressForm = $('#libraryReaderAddressForm');
+  const readerBrowserBack = $('#libraryBrowserBack');
+  const readerBrowserForward = $('#libraryBrowserForward');
+  const readerBrowserReload = $('#libraryBrowserReload');
+  const readerTitle = $('#libraryReaderTitle');
+  const readerStatus = $('#libraryReaderStatus');
+  const internalHosts = LIBRARY_PLATFORMS
+    .filter(platform => platform.mode !== 'external')
+    .map(platform => new URL(platform.url).hostname.toLowerCase().replace(/^www\\./, ''));
+  let readerHistory = [];
+  let readerHistoryIndex = -1;
+
+  const isAllowedLibraryAddress = value => {
+    const safe = safeUrl(value);
+    if (!safe) return false;
+    const hostname = new URL(safe).hostname.toLowerCase().replace(/^www\\./, '');
+    return internalHosts.some(domain => hostname === domain || hostname.endsWith('.' + domain));
+  };
+
+  const updateReaderNavigation = () => {
+    if (readerBrowserBack) readerBrowserBack.disabled = readerHistoryIndex <= 0;
+    if (readerBrowserForward) readerBrowserForward.disabled = readerHistoryIndex < 0 || readerHistoryIndex >= readerHistory.length - 1;
+    if (readerBrowserReload) readerBrowserReload.disabled = readerHistoryIndex < 0;
+    if (readerAddress) readerAddress.value = readerHistoryIndex >= 0 ? readerHistory[readerHistoryIndex].url : '';
+  };
+
+  const showFrame = (title, value, source, options = {}) => {
     const url = safeUrl(value);
     if (!url) return;
-    $('#libraryReaderTitle').textContent = title;
-    $('#libraryReaderStatus').textContent = source + ' · Confira visualmente se o conteúdo apareceu. Se houver bloqueio, tela vazia ou problema de login, use “Abrir no Chrome”.';
-    const frame = el('iframe', 'library-reader-frame');
+    if (!isAllowedLibraryAddress(url)) {
+      readerStatus.textContent = 'Por segurança, a barra interna aceita apenas os domínios das plataformas cadastradas na Biblioteca. Use o Chrome para outros endereços.';
+      return;
+    }
+
+    if (options.record !== false) {
+      readerHistory = readerHistory.slice(0, readerHistoryIndex + 1);
+      readerHistory.push({ title, url, source });
+      readerHistoryIndex = readerHistory.length - 1;
+    }
+
+    readerTitle.textContent = title;
+    readerStatus.textContent = source + ' · O site está sendo aberto dentro da Biblioteca. Se aparecer uma tela vazia, aviso de bloqueio ou falha de login, use “Abrir no Chrome”. O Galaxy não remove proteções do site.';
+    let frame = readerHost.querySelector('iframe');
+    if (!frame) {
+      frame = el('iframe', 'library-reader-frame');
+      frame.title = title;
+      frame.loading = 'eager';
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.allow = 'fullscreen; autoplay; encrypted-media; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.setAttribute('sandbox', 'allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+      readerHost.replaceChildren(frame);
+    }
     frame.title = title;
-    frame.loading = 'eager';
-    frame.referrerPolicy = 'strict-origin-when-cross-origin';
-    frame.allow = 'fullscreen; autoplay; encrypted-media; picture-in-picture';
-    frame.allowFullscreen = true;
-    frame.setAttribute('sandbox', 'allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
     frame.src = url;
-    readerHost.replaceChildren(frame);
+    frame.addEventListener('load', () => {
+      if (readerHistoryIndex >= 0 && readerHistory[readerHistoryIndex]?.url === url) {
+        readerStatus.textContent = 'O quadro concluiu a navegação. Isso não confirma que a plataforma permite incorporação: confira a página. Os controles da Biblioteca percorrem os endereços abertos pela barra; links internos mantêm o histórico próprio do site.';
+      }
+    }, { once: true });
     readerPanel.hidden = false;
     setTab('reader');
+    updateReaderNavigation();
   };
+
+  const navigateReaderHistory = index => {
+    const entry = readerHistory[index];
+    if (!entry) return;
+    readerHistoryIndex = index;
+    showFrame(entry.title, entry.url, entry.source, { record: false });
+  };
+
+  readerAddressForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    let value = String(readerAddress?.value || '').trim();
+    if (value && !/^[a-z][a-z0-9+.-]*:\/\//i.test(value)) value = 'https://' + value;
+    if (!isAllowedLibraryAddress(value)) {
+      readerStatus.textContent = 'Endereço não permitido nesta janela. Use HTTPS e um domínio cadastrado na Biblioteca.';
+      return;
+    }
+    showFrame(new URL(value).hostname, value, 'Navegação pela barra interna');
+  });
+
+  readerBrowserBack?.addEventListener('click', () => {
+    const frame = readerHost.querySelector('iframe');
+    try {
+      const childHistory = frame?.contentWindow?.history;
+      if (childHistory && childHistory.length > 1) {
+        childHistory.back();
+        return;
+      }
+    } catch { /* Cross-origin pages keep their own private history. */ }
+    navigateReaderHistory(readerHistoryIndex - 1);
+  });
+
+  readerBrowserForward?.addEventListener('click', () => navigateReaderHistory(readerHistoryIndex + 1));
+  readerBrowserReload?.addEventListener('click', () => {
+    const entry = readerHistory[readerHistoryIndex];
+    if (entry) showFrame(entry.title, entry.url, 'Atualizando página interna', { record: false });
+  });
 
   const save = item => {
     const title = String(item.title || '').trim().slice(0, 180);
@@ -173,7 +257,7 @@ export function initializeLibraryApp(win) {
       card.append(top, el('p', 'library-card-description', platform.description), el('small', 'library-card-note', platform.note));
       const actions = el('div', 'library-card-actions');
       actions.append(button('ABRIR NO CHROME ↗', 'pixel-btn library-card-button', () => openExternal(platform.url)));
-      if (platform.mode === 'try') actions.append(button('TENTAR NESTA JANELA', 'pixel-btn secondary library-card-button', () => showFrame(platform.name, platform.url, 'Tentativa de abertura interna')));
+      if (platform.mode === 'try') actions.append(button('ABRIR NA BIBLIOTECA', 'pixel-btn secondary library-card-button', () => showFrame(platform.name, platform.url, 'Página oficial aberta em janela interna')));
       if (platform.mode === 'reader') actions.append(button('PESQUISAR NA BIBLIOTECA', 'pixel-btn secondary library-card-button', () => setTab(platform.id === 'openlibrary' ? 'openlibrary' : 'archive')));
       actions.append(button('＋ ADICIONAR À ESTANTE', 'library-save-link', () => savePlatform(platform)));
       card.append(actions);
@@ -314,8 +398,8 @@ export function initializeLibraryApp(win) {
 
   $('#libraryPlatformSearch')?.addEventListener('input', renderPlatforms);
   $('#libraryCategory')?.addEventListener('change', renderPlatforms);
-  $('#libraryReaderBack')?.addEventListener('click', () => { readerHost.replaceChildren(); setTab('sites'); });
-  $('#libraryReaderExternal')?.addEventListener('click', () => { const frame = readerHost.querySelector('iframe'); if (frame?.src) openExternal(frame.src); });
+  $('#libraryReaderBack')?.addEventListener('click', () => { readerHost.replaceChildren(); readerHistory = []; readerHistoryIndex = -1; updateReaderNavigation(); setTab('sites'); });
+  $('#libraryReaderExternal')?.addEventListener('click', () => { const url = readerAddress?.value || readerHistory[readerHistoryIndex]?.url; if (url) openExternal(url); });
   $('#libraryOpenLittleTyrant')?.addEventListener('click', () => save({...FEATURED_READING[0]}));
   $('#libraryLittleTyrantLink')?.addEventListener('click', () => openExternal(FEATURED_READING[0].url));
 
