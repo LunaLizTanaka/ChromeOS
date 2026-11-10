@@ -28,19 +28,22 @@ export const NEOCITIES_BLOGS = Object.freeze([
 ]);
 
 const ARCHIVE_MEDIA_TYPES = new Set(['movies', 'audio', 'texts', 'software', 'image']);
-const ARCHIVE_FIELDS = ['identifier', 'title', 'creator', 'year', 'mediatype'];
-const ARCHIVE_PAGE_SIZE = 12;
+const ARCHIVE_FIELDS = ['identifier', 'title', 'creator', 'date', 'year', 'mediatype', 'subject'];
+const ARCHIVE_PAGE_SIZE = 18;
+const LUCENE_RESERVED = new Set(['+', '-', '!', '(', ')', '{', '}', '[', ']', '^', '"', '~', '*', '?', ':', '\\', '/', '|', '&']);
+
+function escapeArchiveSearchTerm(value) {
+  return Array.from(value, character => LUCENE_RESERVED.has(character) ? '\\' + character : character).join('');
+}
 
 export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1) {
-  const cleanTerm = String(term || '').trim();
+  const cleanTerm = String(term || '').trim().replace(/\s+/g, ' ');
   if (!cleanTerm) return '';
 
-  // Search a quoted phrase in the Archive's own metadata index.
-  const escapedPhrase = cleanTerm.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-  const phrase = '"' + escapedPhrase + '"';
-  const titleAndCreator = '(title:' + phrase + ' OR creator:' + phrase + ')';
+  // Pesquisa no índice geral de metadados do Archive, não só em frases exatas de título/autor.
+  const broadTerms = escapeArchiveSearchTerm(cleanTerm);
   const type = ARCHIVE_MEDIA_TYPES.has(mediaType) ? mediaType : 'all';
-  const query = type === 'all' ? titleAndCreator : titleAndCreator + ' AND mediatype:' + type;
+  const query = type === 'all' ? broadTerms : '(' + broadTerms + ') AND mediatype:' + type;
   const safePage = Math.max(1, Math.floor(Number(page) || 1));
 
   const url = new URL('https://archive.org/advancedsearch.php');
@@ -67,6 +70,13 @@ function readableValue(value) {
     return value.filter(item => typeof item === 'string' && item.trim()).slice(0, 2).join(', ');
   }
   return typeof value === 'string' || typeof value === 'number' ? String(value).trim() : '';
+}
+
+function readableSummary(value, maxLength = 84) {
+  const text = Array.isArray(value)
+    ? value.filter(item => typeof item === 'string' && item.trim()).slice(0, 2).join(', ')
+    : readableValue(value);
+  return text.length > maxLength ? text.slice(0, maxLength - 1).trimEnd() + '…' : text;
 }
 
 function mediaTypeLabel(value) {
@@ -134,12 +144,18 @@ function createArchiveResult(item, onOpen) {
   creator.className = 'archive-result-creator';
   creator.textContent = creatorText || 'Criador não informado';
 
-  const year = readableValue(item.year);
+  const subjectText = readableSummary(item.subject);
+  const subject = document.createElement('small');
+  subject.className = 'archive-result-subject';
+  subject.textContent = subjectText ? 'Assunto: ' + subjectText : '';
+
+  const year = readableValue(item.year) || readableValue(item.date).slice(0, 4);
   const meta = document.createElement('small');
   meta.className = 'archive-result-meta';
   meta.textContent = year;
 
   content.append(type, title, creator);
+  if (subjectText) content.appendChild(subject);
   if (year) content.appendChild(meta);
   card.append(artwork, content);
   card.addEventListener('click', () => onOpen(item));
