@@ -16,7 +16,8 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 - Aplicativos internos: Mail demonstrativo, Trash, Files demonstrativo, Save Center, Internet, Notes, Personalize e Picatsso.
 - Navegador: NAVEGAR abre URL/pesquisa em nova aba do Chrome; tentativa de incorporação é opcional.
 - Temas, escala da interface, grade, decorações, wallpaper e perfis JSON.
-- Notas persistidas no navegador e wallpaper armazenado no IndexedDB local.
+- Notes v0.3.4 ainda é um caderno de texto único salvo automaticamente no navegador; pesquisa de evolução para várias notas e papéis adesivos está em [PESQUISA_NOTES_E_STICKY_DESKTOP.md](docs/PESQUISA_NOTES_E_STICKY_DESKTOP.md).
+- Wallpaper armazenado no IndexedDB local.
 
 ## Executar no Chromebook
 
@@ -59,5 +60,11 @@ Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notific
 - [Arquitetura e limites do ChromeOS](docs/ARQUITETURA_E_LIMITES_CHROMEOS.md)
 - [Interações e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md)
 - [Pesquisa de referências open source](docs/PESQUISA_REFERENCIAS_DESKTOP_WEB.md)
+- [Pesquisa de Notes e papéis adesivos](docs/PESQUISA_NOTES_E_STICKY_DESKTOP.md)
 - [Refatoração modular](docs/MODULARIZACAO_V0.3.0.md)
 - [Correção do hover dos painéis](docs/BUGFIX_V0.3.4_HOVER_PAINES.md)
+
+
+## Sobre index.html e standalone
+
+O `index.html` é a entrada do projeto modular e usa ES Modules. Ele deve ser servido por HTTPS ou por um servidor local (ex.: `python3 -m http.server 8000`); abrir por duplo clique em `file://` pode bloquear os módulos no Chrome. O `standalone.html` é uma edição independente com CSS/JS incorporados, adequada para abrir diretamente. As duas edições compartilham a mesma direção visual, mas seus dados locais podem ficar em contextos de armazenamento diferentes.
