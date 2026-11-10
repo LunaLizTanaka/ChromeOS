@@ -8,6 +8,11 @@ const html = read('index.html');
 const manifest = JSON.parse(read('manifest.webmanifest'));
 const packageJson = JSON.parse(read('package.json'));
 
+const appRegistry = read('src/apps/app-registry.js');
+if (!appRegistry.includes("const openCount = $('#scene > .window:not(.hidden)').length;")) {
+  throw new Error('App window count must use the multi-element selector so the first application can open.');
+}
+
 if (!/<script\s+type=["']module["']\s+src=["']\.\/src\/main\.js["']\s*>/i.test(html)) {
   throw new Error('index.html must load src/main.js as a native ES module.');
 }
