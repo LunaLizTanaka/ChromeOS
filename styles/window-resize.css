@@ -1,0 +1,28 @@
+/* Galaxy Legacy — bordas redimensionáveis das janelas */
+#desktop #scene > .window{box-sizing:border-box;}
+#desktop .window-resize-handle{
+  position:absolute;z-index:12;display:block;pointer-events:auto;touch-action:none;
+  user-select:none;-webkit-user-select:none;background:transparent;
+}
+#desktop .window-resize-handle.resize-n{top:0;left:18px;right:18px;height:9px;cursor:n-resize;}
+#desktop .window-resize-handle.resize-e{top:48px;right:0;bottom:18px;width:9px;cursor:e-resize;}
+#desktop .window-resize-handle.resize-s{right:18px;bottom:0;left:18px;height:9px;cursor:s-resize;}
+#desktop .window-resize-handle.resize-w{top:48px;bottom:18px;left:0;width:9px;cursor:w-resize;}
+#desktop .window-resize-handle.resize-se{right:0;bottom:0;width:19px;height:19px;cursor:se-resize;}
+#desktop .window-resize-handle.resize-se::after{
+  content:"";position:absolute;right:4px;bottom:4px;width:8px;height:8px;
+  border-right:2px solid rgba(181,108,137,.55);border-bottom:2px solid rgba(181,108,137,.55);
+}
+#desktop .window-resize-handle.resize-sw{bottom:0;left:0;width:17px;height:17px;cursor:sw-resize;}
+#desktop .window-resize-handle.resize-sw::after{
+  content:"";position:absolute;left:4px;bottom:4px;width:7px;height:7px;
+  border-left:2px solid rgba(181,108,137,.38);border-bottom:2px solid rgba(181,108,137,.38);
+}
+#desktop .window.resizing{transition:none!important;user-select:none;-webkit-user-select:none;}
+#desktop.is-window-resizing{cursor:col-resize;}
+#desktop .fullscreen-window .window-resize-handle{display:none!important;}
+@media(max-width:650px){
+  #desktop .window-resize-handle.resize-e,#desktop .window-resize-handle.resize-w{top:42px;bottom:16px;width:12px;}
+  #desktop .window-resize-handle.resize-se,#desktop .window-resize-handle.resize-sw{width:20px;height:20px;}
+  #desktop .window-resize-handle.resize-n,#desktop .window-resize-handle.resize-s{left:20px;right:20px;height:12px;}
+}
