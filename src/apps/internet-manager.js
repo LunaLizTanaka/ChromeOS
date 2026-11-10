@@ -36,14 +36,17 @@ function escapeArchiveSearchTerm(value) {
   return Array.from(value, character => LUCENE_RESERVED.has(character) ? '\\' + character : character).join('');
 }
 
-export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1) {
+export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1, scope = 'primary') {
   const cleanTerm = String(term || '').trim().replace(/\s+/g, ' ');
   if (!cleanTerm) return '';
 
-  // Pesquisa no índice geral de metadados do Archive, não só em frases exatas de título/autor.
-  const broadTerms = escapeArchiveSearchTerm(cleanTerm);
+  // Mantém a busca precisa no título/criador e adiciona uma consulta complementar por assunto.
+  const phrase = '"' + escapeArchiveSearchTerm(cleanTerm) + '"';
+  const primaryQuery = '(title:' + phrase + ' OR creator:' + phrase + ')';
+  const subjectQuery = 'subject:' + phrase;
   const type = ARCHIVE_MEDIA_TYPES.has(mediaType) ? mediaType : 'all';
-  const query = type === 'all' ? broadTerms : '(' + broadTerms + ') AND mediatype:' + type;
+  const query = (scope === 'subject' ? subjectQuery : primaryQuery)
+    + (type === 'all' ? '' : ' AND mediatype:' + type);
   const safePage = Math.max(1, Math.floor(Number(page) || 1));
 
   const url = new URL('https://archive.org/advancedsearch.php');
@@ -321,19 +324,32 @@ export function initializeInternetApp(win) {
     setArchiveStatus('Pesquisando na coleção do Internet Archive…');
 
     try {
-      const response = await fetch(buildArchiveSearchUrl(term, type, page), {
-        method: 'GET',
-        headers: { Accept: 'application/json' },
-        signal: controller.signal
-      });
-      if (!response.ok) throw new Error('O Archive.org respondeu com HTTP ' + response.status + '.');
+      const searchModes = ['primary', 'subject'];
+      const responses = await Promise.all(searchModes.map(scope =>
+        fetch(buildArchiveSearchUrl(term, type, page, scope), {
+          method: 'GET',
+          headers: { Accept: 'application/json' },
+          signal: controller.signal
+        })
+      ));
+      const failedResponse = responses.find(response => !response.ok);
+      if (failedResponse) throw new Error('O Archive.org respondeu com HTTP ' + failedResponse.status + '.');
 
-      const payload = await response.json();
+      const payloads = await Promise.all(responses.map(response => response.json()));
       if (requestId !== searchRequestId) return;
 
-      const responseData = payload && payload.response ? payload.response : {};
-      const items = Array.isArray(responseData.docs) ? responseData.docs : [];
-      totalResults = Number(responseData.numFound) || 0;
+      const primaryData = payloads[0] && payloads[0].response ? payloads[0].response : {};
+      const subjectData = payloads[1] && payloads[1].response ? payloads[1].response : {};
+      const primaryItems = Array.isArray(primaryData.docs) ? primaryData.docs : [];
+      const subjectItems = Array.isArray(subjectData.docs) ? subjectData.docs : [];
+      const seenIdentifiers = new Set();
+      const items = [...primaryItems, ...subjectItems].filter(item => {
+        const identifier = readableValue(item.identifier);
+        if (!identifier || seenIdentifiers.has(identifier)) return false;
+        seenIdentifiers.add(identifier);
+        return true;
+      });
+      totalResults = (Number(primaryData.numFound) || 0) + (Number(subjectData.numFound) || 0);
 
       if (page === 1) elements.archiveResults.replaceChildren();
       appendResults(items);
@@ -342,10 +358,16 @@ export function initializeInternetApp(win) {
       if (totalResults === 0 || shown === 0) {
         setArchiveStatus('Nenhum item encontrado. Tente outro termo ou escolha outro tipo de conteúdo.');
       } else {
-        setArchiveStatus(totalResults.toLocaleString('pt-BR') + ' resultados no Archive.org · exibindo ' + shown.toLocaleString('pt-BR') + '.');
+        setArchiveStatus(
+          (Number(primaryData.numFound) || 0).toLocaleString('pt-BR') +
+          ' resultados por título/criador + ' +
+          (Number(subjectData.numFound) || 0).toLocaleString('pt-BR') +
+          ' por assunto · exibindo ' + shown.toLocaleString('pt-BR') + ' itens. Alguns resultados podem coincidir.'
+        );
       }
 
-      elements.archiveMore.hidden = items.length < ARCHIVE_PAGE_SIZE || shown >= totalResults;
+      elements.archiveMore.hidden = primaryItems.length < ARCHIVE_PAGE_SIZE && subjectItems.length < ARCHIVE_PAGE_SIZE;
+
     } catch (error) {
       if (error && error.name === 'AbortError') return;
       if (requestId === searchRequestId) {
