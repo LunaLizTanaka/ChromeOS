@@ -62,6 +62,368 @@ export function buildEmbeddableUrl(value) {
   return source;
 }
 
+export function getTumblrBlogName(value) {
+  try {
+    const url = new URL(value);
+    const host = url.hostname.toLowerCase();
+    const suffix = '.tumblr.com';
+    if (!host.endsWith(suffix) || url.pathname !== '/') return '';
+    const slug = host.slice(0, -suffix.length);
+    const reserved = ['www', 'assets', 'api', 'staff', 'support', 'help'];
+    if (!slug || slug.includes('.') || reserved.includes(slug)) return '';
+    if (!new RegExp('^[a-z0-9-]+
+  const form = win.querySelector('#internetForm');
+  const address = win.querySelector('#webAddress');
+  const view = win.querySelector('#browserView');
+  const status = win.querySelector('#internetStatus');
+  const goWeb = win.querySelector('#goWeb');
+  const openChrome = win.querySelector('#openChrome');
+  const backButton = win.querySelector('#internetBack');
+  const forwardButton = win.querySelector('#internetForward');
+  const reloadButton = win.querySelector('#internetReload');
+
+  if (!form || !address || !view || !status) return;
+
+  let history = [];
+  let historyIndex = -1;
+  let currentSourceUrl = '';
+
+  const setStatus = message => {
+    status.textContent = message;
+  };
+
+  const updateHistoryControls = () => {
+    backButton.disabled = historyIndex <= 0;
+    forwardButton.disabled = historyIndex < 0 || historyIndex >= history.length - 1;
+    reloadButton.disabled = historyIndex < 0;
+    openChrome.hidden = historyIndex < 0;
+  };
+
+  const showMessage = (heading, message) => {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'internet-placeholder';
+    const title = document.createElement('strong');
+    const paragraph = document.createElement('p');
+    paragraph.className = 'muted';
+    title.textContent = heading;
+    paragraph.textContent = message;
+    placeholder.append(title, paragraph);
+    view.classList.remove('is-loaded');
+    view.replaceChildren(placeholder);
+  };
+
+  const renderFrame = entry => {
+    currentSourceUrl = entry.source;
+    address.value = entry.source;
+    openChrome.hidden = false;
+    const frame = document.createElement('iframe');
+    frame.title = 'Página externa dentro do Galaxy Legacy';
+    frame.loading = 'eager';
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    frame.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
+    frame.allowFullscreen = true;
+    const tumblrBlogName = getTumblrBlogName(entry.source);
+    if (tumblrBlogName) {
+      // The official public-blog widget runs inside an opaque-origin child frame.
+      frame.setAttribute('sandbox', 'allow-scripts allow-popups allow-popups-to-escape-sandbox');
+      frame.srcdoc = createTumblrBlogDocument(tumblrBlogName);
+    } else {
+      frame.setAttribute('sandbox', 'allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+    }
+    frame.addEventListener('load', () => {
+      setStatus('O frame terminou de carregar. Confira se o conteúdo apareceu; alguns sites bloqueiam a exibição mesmo sem mostrar um erro.');
+    });
+    view.classList.add('is-loaded');
+    view.replaceChildren(frame);
+    if (!tumblrBlogName) frame.src = entry.embed;
+    updateHistoryControls();
+  };
+
+  const navigateInside = value => {
+    const source = normalizeWebAddress(value);
+    if (!source) {
+      toast('Digite um endereço ou termo para pesquisar.');
+      address.focus();
+      return;
+    }
+    const entry = { source, embed: buildEmbeddableUrl(source) };
+    history = history.slice(0, historyIndex + 1);
+    history.push(entry);
+    historyIndex = history.length - 1;
+    renderFrame(entry);
+    setStatus('Tentando abrir dentro do Galaxy Legacy…');
+  };
+
+  const navigateExternal = value => {
+    const source = normalizeWebAddress(value);
+    if (!source) {
+      toast('Digite um endereço ou termo para pesquisar.');
+      address.focus();
+      return;
+    }
+    currentSourceUrl = source;
+    address.value = source;
+    openChrome.hidden = false;
+    window.open(source, '_blank', 'noopener,noreferrer');
+    showMessage('ABERTO EM OUTRA ABA', 'O Chrome recebeu este endereço. Para tentar visualizar nesta janela, use ABRIR AQUI.');
+    setStatus('O endereço foi enviado para uma nova aba do Chrome.');
+    toast('Abrindo em uma nova aba do Chrome ♡');
+  };
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    navigateInside(address.value);
+  });
+
+
+  const tumblrBlogInput = win.querySelector('#tumblrBlogInput');
+  const openTumblrBlog = win.querySelector('#openTumblrBlog');
+  openTumblrBlog.addEventListener('click', () => {
+    let host = String(tumblrBlogInput.value || '').trim().toLowerCase();
+    if (host.startsWith('https://')) host = host.slice(8);
+    else if (host.startsWith('http://')) host = host.slice(7);
+    host = host.split('/')[0];
+    const suffix = '.tumblr.com';
+    if (host.endsWith(suffix)) host = host.slice(0, -suffix.length);
+    if (!host || host === 'www' || host.includes('.') || !new RegExp('^[a-z0-9-]+
+  openChrome.addEventListener('click', () => {
+    if (currentSourceUrl) window.open(currentSourceUrl, '_blank', 'noopener,noreferrer');
+  });
+
+  backButton.addEventListener('click', () => {
+    if (historyIndex <= 0) return;
+    historyIndex -= 1;
+    renderFrame(history[historyIndex]);
+    setStatus('Voltando para a página anterior.');
+  });
+
+  forwardButton.addEventListener('click', () => {
+    if (historyIndex >= history.length - 1) return;
+    historyIndex += 1;
+    renderFrame(history[historyIndex]);
+    setStatus('Avançando para a próxima página.');
+  });
+
+  reloadButton.addEventListener('click', () => {
+    if (historyIndex < 0) return;
+    renderFrame(history[historyIndex]);
+    setStatus('Recarregando a página atual…');
+  });
+
+  win.querySelectorAll('[data-internet-url]').forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-internet-url');
+      navigateInside(target);
+    });
+  });
+
+  updateHistoryControls();
+}
+, 'i').test(slug)) return '';
+    return slug;
+  } catch (error) {
+    return '';
+  }
+}
+
+function createTumblrBlogDocument(blogName) {
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<style>body{margin:0;padding:14px;background:#fffdfb;color:#765064;font:14px Arial,sans-serif;line-height:1.5}a{color:#b56c89}img{max-width:100%;height:auto}</style>' +
+    '</head><body><p>Loading public Tumblr blog…</p>' +
+    '<script type="text/javascript" src="https://' + blogName + '.tumblr.com/js"></script>' +
+    '</body></html>';
+}
+
+export function initializeInternetApp(win) {
+  const form = win.querySelector('#internetForm');
+  const address = win.querySelector('#webAddress');
+  const view = win.querySelector('#browserView');
+  const status = win.querySelector('#internetStatus');
+  const goWeb = win.querySelector('#goWeb');
+  const openChrome = win.querySelector('#openChrome');
+  const backButton = win.querySelector('#internetBack');
+  const forwardButton = win.querySelector('#internetForward');
+  const reloadButton = win.querySelector('#internetReload');
+
+  if (!form || !address || !view || !status) return;
+
+  let history = [];
+  let historyIndex = -1;
+  let currentSourceUrl = '';
+
+  const setStatus = message => {
+    status.textContent = message;
+  };
+
+  const updateHistoryControls = () => {
+    backButton.disabled = historyIndex <= 0;
+    forwardButton.disabled = historyIndex < 0 || historyIndex >= history.length - 1;
+    reloadButton.disabled = historyIndex < 0;
+    openChrome.hidden = historyIndex < 0;
+  };
+
+  const showMessage = (heading, message) => {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'internet-placeholder';
+    const title = document.createElement('strong');
+    const paragraph = document.createElement('p');
+    paragraph.className = 'muted';
+    title.textContent = heading;
+    paragraph.textContent = message;
+    placeholder.append(title, paragraph);
+    view.classList.remove('is-loaded');
+    view.replaceChildren(placeholder);
+  };
+
+  const renderFrame = entry => {
+    currentSourceUrl = entry.source;
+    address.value = entry.source;
+    openChrome.hidden = false;
+    const frame = document.createElement('iframe');
+    frame.title = 'Página externa dentro do Galaxy Legacy';
+    frame.loading = 'eager';
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    frame.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
+    frame.allowFullscreen = true;
+    frame.setAttribute('sandbox', 'allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+    frame.addEventListener('load', () => {
+      setStatus('O frame terminou de carregar. Confira se o conteúdo apareceu; alguns sites bloqueiam a exibição mesmo sem mostrar um erro.');
+    });
+    view.classList.add('is-loaded');
+    view.replaceChildren(frame);
+    frame.src = entry.embed;
+    updateHistoryControls();
+  };
+
+  const navigateInside = value => {
+    const source = normalizeWebAddress(value);
+    if (!source) {
+      toast('Digite um endereço ou termo para pesquisar.');
+      address.focus();
+      return;
+    }
+    const entry = { source, embed: buildEmbeddableUrl(source) };
+    history = history.slice(0, historyIndex + 1);
+    history.push(entry);
+    historyIndex = history.length - 1;
+    renderFrame(entry);
+    setStatus('Tentando abrir dentro do Galaxy Legacy…');
+  };
+
+  const navigateExternal = value => {
+    const source = normalizeWebAddress(value);
+    if (!source) {
+      toast('Digite um endereço ou termo para pesquisar.');
+      address.focus();
+      return;
+    }
+    currentSourceUrl = source;
+    address.value = source;
+    openChrome.hidden = false;
+    window.open(source, '_blank', 'noopener,noreferrer');
+    showMessage('ABERTO EM OUTRA ABA', 'O Chrome recebeu este endereço. Para tentar visualizar nesta janela, use ABRIR AQUI.');
+    setStatus('O endereço foi enviado para uma nova aba do Chrome.');
+    toast('Abrindo em uma nova aba do Chrome ♡');
+  };
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    navigateInside(address.value);
+  });
+
+  goWeb.addEventListener('click', () => navigateExternal(address.value));
+  openChrome.addEventListener('click', () => {
+    if (currentSourceUrl) window.open(currentSourceUrl, '_blank', 'noopener,noreferrer');
+  });
+
+  backButton.addEventListener('click', () => {
+    if (historyIndex <= 0) return;
+    historyIndex -= 1;
+    renderFrame(history[historyIndex]);
+    setStatus('Voltando para a página anterior.');
+  });
+
+  forwardButton.addEventListener('click', () => {
+    if (historyIndex >= history.length - 1) return;
+    historyIndex += 1;
+    renderFrame(history[historyIndex]);
+    setStatus('Avançando para a próxima página.');
+  });
+
+  reloadButton.addEventListener('click', () => {
+    if (historyIndex < 0) return;
+    renderFrame(history[historyIndex]);
+    setStatus('Recarregando a página atual…');
+  });
+
+  win.querySelectorAll('[data-internet-url]').forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-internet-url');
+      navigateInside(target);
+    });
+  });
+
+  updateHistoryControls();
+}
+, 'i').test(host)) {
+      toast('Digite apenas o nome de um blog público do Tumblr.');
+      tumblrBlogInput.focus();
+      return;
+    }
+    navigateInside('https://' + host + '.tumblr.com/');
+  });
+
+  goWeb.addEventListener('click', () => navigateExternal(address.value));
+  openChrome.addEventListener('click', () => {
+    if (currentSourceUrl) window.open(currentSourceUrl, '_blank', 'noopener,noreferrer');
+  });
+
+  backButton.addEventListener('click', () => {
+    if (historyIndex <= 0) return;
+    historyIndex -= 1;
+    renderFrame(history[historyIndex]);
+    setStatus('Voltando para a página anterior.');
+  });
+
+  forwardButton.addEventListener('click', () => {
+    if (historyIndex >= history.length - 1) return;
+    historyIndex += 1;
+    renderFrame(history[historyIndex]);
+    setStatus('Avançando para a próxima página.');
+  });
+
+  reloadButton.addEventListener('click', () => {
+    if (historyIndex < 0) return;
+    renderFrame(history[historyIndex]);
+    setStatus('Recarregando a página atual…');
+  });
+
+  win.querySelectorAll('[data-internet-url]').forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-internet-url');
+      navigateInside(target);
+    });
+  });
+
+  updateHistoryControls();
+}
+, 'i').test(slug)) return '';
+    return slug;
+  } catch (error) {
+    return '';
+  }
+}
+
+function createTumblrBlogDocument(blogName) {
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<style>body{margin:0;padding:14px;background:#fffdfb;color:#765064;font:14px Arial,sans-serif;line-height:1.5}a{color:#b56c89}img{max-width:100%;height:auto}</style>' +
+    '</head><body><p>Loading public Tumblr blog…</p>' +
+    '<script type="text/javascript" src="https://' + blogName + '.tumblr.com/js"></script>' +
+    '</body></html>';
+}
+
 export function initializeInternetApp(win) {
   const form = win.querySelector('#internetForm');
   const address = win.querySelector('#webAddress');
