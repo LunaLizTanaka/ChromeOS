@@ -232,7 +232,7 @@ function beginWindowResize(event) {
     width: rect.width, height: rect.height, right: left + rect.width, bottom: top + rect.height
   };
   desktop.classList.add('is-window-resizing');
-  desktop.style.cursor = direction + '-resize';
+  desktop.style.cursor = resizeState.direction + '-resize';
   desktop.classList.remove('topbar-open', 'sidebar-open', 'dock-open');
   win.classList.add('resizing');
   try { scene.setPointerCapture(event.pointerId); } catch (error) { /* Pointer capture is optional. */ }
@@ -246,8 +246,8 @@ function moveWindowResize(event) {
   const direction = current.direction;
   const dx = event.clientX - current.startX;
   const dy = event.clientY - current.startY;
-  const minWidth = Math.min(220, Math.max(48, sceneRect.width - 12));
-  const minHeight = Math.min(150, Math.max(48, sceneRect.height - 12));
+  const minWidth = Math.min(160, Math.max(48, sceneRect.width - 12));
+  const minHeight = Math.min(112, Math.max(64, sceneRect.height - 12));
   let width = current.width, height = current.height, left = current.left, top = current.top;
   if (direction.includes('e')) {
     const maxWidth = Math.max(minWidth, sceneRect.width - current.left - 6);
