@@ -76,7 +76,7 @@ export function openApp(name) {
   const windowElement = document.createElement('section');
   windowElement.className = 'window';
   windowElement.dataset.window = id;
-  const openCount = $('#scene > .window:not(.hidden)').length;
+  const openCount = $$('#scene > .window:not(.hidden)').length;
   const cascade = openCount % 6;
   windowElement.style.cssText = [
     `left:${Math.min(42, 7 + cascade * 4)}%`,
