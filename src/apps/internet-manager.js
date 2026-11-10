@@ -36,17 +36,14 @@ function escapeArchiveSearchTerm(value) {
   return Array.from(value, character => LUCENE_RESERVED.has(character) ? '\\' + character : character).join('');
 }
 
-export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1, scope = 'primary') {
-  const cleanTerm = String(term || '').trim().replace(/\s+/g, ' ');
+export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1) {
+  const cleanTerm = String(term || '').trim().replace(/\\s+/g, ' ');
   if (!cleanTerm) return '';
 
-  // Mantém a busca precisa no título/criador e adiciona uma consulta complementar por assunto.
-  const phrase = '"' + escapeArchiveSearchTerm(cleanTerm) + '"';
-  const primaryQuery = '(title:' + phrase + ' OR creator:' + phrase + ')';
-  const subjectQuery = 'subject:' + phrase;
+  // Pesquisa no índice geral de metadados, preservando a busca ampla do Archive.org.
+  const broadTerms = escapeArchiveSearchTerm(cleanTerm);
   const type = ARCHIVE_MEDIA_TYPES.has(mediaType) ? mediaType : 'all';
-  const query = (scope === 'subject' ? subjectQuery : primaryQuery)
-    + (type === 'all' ? '' : ' AND mediatype:' + type);
+  const query = type === 'all' ? broadTerms : '(' + broadTerms + ') AND mediatype:' + type;
   const safePage = Math.max(1, Math.floor(Number(page) || 1));
 
   const url = new URL('https://archive.org/advancedsearch.php');
@@ -57,7 +54,6 @@ export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1, scope =
   url.searchParams.set('output', 'json');
   return url.href;
 }
-
 export function buildArchiveEmbedUrl(identifier) {
   const value = String(identifier || '').trim();
   return value ? 'https://archive.org/embed/' + encodeURIComponent(value) : '';
@@ -296,7 +292,7 @@ export function initializeInternetApp(win) {
     const term = append ? currentSearchTerm : elements.archiveInput.value.trim();
     const type = append ? currentSearchType : elements.archiveType.value;
     if (!term) {
-      setArchiveStatus('Digite o título ou o nome do autor/criador que deseja encontrar no Archive.org.');
+      setArchiveStatus('Digite uma palavra, tema, obra, pessoa ou assunto para pesquisar em todo o acervo do Archive.org.');
       elements.archiveInput.focus();
       return;
     }
@@ -324,32 +320,19 @@ export function initializeInternetApp(win) {
     setArchiveStatus('Pesquisando na coleção do Internet Archive…');
 
     try {
-      const searchModes = ['primary', 'subject'];
-      const responses = await Promise.all(searchModes.map(scope =>
-        fetch(buildArchiveSearchUrl(term, type, page, scope), {
-          method: 'GET',
-          headers: { Accept: 'application/json' },
-          signal: controller.signal
-        })
-      ));
-      const failedResponse = responses.find(response => !response.ok);
-      if (failedResponse) throw new Error('O Archive.org respondeu com HTTP ' + failedResponse.status + '.');
+      const response = await fetch(buildArchiveSearchUrl(term, type, page), {
+        method: 'GET',
+        headers: { Accept: 'application/json' },
+        signal: controller.signal
+      });
+      if (!response.ok) throw new Error('O Archive.org respondeu com HTTP ' + response.status + '.');
 
-      const payloads = await Promise.all(responses.map(response => response.json()));
+      const payload = await response.json();
       if (requestId !== searchRequestId) return;
 
-      const primaryData = payloads[0] && payloads[0].response ? payloads[0].response : {};
-      const subjectData = payloads[1] && payloads[1].response ? payloads[1].response : {};
-      const primaryItems = Array.isArray(primaryData.docs) ? primaryData.docs : [];
-      const subjectItems = Array.isArray(subjectData.docs) ? subjectData.docs : [];
-      const seenIdentifiers = new Set();
-      const items = [...primaryItems, ...subjectItems].filter(item => {
-        const identifier = readableValue(item.identifier);
-        if (!identifier || seenIdentifiers.has(identifier)) return false;
-        seenIdentifiers.add(identifier);
-        return true;
-      });
-      totalResults = (Number(primaryData.numFound) || 0) + (Number(subjectData.numFound) || 0);
+      const responseData = payload && payload.response ? payload.response : {};
+      const items = Array.isArray(responseData.docs) ? responseData.docs : [];
+      totalResults = Number(responseData.numFound) || 0;
 
       if (page === 1) elements.archiveResults.replaceChildren();
       appendResults(items);
@@ -359,14 +342,12 @@ export function initializeInternetApp(win) {
         setArchiveStatus('Nenhum item encontrado. Tente outro termo ou escolha outro tipo de conteúdo.');
       } else {
         setArchiveStatus(
-          (Number(primaryData.numFound) || 0).toLocaleString('pt-BR') +
-          ' resultados por título/criador + ' +
-          (Number(subjectData.numFound) || 0).toLocaleString('pt-BR') +
-          ' por assunto · exibindo ' + shown.toLocaleString('pt-BR') + ' itens. Alguns resultados podem coincidir.'
+          totalResults.toLocaleString('pt-BR') +
+          ' resultados no Internet Archive · exibindo ' + shown.toLocaleString('pt-BR') + ' itens.'
         );
       }
 
-      elements.archiveMore.hidden = primaryItems.length < ARCHIVE_PAGE_SIZE && subjectItems.length < ARCHIVE_PAGE_SIZE;
+      elements.archiveMore.hidden = items.length < ARCHIVE_PAGE_SIZE || shown >= totalResults;
 
     } catch (error) {
       if (error && error.name === 'AbortError') return;
@@ -374,6 +355,7 @@ export function initializeInternetApp(win) {
         setArchiveStatus('Não foi possível pesquisar agora. Confira a conexão e tente novamente.');
         console.error('Galaxy Legacy Internet Archive search failed:', error);
       }
+    }
     } finally {
       if (requestId === searchRequestId) {
         elements.archiveSearchButton.disabled = false;
