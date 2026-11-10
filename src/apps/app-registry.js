@@ -83,7 +83,7 @@ export function openApp(name) {
     `top:${Math.min(38, 6 + cascade * 4)}%`
   ].join(';');
   windowElement.innerHTML = `
-    <div class="window-head" title="Arraste para mover · duplo clique para tela cheia">
+    <div class="window-head" title="Arraste para mover · use as bordas para redimensionar · duplo clique para tela cheia">
       <span class="window-title">${appTitles[name]}</span>
       <div class="window-actions">
         <button data-min="${id}" aria-label="Minimizar" title="Minimizar"></button>
@@ -91,7 +91,13 @@ export function openApp(name) {
         <button data-close="${id}" aria-label="Fechar" title="Fechar"></button>
       </div>
     </div>
-    <div class="window-body">${renderAppContent(name)}</div>`;
+    <div class="window-body">${renderAppContent(name)}</div>
+    <span class="window-resize-handle resize-n" data-window-resize="n" title="Redimensionar pela borda superior" aria-hidden="true"></span>
+    <span class="window-resize-handle resize-e" data-window-resize="e" title="Redimensionar pela borda direita" aria-hidden="true"></span>
+    <span class="window-resize-handle resize-s" data-window-resize="s" title="Redimensionar pela borda inferior" aria-hidden="true"></span>
+    <span class="window-resize-handle resize-w" data-window-resize="w" title="Redimensionar pela borda esquerda" aria-hidden="true"></span>
+    <span class="window-resize-handle resize-se" data-window-resize="se" title="Redimensionar pelo canto inferior direito" aria-hidden="true"></span>
+    <span class="window-resize-handle resize-sw" data-window-resize="sw" title="Redimensionar pelo canto inferior esquerdo" aria-hidden="true"></span>`;
   const scene = $('#scene');
   if (!scene) {
     toast('The desktop workspace is unavailable.');
