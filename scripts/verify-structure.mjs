@@ -11,6 +11,9 @@ const packageJson = JSON.parse(read('package.json'));
 const appRegistry = read('src/apps/app-registry.js');
 const edgePanelManager = read('src/managers/edge-panel-manager.js');
 const paintApp = read('src/apps/paint-app.js');
+const internetTemplate = read('src/apps/app-templates.js');
+const internetManager = read('src/apps/internet-manager.js');
+const internetStyles = read('styles/internet.css');
 if (!paintApp.includes("$$('[data-color]', root).forEach") || !paintApp.includes("$$('[data-tool]', root).forEach")) {
   throw new Error('Picatsso lists of color swatches and tools must use multi-element selectors.');
 }
@@ -19,6 +22,32 @@ if (!edgePanelManager.includes("const pointerWithinSidebar = desktop.classList.c
 }
 if (!appRegistry.includes("const openCount = $$('#scene > .window:not(.hidden)').length;")) {
   throw new Error('App window count must use the multi-element selector so the first application can open.');
+}
+
+const requiredInternetIds = [
+  'internetTabBlogs', 'internetTabArchive', 'neocitiesPanel', 'archivePanel',
+  'neocitiesCatalog', 'archiveSearchForm', 'archiveSearchInput', 'archiveMediaType',
+  'archiveResults', 'archiveViewer', 'archiveFrameHost'
+];
+for (const id of requiredInternetIds) {
+  if (!internetTemplate.includes('id="' + id + '"')) {
+    throw new Error('Internet v0.6.0 is missing required UI element #' + id + '.');
+  }
+}
+for (const retiredControl of ['internetForm', 'webAddress', 'tumblrBlogInput', 'openTumblrBlog', 'data-internet-url', 'goWeb']) {
+  if (internetTemplate.includes(retiredControl)) {
+    throw new Error('Internet v0.6.0 must not expose the retired general-browser control: ' + retiredControl);
+  }
+}
+if (!internetManager.includes('https://archive.org/advancedsearch.php') ||
+    !internetManager.includes('https://archive.org/embed/')) {
+  throw new Error('Internet Archive search and embedded item viewer must remain connected to Archive.org.');
+}
+if (!internetStyles.includes('.archive-results-grid') || !internetStyles.includes('.internet-blog-grid')) {
+  throw new Error('Internet v0.6.0 styles are incomplete.');
+}
+if (packageJson.version !== '0.6.0' || manifest.version !== '0.6.0' || !html.includes('v0.6.0')) {
+  throw new Error('Project package, manifest and page title must match version 0.6.0.');
 }
 
 if (!/<script\s+type=["']module["']\s+src=["']\.\/src\/main\.js["']\s*>/i.test(html)) {
