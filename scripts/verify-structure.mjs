@@ -15,7 +15,6 @@ const internetTemplate = read('src/apps/app-templates.js');
 const internetManager = read('src/apps/internet-manager.js');
 const internetStyles = read('styles/internet.css');
 const windowManager = read('src/managers/window-manager.js');
-const appRegistry = read('src/apps/app-registry.js');
 const resizeStyles = read('styles/window-resize.css');
 if (!paintApp.includes("$$('[data-color]', root).forEach") || !paintApp.includes("$$('[data-tool]', root).forEach")) {
   throw new Error('Picatsso lists of color swatches and tools must use multi-element selectors.');
