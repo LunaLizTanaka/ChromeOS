@@ -37,7 +37,7 @@ function escapeArchiveSearchTerm(value) {
 }
 
 export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1) {
-  const cleanTerm = String(term || '').trim().replace(/\\s+/g, ' ');
+  const cleanTerm = String(term || '').trim().replace(/\s+/g, ' ');
   if (!cleanTerm) return '';
 
   // Pesquisa no índice geral de metadados, preservando a busca ampla do Archive.org.
@@ -355,7 +355,6 @@ export function initializeInternetApp(win) {
         setArchiveStatus('Não foi possível pesquisar agora. Confira a conexão e tente novamente.');
         console.error('Galaxy Legacy Internet Archive search failed:', error);
       }
-    }
     } finally {
       if (requestId === searchRequestId) {
         elements.archiveSearchButton.disabled = false;
