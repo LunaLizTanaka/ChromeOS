@@ -130,3 +130,18 @@ A área de trabalho usa todo o viewport. A barra superior, o painel lateral e o 
 Cada painel permanece visível enquanto o ponteiro estiver sobre ele e se recolhe quando o ponteiro sai. Em telas touch, o usuário pode tocar na borda para alternar a visibilidade. Durante o arraste de janelas, as barras se recolhem para deixar livres os gestos de maximização e fechamento.
 
 A mudança não substitui a área de trabalho pelo ChromeOS: é uma organização visual dentro da janela do Galaxy Legacy.
+
+
+## 12. Viewport fluido — v0.2.2
+
+A raiz da aplicação segue o mesmo padrão do protótipo do tablet: o corpo ocupa o contexto disponível e o shell fica preso às quatro bordas (top, right, bottom, left). O desktop não declara largura/altura fixa de produto; suas dimensões são determinadas pelo contêiner e pelo viewport atual do navegador.
+
+O workspace e a cena também usam inset 0. O modo de aplicativo em tela cheia usa o mesmo padrão. ResizeObserver, resize, orientationchange e visualViewport.resize acionam o ajuste.
+
+As posições das janelas são proporcionais à dimensão da cena. Durante o arraste, coordenadas em pixels são usadas para fluidez; ao soltar, convertem-se em porcentagens. Ao diminuir o viewport, janelas que excedem os limites são reposicionadas para permanecer integralmente visíveis. Conteúdos internos rolam dentro das respectivas janelas.
+
+**Validação automatizada:** nove viewports (1920×1080, 1600×900, 1366×768, 1280×800, 1024×768, 800×600, 768×1024, 390×844 e 320×568). O shell/cena acompanhou a área disponível, sem scroll horizontal/vertical do documento; todas as janelas visíveis permaneceram dentro da cena. Abrir janela, reduzir para 600×500 e continuar usando maximizar/restaurar também passou. A homologação no Chromebook físico permanece pendente.
+
+## 13. Referências open source
+
+A pesquisa comparativa está em [PESQUISA_REFERENCIAS_DESKTOP_WEB.md](PESQUISA_REFERENCIAS_DESKTOP_WEB.md). A direção é manter a identidade e o código original do Galaxy Legacy, usar a divisão modular do WebDEX como modelo principal, SimplexOS como referência de funcionalidades vanilla e YukiOS apenas para padrões de persistência e separação de shell/estado. Nenhum código de terceiros foi incorporado à v0.2.2.
