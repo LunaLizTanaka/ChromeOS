@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Estado:** protótipo funcional v0.2.1 (workspace imersivo e barras auto-ocultáveis)  
+**Estado:** protótipo funcional v0.2.2 (viewport fluido, janelas proporcionais e workspace imersivo)  
 **Plataforma principal:** Chromebook com ChromeOS  
 **Formato:** website/PWA, sem aplicativo Android nativo  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -113,3 +113,15 @@ Consulte [Interações de janelas e layout responsivo](docs/INTERACOES_JANELAS_E
 - Janelas móveis, minimizar, fechar, modo de tela cheia e retorno preservando conteúdo foram mantidos.
 
 Consulte [Interações de janelas e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md) para critérios e resultados de validação.
+
+
+## v0.2.2 — viewport fluido
+
+O desktop acompanha o espaço real disponível no Chrome/ChromeOS. A raiz segue o padrão do protótipo do tablet: contêiner preso às quatro bordas do espaço disponível, sem largura ou altura fixa de produto. ResizeObserver, eventos de redimensionamento e posições proporcionais reposicionam as janelas quando a janela/aba muda de tamanho.
+
+As janelas permanecem dentro da área útil quando a tela diminui, e o conteúdo rola dentro de cada janela quando necessário. Foram verificados nove viewports entre 1920×1080 e 320×568, sem overflow do documento e sem janelas fora dos limites.
+
+Consulte:
+- [Interações, janelas e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md)
+- [Arquitetura e limites do ChromeOS](docs/ARQUITETURA_E_LIMITES_CHROMEOS.md)
+- [Pesquisa de referências desktop web](docs/PESQUISA_REFERENCIAS_DESKTOP_WEB.md)
