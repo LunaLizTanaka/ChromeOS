@@ -1,5 +1,12 @@
 # Histórico de versões — Galaxy Legacy
 
+## v0.8.0 — Navegação interna da Biblioteca
+- Barra de endereço HTTPS com lista permitida limitada às plataformas cadastradas.
+- Controles de voltar, avançar e atualizar o histórico iniciado pela Biblioteca.
+- Tentativa de abertura interna de sites de mangá, novels e fanfics, sem remover bloqueios X-Frame-Options ou CSP.
+- Wuxiaworld mantido no acesso externo em respeito aos seus termos.
+- Preservadas a busca do Archive.org, Open Library, BookReader e a estante JSON.
+
 ## v0.7.0 — Biblioteca de leitura
 - Aplicativo independente Biblioteca para livros, mangás, novels e fanfics.
 - Catálogo de 16 plataformas, incluindo AO3, Novel Updates, Wattpad, Spirit Fanfics, MANGA Plus, Comikey, WEBTOON, VIZ, Wuxiaworld, Royal Road, Scribble Hub e Ciweimao.
