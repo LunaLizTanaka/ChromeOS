@@ -32,7 +32,7 @@ const SHELF_KEY = 'gl-library-v1';
 const PAGE_SIZE = 18;
 
 export function buildOpenLibrarySearchUrl(term, page = 1) {
-  const query = String(term || '').trim().replace(/\\s+/g, ' ');
+  const query = String(term || '').trim().replace(/\s+/g, ' ');
   if (!query) return '';
   const url = new URL('https://openlibrary.org/search.json');
   url.searchParams.set('q', query);
