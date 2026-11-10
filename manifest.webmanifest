@@ -1,0 +1,18 @@
+{
+  "name": "Galaxy Legacy — ChromeOS Edition",
+  "short_name": "Galaxy Legacy",
+  "description": "Galaxy Legacy — desktop pixel coquette com navegador web e aplicativos sob demanda.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#fffdfb",
+  "theme_color": "#f5c5d9",
+  "icons": [
+    { "src": "assets/galaxy-legacy-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/galaxy-legacy-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/galaxy-legacy-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "version": "0.3.4"
+}

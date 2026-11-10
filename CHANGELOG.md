@@ -1,0 +1,20 @@
+# Histórico de versões — Galaxy Legacy
+
+## v0.3.4
+- Corrigido hover do painel lateral e dock por zonas transparentes de ativação de 44px.
+- Zonas tornam-se click-through quando os painéis estão visíveis.
+- Adicionado fallback mousemove e toque por pointerdown.
+- Mantidas janelas, Internet, abertura de aplicativos sob demanda e remoção do Cat Club.
+
+## v0.3.3
+- Removido o aplicativo Cat Club/Catz e seus atalhos e estilos associados.
+- Removidas referências a sticker club do conteúdo demonstrativo de Mail.
+- Removido example.com da tela inicial do navegador.
+- Navegador inicia com campo vazio e atalhos reais para Google, DuckDuckGo e Wikipedia.
+- NAVEGAR abre URL ou pesquisa em uma nova aba do Chrome.
+- TENTAR ABRIR AQUI mantém uma opção separada para sites que permitem incorporação.
+
+## v0.3.2
+- Desktop começa sem janelas abertas.
+- Cats e Picatsso passaram a ser aplicativos dinâmicos, abertos sob demanda.
+- Arraste de janelas reforçado com Pointer Events.

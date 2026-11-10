@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5c5d9">
+  <meta name="description" content="Galaxy Legacy — desktop web pixel coquette personalizável para ChromeOS.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/galaxy-legacy-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles/main.css">
+  <title>Galaxy Legacy — ChromeOS Desktop v0.3.4</title>
+</head>
+<body>
+  <div class="desktop" id="desktop">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">✿</span><span>GALAXY LEGACY</span></div>
+      <div class="top-right">
+        <span class="sys-clock" id="clock">--:--</span>
+        <div class="traffic" aria-label="Controles decorativos"><i></i><i></i><i></i></div>
+      </div>
+    </header>
+
+    <div class="main">
+      <aside class="sidebar">
+        <div class="side-title">♡ My little desktop ♡</div>
+        <div class="side-grid">
+          <button class="app-shortcut" data-app="mail">
+            <span class="art"><svg aria-hidden="true" viewBox="0 0 64 58"><path d="M8 18L31 3Q34 1 37 4L57 20V51H8Z" fill="#f7c9dc" stroke="#b56c89" stroke-width="3"></path><path d="M8 21L32 38L57 21" fill="#fff" stroke="#b56c89" stroke-width="3"></path><path d="M17 22L31 12L46 23" fill="none" stroke="#b56c89" stroke-width="3"></path><path d="M25 33Q20 26 25 22Q30 19 33 25Q37 19 42 23Q46 28 39 34L33 39Z" fill="#fff" stroke="#b56c89" stroke-width="2"></path></svg></span>Mail
+          </button>
+          <button class="app-shortcut" data-app="trash">
+            <span class="art"><svg aria-hidden="true" viewBox="0 0 64 58"><path d="M15 14H50L46 53H19Z" fill="#c9c4e9" stroke="#b56c89" stroke-width="3"></path><path d="M12 12H53M24 8H42L46 13H19Z" fill="#f5c5d9" stroke="#b56c89" stroke-width="3"></path><path d="M25 23V43M33 23V43M41 23V43" stroke="#b56c89" stroke-width="3"></path><path d="M25 20Q28 15 32 21Q37 15 41 21" fill="#fff" stroke="#b56c89" stroke-width="2"></path></svg></span>Trash
+          </button>
+          <button class="app-shortcut" data-app="files">
+            <span class="art"><svg aria-hidden="true" viewBox="0 0 64 58"><path d="M5 16Q5 11 10 11H26L32 17H54Q59 17 59 22V49Q59 53 54 53H10Q5 53 5 48Z" fill="#fff0b9" stroke="#b56c89" stroke-width="3"></path><path d="M9 20H55L49 48H14Z" fill="#f5d7a3" stroke="#b56c89" stroke-width="2"></path><path d="M20 31Q18 21 28 20Q35 20 38 27Q43 20 48 26Q52 34 42 39L31 44L21 38Z" fill="#bdebe5" stroke="#b56c89" stroke-width="2"></path></svg></span>Files
+          </button>
+          <button class="app-shortcut" data-app="save">
+            <span class="art"><svg aria-hidden="true" viewBox="0 0 64 58"><path d="M9 7H47L57 17V51H9Z" fill="#bdebe5" stroke="#b56c89" stroke-width="3"></path><path d="M15 7V24H45V7M17 31H49V49H17Z" fill="#c9c4e9" stroke="#b56c89" stroke-width="2"></path><path d="M25 32Q22 26 29 25Q34 25 34 30Q39 25 43 30Q45 35 34 41Q23 36 25 32" fill="#fff" stroke="#b56c89" stroke-width="2"></path></svg></span>Save
+          </button>
+        </div>
+
+        <div class="side-title">♡ Little tools ♡</div>
+        <div class="side-grid">
+          <button class="app-shortcut" data-app="internet">
+            <span class="art"><svg aria-hidden="true" viewBox="0 0 64 58"><circle cx="30" cy="29" fill="#bdebe5" r="24" stroke="#b56c89" stroke-width="3"></circle><path d="M9 31Q22 24 34 32T53 30M30 5Q16 29 30 53M30 5Q46 29 30 53" fill="none" stroke="#8dba9b" stroke-width="3"></path><path d="M42 17Q49 9 54 16Q60 17 58 24H43Z" fill="#fff" stroke="#b56c89" stroke-width="2"></path></svg></span>Internet
+          </button>
+          <button class="app-shortcut" data-app="notes">
+            <span class="art"><svg aria-hidden="true" viewBox="0 0 64 58"><path d="M12 10H44L52 18V51H12Z" fill="#fff" stroke="#b56c89" stroke-width="3"></path><path d="M19 18H47M19 27H45M19 36H42" stroke="#e9acc4" stroke-width="3"></path><path d="M39 7L56 24L50 30L33 13Z" fill="#fff0b9" stroke="#b56c89" stroke-width="3"></path><path d="M33 13L30 20L39 17" fill="#f5c5d9" stroke="#b56c89" stroke-width="2"></path></svg></span>Notes
+          </button>
+        </div>
+        <div class="side-bottom">
+          <button class="mini-btn" data-app="paint">✎ PICATSSO</button>
+          <button class="mini-btn" data-app="settings">♡ CUSTOM</button>
+        </div>
+      </aside>
+
+      <main class="workspace" id="workspace">
+        <section class="scene" id="scene" aria-label="Área de trabalho"></section>
+        <div class="bow bow-decoration" aria-hidden="true">୨୧</div>
+      </main>
+    </div>
+
+    <footer class="dock">
+      <div class="dock-item"><button class="dock-btn" data-app="internet" title="Internet" aria-label="Internet">◎</button><span class="dock-label">WEB</span></div>
+      <div class="dock-item"><button class="dock-btn" data-app="notes" title="Notes" aria-label="Notes">▤</button><span class="dock-label">NOTES</span></div>
+      <div class="dock-item"><button class="dock-btn" data-app="files" title="Files" aria-label="Files">▱</button><span class="dock-label">FILES</span></div>
+      <div class="dock-item"><button class="dock-btn" data-app="paint" title="Picatsso" aria-label="Picatsso">✎</button><span class="dock-label">ART</span></div>
+      <div class="dock-item"><button class="dock-btn settings" data-app="settings" title="Personalizar" aria-label="Personalizar">⚙</button><span class="dock-label">CUSTOM</span></div>
+    </footer>
+
+    <div class="close-target" id="closeTarget" aria-hidden="true"><span style="font-size:22px">×</span><span>DROP HERE TO CLOSE</span></div>
+    <div class="fullscreen-layer" id="fullscreenLayer" aria-live="polite"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

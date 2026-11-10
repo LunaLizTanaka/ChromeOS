@@ -1,0 +1,11 @@
+{
+  "name": "galaxy-legacy-chromeos",
+  "version": "0.3.4",
+  "private": true,
+  "type": "module",
+  "description": "Galaxy Legacy ChromeOS desktop web pixel coquette — modular and standalone",
+  "scripts": {
+    "check": "node --check src/main.js && node --check src/core/dom.js && node --check src/core/notifications.js && node --check src/core/settings.js && node --check src/core/storage.js && node --check src/managers/desktop-manager.js && node --check src/managers/edge-panel-manager.js && node --check src/managers/window-manager.js && node --check src/apps/app-registry.js && node --check src/apps/app-templates.js && node --check src/apps/paint-app.js",
+    "verify": "npm run check && node scripts/verify-structure.mjs"
+  }
+}
