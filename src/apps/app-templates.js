@@ -38,11 +38,11 @@ function renderInternet() {
       '</section>',
       '<section class="internet-panel" id="archivePanel" role="tabpanel" aria-labelledby="internetTabArchive" hidden>',
         '<div class="internet-section-heading"><div><span class="internet-kicker">BIBLIOTECA DIGITAL</span><h3>Explore o Internet Archive</h3></div><span class="muted">Busca exclusiva no Archive.org</span></div>',
-        '<p class="internet-panel-copy muted">Pesquise no próprio acervo: filmes, vídeos, músicas, gravações, livros, textos e software.</p>',
+        '<p class="internet-panel-copy muted">A busca percorre os metadados do acervo, incluindo títulos, criadores, assuntos e outras descrições. Você também pode filtrar por tipo de conteúdo.</p>',
         '<form class="archive-search-form" id="archiveSearchForm">',
           '<label class="field-label" for="archiveSearchInput">O QUE VOCÊ QUER ENCONTRAR?</label>',
           '<div class="archive-search-row">',
-            '<input class="field" id="archiveSearchInput" type="search" placeholder="Ex.: Night of the Living Dead, Beethoven…" autocomplete="off">',
+            '<input class="field" id="archiveSearchInput" type="search" placeholder="Ex.: Beethoven, Studio Ghibli, horror, manga…" autocomplete="off">',
             '<select class="field" id="archiveMediaType" aria-label="Tipo de conteúdo"><option value="all">Tudo</option><option value="movies">Filmes e vídeos</option><option value="audio">Áudio e música</option><option value="texts">Livros e textos</option><option value="software">Software e jogos</option><option value="image">Imagens</option></select>',
             '<button class="pixel-btn" id="archiveSearchButton" type="submit">PESQUISAR</button>',
           '</div>',
@@ -56,7 +56,7 @@ function renderInternet() {
           '<div class="internet-viewer-toolbar archive-viewer-toolbar"><button class="pixel-btn secondary" id="archiveBackResults" type="button">← RESULTADOS</button><strong id="archiveViewerTitle">ITEM DO ACERVO</strong><a class="archive-original-link" id="archiveOpenItem" href="https://archive.org/" target="_blank" rel="noopener noreferrer">PÁGINA COMPLETA ↗</a></div>',
           '<div class="internet-frame archive-frame" id="archiveFrameHost"><div class="internet-placeholder"><span class="internet-placeholder-symbol">▣</span><strong>ABRINDO ITEM</strong></div></div>',
         '</div>',
-        '<p class="archive-footnote muted">A pesquisa e os resultados vêm do Internet Archive. A reprodução depende do formato do item, da disponibilidade do arquivo e das permissões definidas pelo próprio acervo.</p>',
+        '<p class="archive-footnote muted">A pesquisa consulta os metadados do catálogo do Internet Archive (não o texto OCR de dentro de cada livro). A reprodução depende do formato, da disponibilidade do arquivo e das permissões do acervo.</p>',
       '</section>',
     '</div>'
   ].join('');
