@@ -168,3 +168,33 @@ Regressão automatizada no Chromium (montagem temporária de teste com armazenam
 Viewports: 1920×1080, 1600×900, 1366×768, 1280×800, 1024×768, 800×600, 768×1024, 600×500, 390×844 e 320×568.
 
 O ambiente restringiu a navegação automatizada por `file://` e `localhost`; os fluxos foram exercitados em Chromium usando montagem temporária do código e shim de LocalStorage. A entrega de produção continua usando ES Modules nativos. A persistência por origem HTTPS e a homologação no Chromebook físico permanecem pendentes.
+
+
+## 10. v0.3.2 — desktop vazio e aplicativos sob demanda
+
+- Removidas as quatro janelas de demonstração que eram incluídas diretamente no HTML inicial.
+- A cena inicia com zero janelas abertas; o usuário abre cada aplicativo pelos atalhos laterais ou dock auto-ocultáveis.
+- Cats e Picatsso agora são registrados como aplicativos dinâmicos.
+- Picatsso cria seu canvas e conecta os eventos de desenho somente depois da criação da janela; reabertura reutiliza a janela existente.
+- O gerenciador inicia arraste no evento pointerdown em fase de captura na cena e mantém pointermove global não passivo.
+- O arraste começa na barra de título, não nos controles de minimizar/maximizar/fechar.
+- Adicionado fallback mouse/touch para navegadores sem Pointer Events no pacote executável.
+
+### Validação automatizada v0.3.2
+
+| Fluxo | Resultado |
+|---|---|
+| Desktop inicia sem nenhuma janela | Aprovado |
+| Revelar painel lateral pelo hover da borda | Aprovado |
+| Abrir Notes por clique real no atalho | Aprovado |
+| Revelar dock pelo hover inferior e abrir Cats | Aprovado |
+| Arrastar Cats pela barra de título | Aprovado |
+| Maximizar/restaurar | Aprovado |
+| Minimizar, reabrir, fechar e reabrir | Aprovado |
+| Abrir Picatsso e desenhar no Canvas | Aprovado |
+| Abrir Notes e persistir texto | Aprovado |
+| Abrir Settings e trocar tema | Aprovado |
+| Dez viewports, de 320×568 a 1920×1080 | Aprovado |
+| Erros JavaScript nos fluxos testados | Nenhum observado |
+
+Os testes foram feitos em Chromium automatizado com armazenamento de teste em memória. O comportamento real no Chromebook físico ainda precisa de homologação.

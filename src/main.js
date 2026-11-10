@@ -4,7 +4,6 @@ import { initializeWindowManager } from './managers/window-manager.js';
 import { initializeEdgePanelManager } from './managers/edge-panel-manager.js';
 import { initializeDesktopManager } from './managers/desktop-manager.js';
 import { openApp } from './apps/app-registry.js';
-import { initializePaintApp } from './apps/paint-app.js';
 
 function exposeDiagnostics() {
   const desktop = document.querySelector('#desktop');
@@ -16,9 +15,9 @@ function exposeDiagnostics() {
     }
   };
   window.GalaxyLegacy = {
-    version: '0.3.0',
+    version: '0.3.2',
     openApp,
-    getVersion() { return '0.3.0'; }
+    getVersion() { return '0.3.2'; }
   };
 }
 
@@ -30,7 +29,6 @@ async function initialize() {
     initializeWindowManager();
     initializeEdgePanelManager();
     initializeDesktopManager();
-    initializePaintApp();
     document.documentElement.dataset.glReady = 'true';
   } catch (error) {
     console.error('Galaxy Legacy initialization failed:', error);

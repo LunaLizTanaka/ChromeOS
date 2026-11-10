@@ -4,6 +4,7 @@ import { toast } from '../core/notifications.js';
 import { bindSettings, exportConfig, importConfig } from '../core/settings.js';
 import { activateWindow, getWindow, showWindow } from '../managers/window-manager.js';
 import { appTitles, renderAppContent, escapeHtml } from './app-templates.js';
+import { initializePaintApp } from './paint-app.js';
 
 function normalizeWebAddress(value) {
   const input = String(value || '').trim();
@@ -69,6 +70,8 @@ function bindApp(name, win) {
     $('#importSettings', win)?.addEventListener('change', importConfig);
   }
   if (name === 'settings') bindSettings(win);
+  if (name === 'paint') initializePaintApp(win);
+  if (name === 'cats') $('#moreCats', win)?.addEventListener('click', () => toast('You found all the tiny friends for now ♡'));
   $$('[data-open-url]', win).forEach(button => {
     button.addEventListener('click', () => {
       const url = normalizeWebAddress(button.dataset.openUrl);
@@ -96,14 +99,14 @@ export function openApp(name) {
   const windowElement = document.createElement('section');
   windowElement.className = 'window';
   windowElement.dataset.window = id;
+  const openCount = $('#scene > .window:not(.hidden)').length;
+  const cascade = openCount % 6;
   windowElement.style.cssText = [
-    `left:${Math.max(2, Math.min(60, 12 + Math.random() * 18))}%`,
-    `top:${Math.max(2, Math.min(48, 8 + Math.random() * 12))}%`,
-    'width:min(430px,calc(100% - 24px))',
-    'height:min(430px,calc(100% - 24px))'
+    `left:${Math.min(42, 7 + cascade * 4)}%`,
+    `top:${Math.min(38, 6 + cascade * 4)}%`
   ].join(';');
   windowElement.innerHTML = `
-    <div class="window-head">
+    <div class="window-head" title="Arraste para mover · duplo clique para tela cheia">
       <span class="window-title">${appTitles[name]}</span>
       <div class="window-actions">
         <button data-min="${id}" aria-label="Minimizar" title="Minimizar"></button>

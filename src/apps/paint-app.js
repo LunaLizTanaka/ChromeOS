@@ -2,9 +2,10 @@ import { $, $$ } from '../core/dom.js';
 import { toast } from '../core/notifications.js';
 import { downloadBlob } from '../core/storage.js';
 
-export function initializePaintApp() {
-  const canvas = $('#paintCanvas');
-  if (!canvas) return;
+export function initializePaintApp(root = document) {
+  const canvas = $('#paintCanvas', root);
+  if (!canvas || canvas.dataset.paintInitialized === 'true') return;
+  canvas.dataset.paintInitialized = 'true';
   const context = canvas.getContext('2d');
   if (!context) {
     toast('The drawing canvas is not available in this browser.');
@@ -23,6 +24,7 @@ export function initializePaintApp() {
     return { x: (event.clientX - rect.left) * canvas.width / rect.width, y: (event.clientY - rect.top) * canvas.height / rect.height };
   };
   canvas.addEventListener('pointerdown', event => {
+    if (event.button !== undefined && event.button !== 0) return;
     drawing = true;
     canvas.setPointerCapture(event.pointerId);
     const point = canvasPoint(event);
@@ -41,23 +43,25 @@ export function initializePaintApp() {
   canvas.addEventListener('pointerup', stopDrawing);
   canvas.addEventListener('pointercancel', stopDrawing);
   canvas.addEventListener('lostpointercapture', stopDrawing);
-  $$('[data-color]').forEach(button => {
+  $('[data-color]', root).forEach(button => {
     button.addEventListener('click', () => {
-      $$('[data-color]').forEach(item => item.classList.remove('selected'));
+      $('[data-color]', root).forEach(item => item.classList.remove('selected'));
       button.classList.add('selected');
       paintColor = button.dataset.color;
       tool = 'pen';
     });
   });
-  $$('[data-tool]').forEach(button => {
+  $('[data-tool]', root).forEach(button => {
     button.addEventListener('click', () => {
       tool = button.dataset.tool;
       toast(`Tool: ${tool}`);
     });
   });
-  $('#clearCanvas')?.addEventListener('click', () => {
+  $('#clearCanvas', root)?.addEventListener('click', () => {
     context.fillStyle = '#fff';
     context.fillRect(0, 0, canvas.width, canvas.height);
   });
-  $('#downloadArt')?.addEventListener('click', () => downloadBlob(canvas.toDataURL('image/png'), 'picatsso-art.png', 'image/png'));
+  $('#downloadArt', root)?.addEventListener('click', () => {
+    canvas.toBlob(blob => { if (blob) downloadBlob(blob, 'picatsso-art.png', 'image/png'); else toast('Could not export the drawing.'); }, 'image/png');
+  });
 }

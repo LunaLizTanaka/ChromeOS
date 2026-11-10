@@ -146,8 +146,8 @@ export function closeWindow(windowElement) {
 function pointerPoint(event) { return { x: event.clientX, y: event.clientY }; }
 
 function beginWindowDrag(event) {
-  const head = event.target.closest('.window-head');
-  if (!head || event.target.closest('button') || (event.button !== undefined && event.button !== 0)) return;
+  const head = event.target.closest?.('.window-head');
+  if (!head || event.target.closest?.('.window-actions button') || dragState || event.isPrimary === false || (event.button !== undefined && event.button !== 0)) return;
   const windowElement = head.closest('.window');
   const { scene, desktop, closeTarget } = elements;
   if (!windowElement || windowElement.parentNode !== scene) return;
@@ -161,7 +161,7 @@ function beginWindowDrag(event) {
   desktop.classList.remove('topbar-open', 'sidebar-open', 'dock-open');
   windowElement.classList.add('dragging');
   closeTarget.classList.add('visible');
-  try { head.setPointerCapture(event.pointerId); } catch (error) { /* Pointer capture is optional. */ }
+  try { scene.setPointerCapture(event.pointerId); } catch (error) { /* Pointer capture is optional. */ }
 }
 
 function moveWindowDrag(event) {
@@ -201,7 +201,7 @@ function finishWindowDrag(event, cancelled = false) {
   windowElement.classList.remove('dragging', 'near-fullscreen');
   elements.closeTarget.classList.remove('visible', 'over');
   try {
-    if (current.head.hasPointerCapture(current.pointerId)) current.head.releasePointerCapture(current.pointerId);
+    if (elements.scene.hasPointerCapture(current.pointerId)) elements.scene.releasePointerCapture(current.pointerId);
   } catch (error) { /* Pointer capture may already have been released. */ }
   if (closeHit) closeWindow(windowElement);
   else {
@@ -230,8 +230,8 @@ export function initializeWindowManager() {
   elements = { desktop: $('#desktop'), scene: $('#scene'), fullLayer: $('#fullscreenLayer'), closeTarget: $('#closeTarget') };
   const { desktop, scene } = elements;
   if (!desktop || !scene || !elements.fullLayer || !elements.closeTarget) throw new Error('Galaxy Legacy window manager could not find its required desktop elements.');
-  scene.addEventListener('pointerdown', beginWindowDrag);
-  document.addEventListener('pointermove', moveWindowDrag);
+  scene.addEventListener('pointerdown', beginWindowDrag, true);
+  document.addEventListener('pointermove', moveWindowDrag, { passive: false });
   document.addEventListener('pointerup', event => finishWindowDrag(event, false));
   document.addEventListener('pointercancel', event => finishWindowDrag(event, true));
   scene.addEventListener('dblclick', event => {

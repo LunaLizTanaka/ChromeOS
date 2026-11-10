@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Estado:** v0.3.0 — refatoração modular incremental  
+**Estado:** v0.3.2 — aplicativos abertos sob demanda e arraste reforçado  
 **Plataforma principal:** Chromebook com ChromeOS  
 **Formato:** website/PWA, sem aplicativo Android nativo  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -136,3 +136,12 @@ O código modular está em [src/](src/). O pacote completo v0.3.0, com index.htm
 - [Mapa da refatoração v0.3.0](docs/MODULARIZACAO_V0.3.0.md)
 - [Arquitetura ChromeOS](docs/ARQUITETURA_E_LIMITES_CHROMEOS.md)
 - [Interações e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md)
+
+
+## v0.3.2 — inicialização vazia e janelas dinâmicas
+
+O desktop inicia sem janelas de aplicativos. Nenhum popup de demonstração é aberto automaticamente; a pessoa usuária abre o que deseja pelo painel lateral (borda esquerda) ou pelo dock (borda inferior).
+
+Cats e Picatsso agora são criados sob demanda. Picatsso inicializa o Canvas e seus eventos somente depois que a janela é criada. O gerenciador de janelas usa captura de Pointer Events na cena, impedindo que eventos de aplicativos interfiram no início do arraste.
+
+**Como arrastar:** pressione o botão esquerdo sobre a barra superior da janela, onde aparece o nome do aplicativo, mantenha pressionado e mova. Não comece sobre os controles circulares, pois eles minimizam, maximizam ou fecham.
