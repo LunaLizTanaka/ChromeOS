@@ -14,6 +14,9 @@ const paintApp = read('src/apps/paint-app.js');
 const internetTemplate = read('src/apps/app-templates.js');
 const internetManager = read('src/apps/internet-manager.js');
 const internetStyles = read('styles/internet.css');
+const windowManager = read('src/managers/window-manager.js');
+const appRegistry = read('src/apps/app-registry.js');
+const resizeStyles = read('styles/window-resize.css');
 if (!paintApp.includes("$$('[data-color]', root).forEach") || !paintApp.includes("$$('[data-tool]', root).forEach")) {
   throw new Error('Picatsso lists of color swatches and tools must use multi-element selectors.');
 }
@@ -45,6 +48,13 @@ if (!internetManager.includes('https://archive.org/advancedsearch.php') ||
 }
 if (!internetStyles.includes('.archive-results-grid') || !internetStyles.includes('.internet-blog-grid')) {
   throw new Error('Internet v0.6.0 styles are incomplete.');
+}
+if (!windowManager.includes('beginWindowResize') || !windowManager.includes('moveWindowResize') || !windowManager.includes('finishWindowResize') ||
+    !appRegistry.includes('data-window-resize="se"') || !resizeStyles.includes('.window-resize-handle.resize-se')) {
+  throw new Error('Resizable windows must expose pointer-driven resize handles and matching styles.');
+}
+if (!html.includes('./styles/window-resize.css')) {
+  throw new Error('index.html must load the resizable-window stylesheet.');
 }
 if (packageJson.version !== '0.6.0' || manifest.version !== '0.6.0' || !html.includes('v0.6.0')) {
   throw new Error('Project package, manifest and page title must match version 0.6.0.');
@@ -91,6 +101,7 @@ for (const asset of manifest.icons.map(icon => icon.src)) {
 if (!fs.existsSync(path.join(root, 'styles/main.css'))) throw new Error('Missing styles/main.css');
 if (!fs.existsSync(path.join(root, 'styles/notes.css'))) throw new Error('Missing styles/notes.css');
 if (!fs.existsSync(path.join(root, 'styles/internet.css'))) throw new Error('Missing styles/internet.css');
+if (!fs.existsSync(path.join(root, 'styles/window-resize.css'))) throw new Error('Missing styles/window-resize.css');
 if (!html.includes('id="stickyLayer"')) throw new Error('index.html must include the sticky desktop layer.');
 
 console.log(`Structure OK: ${sourceFiles.length} JavaScript modules, ${manifest.icons.length} manifest icons, all imports resolved.`);
