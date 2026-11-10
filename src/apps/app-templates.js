@@ -1,7 +1,7 @@
 export const appTitles = {
   mail: 'MAIL.EXE', trash: 'TRASH', files: 'FILES.EXE', save: 'SAVE CENTER',
   internet: 'INTERNET.EXE', notes: 'NOTES.TXT', settings: 'PERSONALIZE',
-  paint: 'PICATSSO', cats: 'CATZ.EXE'
+  paint: 'PICATSSO'
 };
 
 export function escapeHtml(value) {

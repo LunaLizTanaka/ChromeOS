@@ -130,7 +130,6 @@ function bindApp(name, win) {
   }
   if (name === 'settings') bindSettings(win);
   if (name === 'paint') initializePaintApp(win);
-  if (name === 'cats') $('#moreCats', win)?.addEventListener('click', () => toast('You found all the tiny friends for now ♡'));
   $$('[data-open-url]', win).forEach(button => {
     button.addEventListener('click', () => {
       const url = normalizeWebAddress(button.dataset.openUrl);
