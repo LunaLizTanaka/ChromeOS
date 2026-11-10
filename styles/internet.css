@@ -100,3 +100,16 @@
 #archivePanel .archive-results-area{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;}
 #archivePanel .archive-search-status{flex:0 0 auto;}
 .archive-result-subject{color:#947587;font-size:8px;line-height:1.35;overflow-wrap:anywhere;}
+
+#scene > .window[data-window="app-internet"] > .window-body{
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.internet-app{display:flex;flex:1 1 auto;width:100%;height:auto;min-height:0;container-type:inline-size;}
+.internet-panel{overflow:auto;overscroll-behavior:contain;}
+@container(max-width:560px){
+  .internet-blog-grid{grid-template-columns:1fr;}
+  .archive-search-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+  .archive-search-row #archiveSearchInput{grid-column:1/-1;}
+  .archive-search-row .pixel-btn{grid-column:1/-1;width:100%;}
+  .archive-results-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;}
+}
