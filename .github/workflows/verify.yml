@@ -19,15 +19,30 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Verify JavaScript, structure and Internet embeds
+      - name: Verify JavaScript, structure and Library integrations
         run: npm run verify
 
-      - name: Package Galaxy Legacy v0.5.0
-        run: git archive --format=zip --output=Galaxy-Legacy-ChromeOS-v0.5.0.zip HEAD
-      - name: Upload ZIP package
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Build standalone HTML
+        run: python scripts/build-standalone.py
+
+      - name: Package modular project and standalone
+        run: |
+          mkdir -p package
+          git archive HEAD | tar -x -C package
+          cp standalone.html package/standalone.html
+          (cd package && zip -qr ../Galaxy-Legacy-ChromeOS-v0.8.0.zip .)
+          cp standalone.html Galaxy-Legacy-standalone-v0.8.0.html
+
+      - name: Upload standalone and ZIP package
         uses: actions/upload-artifact@v4
         with:
-          name: Galaxy-Legacy-ChromeOS-v0.5.0
-          path: Galaxy-Legacy-ChromeOS-v0.5.0.zip
+          name: Galaxy-Legacy-v0.8.0
+          path: |
+            Galaxy-Legacy-ChromeOS-v0.8.0.zip
+            Galaxy-Legacy-standalone-v0.8.0.html
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30
