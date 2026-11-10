@@ -1,7 +1,7 @@
 {
   "name": "Galaxy Legacy — ChromeOS Edition",
   "short_name": "Galaxy Legacy",
-  "description": "Galaxy Legacy — desktop pixel coquette com biblioteca de notas e papéis adesivos.",
+  "description": "Galaxy Legacy — desktop pixel coquette com Biblioteca de leitura, notas e papéis adesivos.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
@@ -32,5 +32,5 @@
       "purpose": "any"
     }
   ],
-  "version": "0.6.0"
+  "version": "0.7.0"
 }
