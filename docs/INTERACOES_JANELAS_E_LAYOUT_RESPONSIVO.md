@@ -115,3 +115,30 @@ Testes automatizados em Chromium headless (com armazenamento em memória durante
 | Erros JavaScript nos fluxos testados | Nenhum observado |
 
 A ativação touch foi simulada com PointerEvent; precisa de homologação em tela sensível ao toque real. A publicação HTTPS e o desempenho no Chromebook físico continuam pendentes.
+
+
+## 8. v0.2.2 — viewport sem dimensão fixa
+
+A aplicação usa o padrão de contêiner do protótipo do tablet: o body fica preso às quatro bordas do espaço disponível e o desktop é posicionado por inset 0, com largura e altura automáticas. A área não é desenhada em uma resolução pré-definida.
+
+- ResizeObserver observa shell e cena.
+- resize, orientationchange e visualViewport.resize atualizam o posicionamento.
+- Posições das janelas são proporcionais à cena; após arrastar, os valores em pixels são convertidos para porcentagens.
+- Janelas são reposicionadas quando o viewport diminui e seus conteúdos têm rolagem interna.
+
+### Validação v0.2.2
+
+Chromium headless: 1920×1080, 1600×900, 1366×768, 1280×800, 1024×768, 800×600, 768×1024, 390×844 e 320×568.
+
+| Verificação | Resultado |
+|---|---|
+| Shell ocupa exatamente o viewport disponível | Aprovado |
+| Cena acompanha a largura e altura do shell | Aprovado |
+| Sem rolagem horizontal/vertical do documento nos 9 viewports | Aprovado |
+| Janelas visíveis permanecem dentro da cena | Aprovado |
+| Posição das janelas adapta-se ao redimensionamento | Aprovado |
+| Abrir uma janela em 1600×900 e reduzir para 600×500 | Aprovado |
+| Maximizar/restaurar após redimensionamento | Aprovado |
+| Erros JavaScript nos fluxos testados | Nenhum observado |
+
+A validação usa Chromium automatizado e armazenamento em memória para isolar os fluxos. A instalação PWA via HTTPS e a homologação no Chromebook físico permanecem pendentes.
