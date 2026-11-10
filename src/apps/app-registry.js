@@ -11,8 +11,10 @@ function normalizeWebAddress(value) {
   const input = String(value || '').trim();
   if (!input) return '';
 
-  const explicitHttp = /^https?:\\/\\//i.test(input);
-  const looksLikeDomain = /^[^\\s/]+\\.[a-z]{2,}(?::\\d+)?(?:\\/[^\\s]*)?$/i.test(input);
+  const lowerInput = input.toLowerCase();
+  const explicitHttp = lowerInput.startsWith('http://') || lowerInput.startsWith('https://');
+  const hasWhitespace = [' ', '\t', '\n', '\r'].some(character => input.includes(character));
+  const looksLikeDomain = input.includes('.') && !hasWhitespace;
   const candidate = explicitHttp ? input : (looksLikeDomain ? `https://${input}` : '');
 
   if (candidate) {
