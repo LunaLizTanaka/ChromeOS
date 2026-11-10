@@ -41,9 +41,13 @@ Não é necessário `npm install`. Instruções adicionais: [README-EXECUTAR-NO-
 
 ## PWA e GitHub Pages
 
-O Web App Manifest está em `manifest.webmanifest`. O workflow `.github/workflows/pages.yml` prepara a publicação estática pelo GitHub Pages. No repositório, selecione **Settings → Pages → Build and deployment → Source: GitHub Actions**. Depois acompanhe a execução do workflow **Deploy Galaxy Legacy to GitHub Pages** em Actions.
+O projeto está preparado com Web App Manifest e workflow estático. **A ativação inicial do GitHub Pages ainda precisa ser feita pela pessoa proprietária do repositório**, pois a integração conectada não tem permissão para criar o site nas configurações.
 
-A URL pública só deve ser considerada disponível depois que a execução do workflow terminar com sucesso.
+1. Abra [Settings → Pages](https://github.com/LunaLizTanaka/ChromeOS/settings/pages).
+2. Em **Build and deployment → Source**, selecione **GitHub Actions**.
+3. Abra [Actions](https://github.com/LunaLizTanaka/ChromeOS/actions), escolha **Deploy Galaxy Legacy to GitHub Pages** e clique em **Run workflow** na branch `main`.
+
+O workflow também executa automaticamente em cada novo push. A URL pública só estará disponível depois que a execução terminar com sucesso. Veja [Ativar e publicar no GitHub Pages](docs/ATIVAR_GITHUB_PAGES.md).
 
 ## Limites atuais
 
