@@ -27,12 +27,16 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Verify JavaScript and project structure
+        run: npm run verify
       - name: Verify application files
         run: |
           test -f index.html
           test -f styles/main.css
+          test -f styles/internet.css
           test -f manifest.webmanifest
           test -f src/main.js
+          test -f src/apps/internet-manager.js
           test -d assets
       - name: Prepare static site
         run: |
