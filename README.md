@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Versão:** v0.3.4  
+**Versão:** v0.4.0  
 **Plataforma principal:** Chromebook / ChromeOS  
 **Tecnologia:** HTML, CSS e JavaScript nativos; ES Modules; PWA preparada para HTTPS  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -61,6 +61,7 @@ Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notific
 - [Interações e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md)
 - [Pesquisa de referências open source](docs/PESQUISA_REFERENCIAS_DESKTOP_WEB.md)
 - [Pesquisa de Notes e papéis adesivos](docs/PESQUISA_NOTES_E_STICKY_DESKTOP.md)
+- [Notes v0.4.0 e Sticky Desktop](docs/NOTES_V0.4.0.md)
 - [Refatoração modular](docs/MODULARIZACAO_V0.3.0.md)
 - [Correção do hover dos painéis](docs/BUGFIX_V0.3.4_HOVER_PAINES.md)
 
@@ -68,3 +69,12 @@ Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notific
 ## Sobre index.html e standalone
 
 O `index.html` é a entrada do projeto modular e usa ES Modules. Ele deve ser servido por HTTPS ou por um servidor local (ex.: `python3 -m http.server 8000`); abrir por duplo clique em `file://` pode bloquear os módulos no Chrome. O `standalone.html` é uma edição independente com CSS/JS incorporados, adequada para abrir diretamente. As duas edições compartilham a mesma direção visual, mas seus dados locais podem ficar em contextos de armazenamento diferentes.
+
+
+## Notes v0.4.0
+
+O Notes mantém várias notas independentes, com autosave, busca, cores, texto/checklist, favoritas, arquivamento, duplicação e importação/exportação JSON. O antigo conteúdo `gl-notes` é migrado para “Minha primeira nota” sem apagar a cópia legada.
+
+Use **FIXAR NO DESKTOP** para deixar uma nota visível no workspace mesmo com a janela Notes fechada. Os papéis podem ser movidos pela barra superior, redimensionados pelo canto, recolhidos, editados e desafixados sem excluir a nota.
+
+Os dados ficam localmente no navegador (chave `gl-notes-v2`); não há sincronização em nuvem. Exportar JSON é o backup portátil. Consulte [NOTES_V0.4.0.md](docs/NOTES_V0.4.0.md).

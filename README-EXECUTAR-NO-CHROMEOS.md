@@ -1,4 +1,4 @@
-# Galaxy Legacy v0.3.4 — executar no ChromeOS
+# Galaxy Legacy v0.4.0 — executar no ChromeOS
 
 ## Executar a versão modular completa
 
@@ -37,3 +37,16 @@ Notas e preferências visuais usam o armazenamento local do navegador. O wallpap
 ## Publicação como PWA
 
 O projeto está preparado com Web App Manifest. Para instalar como aplicativo no ChromeOS, publique esta pasta em HTTPS e use a opção de instalação do Chrome. A configuração do GitHub Pages deve usar a origem **GitHub Actions**; a URL de produção só pode ser confirmada depois que o workflow executar com sucesso.
+
+
+## Notes e papéis adesivos
+
+1. Abra **Notes** pelo menu lateral ou pelo dock.
+2. Use **+ NOVA NOTA** para criar uma nota. O título e o texto são salvos automaticamente.
+3. Escolha **Texto livre** ou **Checklist** e selecione a cor do papel.
+4. Clique em **FIXAR NO DESKTOP** para deixar um papel na área de trabalho.
+5. Arraste pela barra de título do papel e redimensione pelo canto inferior direito.
+6. Fechar a janela Notes não remove os papéis. Para editar, use o lápis no cartão. **DESAFIXAR DO DESKTOP** remove somente o cartão, mantendo a nota salva.
+7. Use **EXPORTAR** para criar um JSON de backup e **IMPORTAR** para restaurar uma coleção.
+
+O texto antigo em `gl-notes` é migrado automaticamente para a primeira nota e mantido como cópia de recuperação. Os dados são locais ao navegador/perfil; não há nuvem nesta versão.

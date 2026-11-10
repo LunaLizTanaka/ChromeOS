@@ -244,3 +244,17 @@ Correção:
 | Erros JavaScript nos fluxos testados | Nenhum observado |
 
 Os testes foram executados em Chromium headless com o HTML standalone. A validação no Chromebook físico ainda é necessária.
+
+
+## 13. Notes v0.4.0 — papéis adesivos persistentes
+
+- Abrir Notes não cria pop-ups extras; a biblioteca aparece na janela escolhida pelo usuário.
+- Coleção de notas independentes, autosave, busca, cores, texto/checklist, favoritas, arquivadas e duplicação.
+- Exportar/importar backup JSON com validação e confirmação.
+- Migração do antigo `gl-notes` para primeira nota, preservando a chave original.
+- Fixar nota cria papel independente dentro da cena do desktop.
+- Papel é arrastável pela barra de título, redimensionável pelo canto, recolhível, editável no Notes e desafixável.
+- Fechar/minimizar a janela Notes não remove papéis fixados.
+- Posição proporcional, tamanho, cor, Z-index e minimização persistem localmente.
+
+Testes Chromium automatizados em montagem `page.set_content` com armazenamento em memória: migração, múltiplas notas, autosave, checklist, fixar/desafixar, drag e posição, resize e dimensões, minimizar/restaurar, Notes fechada com papel visível, abrir nota pelo papel, pesquisa, duplicação, JSON import/export e seis viewports de 1920×1080 a 320×568. Nenhum erro JS nos fluxos testados. A persistência real no Chromebook/HTTPS ainda precisa de homologação.

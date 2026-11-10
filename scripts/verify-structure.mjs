@@ -27,6 +27,7 @@ const sourceFiles = [
   'src/managers/window-manager.js',
   'src/apps/app-registry.js',
   'src/apps/app-templates.js',
+  'src/apps/notes-manager.js',
   'src/apps/paint-app.js'
 ];
 const missing = [];
@@ -45,5 +46,7 @@ for (const asset of manifest.icons.map(icon => icon.src)) {
   if (!fs.existsSync(path.join(root, asset))) throw new Error(`Manifest icon not found: ${asset}`);
 }
 if (!fs.existsSync(path.join(root, 'styles/main.css'))) throw new Error('Missing styles/main.css');
+if (!fs.existsSync(path.join(root, 'styles/notes.css'))) throw new Error('Missing styles/notes.css');
+if (!html.includes('id="stickyLayer"')) throw new Error('index.html must include the sticky desktop layer.');
 
 console.log(`Structure OK: ${sourceFiles.length} JavaScript modules, ${manifest.icons.length} manifest icons, all imports resolved.`);

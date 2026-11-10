@@ -1,10 +1,10 @@
 import { $, $$ } from '../core/dom.js';
-import { storage } from '../core/storage.js';
 import { toast } from '../core/notifications.js';
 import { bindSettings, exportConfig, importConfig } from '../core/settings.js';
 import { activateWindow, getWindow, showWindow } from '../managers/window-manager.js';
 import { appTitles, renderAppContent, escapeHtml } from './app-templates.js';
 import { initializePaintApp } from './paint-app.js';
+import { initializeNotesApp } from './notes-manager.js';
 
 function normalizeWebAddress(value) {
   const input = String(value || '').trim();
@@ -25,16 +25,7 @@ function normalizeWebAddress(value) {
 }
 
 function bindApp(name, win) {
-  if (name === 'notes') {
-    const textArea = $('#noteText', win);
-    textArea.value = storage.getItem('gl-notes') || '';
-    textArea.addEventListener('input', () => storage.setItem('gl-notes', textArea.value));
-    $('#clearNotes', win).addEventListener('click', () => {
-      textArea.value = '';
-      storage.removeItem('gl-notes');
-      toast('Notebook cleared ♡');
-    });
-  }
+  if (name === 'notes') initializeNotesApp(win);
 
   if (name === 'internet') {
     const address = $('#webAddress', win);

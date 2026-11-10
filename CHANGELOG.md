@@ -1,5 +1,13 @@
 # Histórico de versões — Galaxy Legacy
 
+## v0.4.0 — Notes e papéis adesivos
+- Biblioteca com várias notas independentes.
+- Autosave, busca, cores, checklist, favoritas, arquivamento e duplicação.
+- Importação/exportação JSON com validação e confirmação.
+- Migração do texto legado sem apagar a chave antiga.
+- Papéis adesivos na área de trabalho, com mover, redimensionar, recolher, editar e desafixar.
+- Posição, tamanho, cor e ordem visual persistidos localmente.
+
 ## v0.3.4
 - Corrigido hover do painel lateral e dock por zonas transparentes de ativação de 44px.
 - Zonas tornam-se click-through quando os painéis estão visíveis.

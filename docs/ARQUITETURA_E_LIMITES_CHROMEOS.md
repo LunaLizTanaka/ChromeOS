@@ -180,3 +180,14 @@ O Edge Panel Manager cria automaticamente três hit areas transparentes de 44 px
 Quando o cursor entra numa zona, o painel correspondente abre. O hit area passa imediatamente para pointer-events none enquanto o painel está visível, evitando interceptar os cliques nos botões do próprio painel. O estado é atualizado durante o movimento global do ponteiro e o painel é recolhido ao sair. O manager inclui fallback mousemove e abertura por toque.
 
 Validação no Chromium: hover em cada uma das três bordas, clique em Notes/Picatsso após abrir painel, recolhimento ao sair, seis viewports e nenhum erro JavaScript nos fluxos testados.
+
+
+## 17. Notes v0.4.0 e Sticky Desktop
+
+O Notes usa a chave local `gl-notes-v2` para persistir a coleção estruturada. A chave legada `gl-notes` contém uma string; se houver texto e a coleção v2 ainda não existir, esse texto é migrado para uma nota chamada “Minha primeira nota”. A chave antiga é mantida como cópia de recuperação e não é apagada.
+
+A biblioteca de notas fica em `src/apps/notes-manager.js`; o template é montado em `src/apps/app-templates.js`. Ela oferece criação, título/cor/tipo, autosave, pesquisa, favorita, arquivamento, duplicação, exclusão, checklist e backup JSON.
+
+Os papéis adesivos são montados no `#stickyLayer`, dentro da cena do desktop. O Notes pode ser fechado sem remover os cartões. Drag pela barra, resize pelo canto, minimizar/restaurar, editar no Notes e desafixar são persistidos. Coordenadas X/Y são normalizadas em relação ao workspace para sobreviver a alterações de viewport.
+
+A versão é local-first. LocalStorage pode ser apagado pelo navegador; a exportação JSON é o backup portátil. Não há sincronização em nuvem. Os cartões existem no workspace do Galaxy Legacy e não ficam sobre outras janelas do ChromeOS.

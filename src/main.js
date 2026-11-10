@@ -4,6 +4,7 @@ import { initializeWindowManager } from './managers/window-manager.js';
 import { initializeEdgePanelManager } from './managers/edge-panel-manager.js';
 import { initializeDesktopManager } from './managers/desktop-manager.js';
 import { openApp } from './apps/app-registry.js';
+import { initializeNotesSystem } from './apps/notes-manager.js';
 
 function exposeDiagnostics() {
   const desktop = document.querySelector('#desktop');
@@ -15,9 +16,9 @@ function exposeDiagnostics() {
     }
   };
   window.GalaxyLegacy = {
-    version: '0.3.4',
+    version: '0.4.0',
     openApp,
-    getVersion() { return '0.3.4'; }
+    getVersion() { return '0.4.0'; }
   };
 }
 
@@ -26,6 +27,7 @@ async function initialize() {
     exposeDiagnostics();
     startClock();
     await initializeSettings();
+    initializeNotesSystem();
     initializeWindowManager();
     initializeEdgePanelManager();
     initializeDesktopManager();
