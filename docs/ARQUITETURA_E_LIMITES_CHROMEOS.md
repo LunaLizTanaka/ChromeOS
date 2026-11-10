@@ -1,0 +1,102 @@
+# Arquitetura e limites do ChromeOS — Galaxy Legacy
+
+**Plataforma alvo:** Chromebook / ChromeOS  
+**Perfil de referência:** Intel Celeron N4000, 2 núcleos, 4 GB RAM, Intel UHD Graphics 600  
+**Estratégia:** web-first, PWA, 2D-first
+
+## 1. Objetivo
+
+Galaxy Legacy será um ambiente de desktop web pessoal, com atalhos, pastas, janelas internas, dock, widgets, personagens e aplicativos próprios. Deve parecer um pequeno sistema visual, mas continuar sendo uma aplicação executada pelo ChromeOS.
+
+O ChromeOS permanece responsável pelo Launcher, Shelf, janelas do sistema, notificações globais, permissões e aplicativos nativos. Galaxy Legacy não deve fingir que controla esses componentes.
+
+## 2. PWA no ChromeOS
+
+A direção principal é publicar o projeto por HTTPS com Web App Manifest e identidade própria. Segundo a documentação do Google, PWAs instalados podem aparecer no Launcher do ChromeOS e ser fixados na Shelf. A instalação é feita pelo próprio Chrome, sem APK.
+
+O manifesto deve definir nome, ícone, cor, URL inicial e modo standalone. A instalação real só poderá ser confirmada depois da publicação HTTPS e de teste no Chromebook.
+
+Não adicionar modo offline, cache programado ou Service Worker sem requisito aprovado: a primeira fase é online-first e deve ser simples.
+
+## 3. Módulos
+
+### Desktop Shell
+- Área de trabalho responsiva.
+- Páginas/cenários, dock e atalhos.
+- Pastas internas.
+- Janelas que podem abrir, focar, mover, minimizar, maximizar e fechar.
+- Painel de personalização e saída clara.
+
+### Aplicativos internos
+- Cada aplicativo é um módulo web do próprio Galaxy Legacy.
+- Carregar recursos apenas quando o módulo for aberto.
+- Separar o estado dos aplicativos e evitar que um erro isolado derrube todo o desktop.
+
+### Navegação na internet
+- Barra de URL/pesquisa, favoritos próprios e páginas recentes do próprio Galaxy Legacy.
+- Tentar iframe somente quando o destino permitir incorporação.
+- Se o site bloquear iframe via X-Frame-Options ou Content-Security-Policy, oferecer abertura externa pelo Chrome.
+- Não prometer navegação universal dentro de iframe ou acesso ao histórico privado do Chrome.
+
+### Widgets e personagens
+- Widgets com posições, dimensões, visibilidade e configurações próprias.
+- Personagens/stickers em PNG, SVG, GIF ou spritesheets, após avaliar desempenho.
+- Animações curtas e pausadas quando a aplicação estiver oculta.
+- Ações visuais internas não devem ser confundidas com ações reais no sistema.
+
+### Armazenamento
+- LocalStorage para preferências pequenas.
+- IndexedDB para imagens e conteúdo local maior, com tratamento de quota.
+- Exportação/importação de perfis JSON.
+- Nuvem e sincronização serão uma etapa separada; nenhum backend está conectado neste início.
+
+## 4. Três níveis de wallpaper
+
+Não misturar:
+
+1. **Wallpaper interno:** imagem ou fundo visível dentro do desktop Galaxy Legacy. É implementável no website.
+2. **PWA em janela independente/tela cheia:** a aplicação ocupa sua própria janela. Outros aplicativos e janelas do ChromeOS continuam fora dela.
+3. **Wallpaper real do ChromeOS:** é administrado pelo sistema. A API `chrome.wallpaper` é específica do ChromeOS e requer a permissão `wallpaper` em uma extensão Chrome. Ela define uma imagem, não executa uma página HTML interativa atrás de todas as janelas.
+
+Uma integração de wallpaper nativo pode ser pesquisada como extensão opcional, sujeita às permissões, compatibilidade, política de instalação e teste. Não é dependência do desktop web.
+
+## 5. Desempenho
+
+- Tratar Celeron N4000 e 4 GB RAM como orçamento limitado.
+- Preferir HTML, CSS, JavaScript, SVG e Canvas 2D.
+- Evitar frameworks grandes, blur extenso, vídeos de fundo e animações contínuas.
+- Carregar imagens sob demanda e limitar stickers animados simultâneos.
+- Pausar timers/animações quando a página estiver oculta.
+- Testar mouse, teclado, touchpad, toque e escalas de tela.
+- Testes estáticos não comprovam fluidez no Chromebook físico.
+
+## 6. Segurança e privacidade
+
+- Conteúdo externo é não confiável; não executar scripts externos no contexto principal.
+- Links externos em nova aba devem usar noopener/noreferrer.
+- Não guardar senhas, tokens ou segredos em JSON.
+- Importação de arquivos sempre exige escolha explícita.
+- Não enviar arquivos, notas ou histórico à nuvem sem ação clara e consentimento.
+- O MVP não exige extensão ou permissões de sistema.
+
+## 7. Roteiro inicial
+
+1. **v0.1:** shell pixel/coquette, janelas, atalhos e personalização básica.
+2. **v0.2:** editor de ícones/atalhos, páginas, pastas, drag-and-drop e perfis.
+3. **v0.3:** aplicativos internos e ferramentas.
+4. **v0.4:** engine de widgets, stickers, personagens e cenários.
+5. **v0.5:** publicar em HTTPS, instalar como PWA e testar desempenho no Chromebook.
+6. **Pesquisa futura:** extensão opcional para definir wallpaper estático do ChromeOS.
+7. **Futuro:** nuvem/sincronização após escolha de infraestrutura e avaliação de custos.
+
+## 8. Fontes técnicas
+
+- Google for Developers — Desktop Progressive Web Apps on ChromeOS: https://developers.google.com/chromeos/app-development/learn/desktop-progressive-web-apps
+- Google Chromebook Help — Use web apps: https://support.google.com/chromebook/answer/9658361
+- Chrome for Developers — chrome.wallpaper API: https://developer.chrome.com/docs/extensions/reference/api/wallpaper
+
+## 9. Estado
+
+**Direção aprovada:** PWA/website desktop-first para ChromeOS, visual pixel + coquette e personalização profunda.
+
+**Pendente:** implementação completa, publicação HTTPS, instalação e teste no Chromebook real, consumo de RAM e qualquer integração nativa de wallpaper.
