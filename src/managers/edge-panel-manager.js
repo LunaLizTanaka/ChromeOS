@@ -39,7 +39,7 @@ export function initializeEdgePanelManager() {
   function syncHotspots() {
     zones.topbar.style.pointerEvents = desktop.classList.contains('topbar-open') ? 'none' : 'auto';
     zones.sidebar.style.pointerEvents = desktop.classList.contains('sidebar-open') ? 'none' : 'auto';
-    zones.dock.style.pointerEvents = desktop.classList.contains('dock-open') ? 'none' : 'auto';
+    zones.dock.style.pointerEvents = desktop.classList.contains('dock-open') || desktop.classList.contains('sidebar-open') ? 'none' : 'auto';
     if (desktop.classList.contains('is-window-dragging') || desktop.classList.contains('is-fullscreen')) {
       Object.values(zones).forEach(zone => { zone.style.pointerEvents = 'none'; });
     }
@@ -72,9 +72,11 @@ export function initializeEdgePanelManager() {
     const sideOpen = x <= rect.left + EDGE_SIZE || (
       desktop.classList.contains('sidebar-open') && x <= rect.left + sidebar.offsetWidth + KEEP_GAP
     );
-    const dockOpen = y >= rect.bottom - EDGE_SIZE || (
+    const pointerWithinSidebar = desktop.classList.contains('sidebar-open')
+      && x <= rect.left + sidebar.offsetWidth + KEEP_GAP;
+    const dockOpen = !pointerWithinSidebar && (y >= rect.bottom - EDGE_SIZE || (
       desktop.classList.contains('dock-open') && y >= rect.bottom - dock.offsetHeight - KEEP_GAP
-    );
+    ));
 
     desktop.classList.toggle('topbar-open', topOpen);
     desktop.classList.toggle('sidebar-open', sideOpen);
@@ -109,6 +111,9 @@ export function initializeEdgePanelManager() {
   document.addEventListener('pointerdown', event => {
     if (event.pointerType !== 'touch' || isBusy()) return;
     const rect = desktop.getBoundingClientRect();
+    const pointerWithinSidebar = desktop.classList.contains('sidebar-open')
+      && event.clientX <= rect.left + sidebar.offsetWidth + KEEP_GAP;
+    if (pointerWithinSidebar) return;
     if (event.clientY <= rect.top + EDGE_SIZE) reveal('topbar');
     else if (event.clientX <= rect.left + EDGE_SIZE) reveal('sidebar');
     else if (event.clientY >= rect.bottom - EDGE_SIZE) reveal('dock');
