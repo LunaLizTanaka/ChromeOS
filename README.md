@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Versão:** v0.7.0  
+**Versão:** v0.8.0  
 **Plataforma principal:** Chromebook / ChromeOS  
 **Tecnologia:** HTML, CSS e JavaScript nativos; ES Modules; PWA preparada para HTTPS  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -9,7 +9,7 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 
 ## O que já funciona
 
-- Biblioteca v0.7.0: 16 plataformas de livros, mangás, novels e fanfics; busca do Internet Archive e Open Library; BookReader quando disponível; estante local com importação/exportação JSON.
+- Biblioteca v0.8.0: 16 plataformas de livros, mangás, novels e fanfics; pesquisa no Internet Archive e Open Library; BookReader oficial; janela interna com endereço HTTPS, voltar, avançar e atualizar; estante local JSON.
 
 
 - Desktop vazio ao iniciar: nenhum aplicativo abre sem ação da pessoa usuária.
@@ -21,6 +21,10 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 - Temas, escala da interface, grade, decorações, wallpaper e perfis JSON.
 - Notes v0.4.0: biblioteca de notas com autosave, busca, checklist, cores, favoritos, arquivamento, duplicação, importação/exportação JSON e papéis adesivos fixados no desktop.
 - Wallpaper armazenado no IndexedDB local.
+
+## Navegação interna da Biblioteca
+
+A Biblioteca abre no próprio desktop as páginas dos serviços cujo domínio foi incluído na lista permitida. A barra interna aceita somente HTTPS dos domínios cadastrados e fornece histórico próprio de endereços iniciados pela barra ou pelos cartões. Por segurança do navegador, o Galaxy não consegue ler o histórico dos links clicados dentro de páginas de outra origem. Sites que enviam `X-Frame-Options` ou `Content-Security-Policy: frame-ancestors` podem bloquear o iframe; cookies de terceiros também podem impedir login. Wuxiaworld permanece como link externo por restrição explícita dos termos de uso. Veja [documentação da Biblioteca v0.8.0](docs/BIBLIOTECA_V0.8.0.md).
 
 ## Executar no Chromebook
 
