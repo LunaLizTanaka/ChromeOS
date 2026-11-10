@@ -171,3 +171,12 @@ O domínio example.com não é página inicial apropriada: ele é reservado a ex
 A ação principal NAVEGAR abre uma nova aba do Chrome. Assim o usuário navega no navegador real, sem a falsa expectativa de que todos os sites aceitam iframe. A ação opcional TENTAR ABRIR AQUI tenta incorporar a página dentro da janela; sites com X-Frame-Options ou Content-Security-Policy podem bloquear. ABRIR NO CHROME é uma contingência explícita.
 
 O Cat Club/Catz foi removido da lista de apps, do dock, templates, registro e estilos. O Mail demonstrativo não possui mais referência a sticker club.
+
+
+## 16. v0.3.4 — zonas de ativação dos painéis
+
+O Edge Panel Manager cria automaticamente três hit areas transparentes de 44 px nas bordas superior, esquerda e inferior. Não é necessário acrescentar elementos à marcação HTML manualmente.
+
+Quando o cursor entra numa zona, o painel correspondente abre. O hit area passa imediatamente para pointer-events none enquanto o painel está visível, evitando interceptar os cliques nos botões do próprio painel. O estado é atualizado durante o movimento global do ponteiro e o painel é recolhido ao sair. O manager inclui fallback mousemove e abertura por toque.
+
+Validação no Chromium: hover em cada uma das três bordas, clique em Notes/Picatsso após abrir painel, recolhimento ao sair, seis viewports e nenhum erro JavaScript nos fluxos testados.

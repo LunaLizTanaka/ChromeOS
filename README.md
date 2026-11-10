@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Estado:** v0.3.3 — navegador corrigido e Cat Club removido
+**Estado:** v0.3.4 — ativação confiável do dock e do painel lateral
 **Plataforma principal:** Chromebook com ChromeOS  
 **Formato:** website/PWA, sem aplicativo Android nativo  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -156,3 +156,12 @@ Cats e Picatsso agora são criados sob demanda. Picatsso inicializa o Canvas e s
 - NAVEGAR abre URL ou pesquisa em uma nova aba do Chrome, sem depender de iframe.
 - TENTAR ABRIR AQUI é uma opção separada para os sites que permitem incorporação; ABRIR NO CHROME fica disponível como alternativa.
 - Endereços de domínio sem protocolo recebem https://; texto simples é convertido em pesquisa Google.
+
+
+## v0.3.4 — correção do hover dos painéis
+
+O painel lateral, o dock e a barra superior agora possuem zonas transparentes de ativação de 44 px, criadas pelo próprio Edge Panel Manager. Ao entrar com o ponteiro na zona, o painel correspondente aparece. A zona passa a ignorar eventos enquanto o painel está visível, deixando seus botões receberem os cliques normalmente. O painel se recolhe quando o ponteiro sai da área dele.
+
+Há fallback para mousemove e suporte a toque por pointerdown. O comportamento foi testado no Chromium automatizado: revelar lateral/dock/topo, clicar em aplicativos, deixar o painel recolher e preservar o layout responsivo.
+
+Veja [Bugfix v0.3.4 — hover dos painéis](docs/BUGFIX_V0.3.4_HOVER_PAINES.md).

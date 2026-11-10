@@ -213,3 +213,34 @@ O endereço inicial example.com foi removido porque é um domínio reservado à 
 - O texto demonstrativo Mail foi atualizado para eliminar a referência ao sticker club.
 
 Testes de Chromium: endereço em branco na primeira abertura; domínio wikipedia.org normalizado para HTTPS; texto "flores kawaii" convertido para pesquisa Google; modo iframe opcional criado; ausência de Catz/strings de exemplo na interface; notas, arraste, fullscreen, Picatsso e 10 viewports continuam aprovados. A navegação externa real depende da rede e das políticas/pop-up do Chrome do usuário.
+
+
+## 12. v0.3.4 — correção da abertura dos painéis ocultos
+
+Problema: em alguns cenários, o dock e a barra lateral não recebiam o movimento do ponteiro de forma confiável porque a lógica dependia apenas de detectar coordenadas na borda por um listener global.
+
+Correção:
+- Três zonas transparentes de 44 px são criadas dinamicamente em cima das bordas.
+- pointerenter revela a barra correspondente.
+- Ao abrir, a zona passa para pointer-events none para não bloquear cliques nos atalhos.
+- O listener global mantém o painel aberto enquanto o ponteiro estiver dentro e recolhe ao sair.
+- mousemove serve como fallback de compatibilidade.
+- Em dispositivos touch, pointerdown revela o painel.
+- As zonas são desativadas durante arraste de janelas e tela cheia.
+
+### Testes v0.3.4
+
+| Verificação | Resultado |
+|---|---|
+| Hover esquerda abre sidebar | Aprovado |
+| Sidebar permanece aberta dentro da área | Aprovado |
+| Clique no atalho Notes funciona | Aprovado |
+| Sidebar recolhe depois de sair/abrir app | Aprovado |
+| Hover inferior abre dock | Aprovado |
+| Clique no dock abre Picatsso | Aprovado |
+| Hover superior abre topbar | Aprovado |
+| Hit zones deixam de interceptar cliques quando o painel abre | Aprovado |
+| Responsividade em 6 viewports | Aprovado |
+| Erros JavaScript nos fluxos testados | Nenhum observado |
+
+Os testes foram executados em Chromium headless com o HTML standalone. A validação no Chromebook físico ainda é necessária.
