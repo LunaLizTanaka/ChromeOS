@@ -1,6 +1,6 @@
 export const appTitles = {
   mail: 'MAIL.EXE', trash: 'TRASH', files: 'FILES.EXE', save: 'SAVE CENTER',
-  internet: 'INTERNET.EXE', notes: 'NOTES.TXT', settings: 'PERSONALIZE',
+  internet: 'INTERNET.EXE', library: 'BIBLIOTECA', notes: 'NOTES.TXT', settings: 'PERSONALIZE',
   paint: 'PICATSSO'
 };
 
@@ -61,6 +61,52 @@ function renderInternet() {
     '</div>'
   ].join('');
 }
+
+function renderLibrary() {
+  return `
+    <div class="library-app" id="libraryApp">
+      <div class="library-intro"><div><strong>♡ BIBLIOTECA</strong><p class="muted">Livros, mangás, novels e fanfics em um só lugar.</p></div><span class="library-version">V0.7.0</span></div>
+      <div class="library-tabs" role="tablist" aria-label="Seções da Biblioteca">
+        <button class="library-tab active" type="button" data-library-tab="sites" role="tab" aria-selected="true">PLATAFORMAS</button>
+        <button class="library-tab" type="button" data-library-tab="archive" role="tab" aria-selected="false">INTERNET ARCHIVE</button>
+        <button class="library-tab" type="button" data-library-tab="openlibrary" role="tab" aria-selected="false">OPEN LIBRARY</button>
+        <button class="library-tab" type="button" data-library-tab="shelf" role="tab" aria-selected="false">MINHA ESTANTE</button>
+      </div>
+      <section class="library-panel" data-library-panel="sites" role="tabpanel">
+        <div class="library-section-title"><h3>Explore plataformas</h3><small>Catálogos oficiais e leitores compatíveis</small></div>
+        <div class="library-featured"><span class="library-featured-art">LT</span><span class="library-featured-copy"><strong>Little Tyrant Doesn’t Want to Meet with a Bad End</strong><small>Novel chinesa · 670 capítulos concluídos na origem · ficha do Novel Updates</small></span><span class="library-featured-actions"><button class="pixel-btn secondary" id="libraryLittleTyrantLink" type="button">VER FICHA</button><button class="pixel-btn" id="libraryOpenLittleTyrant" type="button">＋ ESTANTE</button></span></div>
+        <div class="library-toolbar"><input class="field" id="libraryPlatformSearch" type="search" placeholder="Pesquisar plataforma…" aria-label="Pesquisar plataforma"><select class="field" id="libraryCategory" aria-label="Filtrar categoria"><option value="all">Todas as categorias</option><option value="books">Livros</option><option value="manga">Mangás / manhwas</option><option value="novels">Novels</option><option value="fanfic">Fanfics</option></select></div>
+        <p class="library-footnote">“Tentar nesta janela” é apenas um teste visual de iframe: alguns sites bloqueiam incorporação, login ou cookies de terceiros. Se a página ficar vazia, abra-a no Chrome. Serviços com restrições conhecidas permanecem como acesso externo oficial.</p>
+        <div class="library-platform-grid" id="libraryPlatforms"></div>
+      </section>
+      <section class="library-panel" data-library-panel="archive" role="tabpanel" hidden>
+        <div class="library-section-title"><h3>Livros e textos do Internet Archive</h3><small>Busca no catálogo de textos</small></div>
+        <form class="library-toolbar" id="libraryArchiveForm"><input class="field" id="libraryArchiveInput" type="search" placeholder="Título, autor ou assunto…" autocomplete="off" aria-label="Pesquisar Internet Archive"><button class="pixel-btn" type="submit">PESQUISAR</button></form>
+        <div class="library-search-status" id="libraryArchiveStatus" role="status" aria-live="polite">Pesquise livros e textos. A leitura depende da disponibilidade e das permissões de cada item.</div>
+        <div class="library-results" id="libraryArchiveResults"></div>
+        <button class="pixel-btn secondary library-results-more" id="libraryArchiveMore" type="button" hidden>CARREGAR MAIS</button>
+      </section>
+      <section class="library-panel" data-library-panel="openlibrary" role="tabpanel" hidden>
+        <div class="library-section-title"><h3>Pesquisar no Open Library</h3><small>Catálogo de autores, obras e edições</small></div>
+        <form class="library-toolbar" id="openLibrarySearchForm"><input class="field" id="openLibrarySearchInput" type="search" placeholder="Nome do livro, autor ou tema…" autocomplete="off" aria-label="Pesquisar Open Library"><button class="pixel-btn" type="submit">PESQUISAR</button></form>
+        <div class="library-search-status" id="openLibrarySearchStatus" role="status" aria-live="polite">Resultados com cópia digital vinculada podem abrir no BookReader oficial do Internet Archive.</div>
+        <div class="library-results" id="openLibraryResults"></div>
+        <p class="library-footnote">A API pública do Open Library é usada para buscas pontuais, não para baixar catálogos em massa. Alguns registros não possuem cópia legível; outros exigem empréstimo ou login.</p>
+      </section>
+      <section class="library-panel" data-library-panel="shelf" role="tabpanel" hidden>
+        <div class="library-section-title"><h3>Minha estante</h3><small>Links salvos neste navegador</small></div>
+        <div class="library-toolbar"><button class="pixel-btn secondary" id="libraryExportShelf" type="button">EXPORTAR JSON</button><label class="pixel-btn secondary" for="libraryImportShelf" style="display:inline-flex;align-items:center;cursor:pointer">IMPORTAR JSON</label><input id="libraryImportShelf" type="file" accept="application/json,.json" hidden></div>
+        <div class="library-shelf-list" id="libraryShelfList"></div>
+        <form class="library-add-shelf" id="libraryAddShelfForm"><input class="field" id="libraryAddShelfTitle" type="text" maxlength="180" placeholder="Título da história ou livro" required aria-label="Título"><input class="field" id="libraryAddShelfUrl" type="url" placeholder="https://…" required aria-label="Endereço HTTPS"><button class="pixel-btn" type="submit">＋ SALVAR LINK</button></form>
+        <p class="library-footnote">A estante guarda títulos e links; não copia capítulos nem acessa contas. Os dados ficam localmente neste navegador. Use exportação JSON para fazer backup.</p>
+      </section>
+      <section class="library-panel library-reader-panel" id="libraryReaderPanel" data-library-panel="reader" role="tabpanel" hidden>
+        <div class="library-reader-toolbar"><button class="pixel-btn secondary" id="libraryReaderBack" type="button">← BIBLIOTECA</button><strong id="libraryReaderTitle">LEITOR</strong><button class="pixel-btn secondary" id="libraryReaderExternal" type="button">ABRIR NO CHROME ↗</button></div>
+        <p class="library-reader-status" id="libraryReaderStatus">Aguarde o carregamento do leitor.</p><div class="library-reader-host" id="libraryReaderHost"></div>
+      </section>
+    </div>`;
+}
+
 function renderPaint() {
   return `<div class="paint-layout"><div class="tools"><button title="Lápis" data-tool="pen">✎</button><button title="Borracha" data-tool="erase">▱</button><button title="Pincel" data-tool="brush">✿</button><button title="Limpar" id="clearCanvas">⌫</button></div><div class="paint-canvas-wrap"><canvas class="paint-canvas" id="paintCanvas" width="620" height="360"></canvas></div></div><div class="palette" id="palette"><button class="swatch selected" style="background:#f5a9c8" data-color="#f5a9c8"></button><button class="swatch" style="background:#ffd98c" data-color="#ffd98c"></button><button class="swatch" style="background:#fff0b9" data-color="#fff0b9"></button><button class="swatch" style="background:#bdebe5" data-color="#bdebe5"></button><button class="swatch" style="background:#b9c9f2" data-color="#b9c9f2"></button><button class="swatch" style="background:#c9c4e9" data-color="#c9c4e9"></button><button class="swatch" style="background:#fff" data-color="#fff"></button><button class="swatch" style="background:#765064" data-color="#765064"></button></div><div class="paint-bottom"><span>♡ draw something sweet</span><button class="pixel-btn" id="downloadArt">SAVE ART</button></div>`;
 }
@@ -72,6 +118,7 @@ export function renderAppContent(name) {
   if (name === 'files') return '<div class="file-drop"><strong>MY LITTLE FILES</strong><p>Choose files from your Chromebook to preview their names here. Nothing is uploaded.</p><input type="file" id="localFiles" multiple></div><div id="fileList" class="panel-card muted">No files selected yet.</div><p class="muted">Cloud storage is a future module and is not connected in this prototype.</p>';
   if (name === 'save') return '<div class="panel-card"><strong>DESKTOP SAVE CENTER</strong><p class="muted">Export or import your visual preferences as JSON.</p><button class="pixel-btn" id="exportSettings">EXPORT PROFILE</button> <label class="pixel-btn" for="importSettings" style="display:inline-block">IMPORT PROFILE</label><input id="importSettings" type="file" accept="application/json" hidden></div><p class="muted">Notes and custom settings stay in this browser profile in this prototype.</p>';
   if (name === 'internet') return renderInternet();
+  if (name === 'library') return renderLibrary();
   if (name === 'notes') return `
     <div class="notes-app" id="notesApp">
       <div class="notes-toolbar">
