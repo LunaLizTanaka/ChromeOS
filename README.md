@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Versão:** v0.6.0  
+**Versão:** v0.7.0  
 **Plataforma principal:** Chromebook / ChromeOS  
 **Tecnologia:** HTML, CSS e JavaScript nativos; ES Modules; PWA preparada para HTTPS  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -9,11 +9,14 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 
 ## O que já funciona
 
+- Biblioteca v0.7.0: 16 plataformas de livros, mangás, novels e fanfics; busca do Internet Archive e Open Library; BookReader quando disponível; estante local com importação/exportação JSON.
+
+
 - Desktop vazio ao iniciar: nenhum aplicativo abre sem ação da pessoa usuária.
 - Janelas independentes que podem ser arrastadas, minimizadas, maximizadas, restauradas e fechadas.
 - Barra superior, atalhos laterais e dock que se revelam ao aproximar o ponteiro das bordas.
 - Layout fluido, sem resolução fixa, acompanhando o espaço disponível.
-- Aplicativos internos: Mail demonstrativo, Trash, Files demonstrativo, Save Center, Internet, Notes, Personalize e Picatsso.
+- Aplicativos internos: Mail demonstrativo, Trash, Files demonstrativo, Save Center, Internet, Biblioteca, Notes, Personalize e Picatsso.
 - Internet v0.6.0: blogoteca com quatro páginas Neocities testadas e pesquisa própria no Internet Archive por filmes, vídeos, áudio, livros, textos, software e imagens; resultados abrem no player/leitor do acervo.
 - Temas, escala da interface, grade, decorações, wallpaper e perfis JSON.
 - Notes v0.4.0: biblioteca de notas com autosave, busca, checklist, cores, favoritos, arquivamento, duplicação, importação/exportação JSON e papéis adesivos fixados no desktop.
@@ -55,6 +58,8 @@ O workflow também executa automaticamente em cada novo push. A URL pública só
 Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notificações, Wi-Fi, Bluetooth ou launcher nativo. A nuvem e a sincronização ainda não estão conectadas; Files apenas mostra nomes e tamanhos de arquivos escolhidos localmente. Na Internet v0.6.0 não há navegador geral nem abertura de endereços arbitrários: somente os blogs selecionados e o acervo do Internet Archive.
 
 ## Documentação
+
+- [Biblioteca v0.7.0 — catálogos, leitores e estante](docs/BIBLIOTECA_V0.7.0.md)
 
 - [Identidade visual e personalização](docs/IDENTIDADE_VISUAL_E_PERSONALIZACAO.md)
 - [Arquitetura e limites do ChromeOS](docs/ARQUITETURA_E_LIMITES_CHROMEOS.md)
