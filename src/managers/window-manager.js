@@ -3,6 +3,7 @@ import { toast } from '../core/notifications.js';
 
 let zIndex = 30;
 let dragState = null;
+let resizeState = null;
 let elements = null;
 
 export function getWindow(id) {
@@ -147,7 +148,7 @@ function pointerPoint(event) { return { x: event.clientX, y: event.clientY }; }
 
 function beginWindowDrag(event) {
   const head = event.target.closest?.('.window-head');
-  if (!head || event.target.closest?.('.window-actions button') || dragState || event.isPrimary === false || (event.button !== undefined && event.button !== 0)) return;
+  if (!head || event.target.closest?.('.window-actions button') || dragState || resizeState || event.isPrimary === false || (event.button !== undefined && event.button !== 0)) return;
   const windowElement = head.closest('.window');
   const { scene, desktop, closeTarget } = elements;
   if (!windowElement || windowElement.parentNode !== scene) return;
@@ -165,7 +166,7 @@ function beginWindowDrag(event) {
 }
 
 function moveWindowDrag(event) {
-  if (!dragState || (event.pointerId !== undefined && event.pointerId !== dragState.pointerId)) return;
+  if (resizeState || !dragState || (event.pointerId !== undefined && event.pointerId !== dragState.pointerId)) return;
   const point = pointerPoint(event);
   const sceneRect = elements.scene.getBoundingClientRect();
   const windowElement = dragState.windowElement;
@@ -211,6 +212,86 @@ function finishWindowDrag(event, cancelled = false) {
   }
 }
 
+
+function beginWindowResize(event) {
+  const handle = event.target.closest?.('[data-window-resize]');
+  if (!handle || dragState || resizeState || event.isPrimary === false || (event.button !== undefined && event.button !== 0)) return;
+  const win = handle.closest('.window');
+  const { scene, desktop } = elements;
+  if (!win || win.parentNode !== scene || win.classList.contains('hidden')) return;
+  event.preventDefault();
+  event.stopPropagation();
+  activateWindow(win);
+  const rect = win.getBoundingClientRect();
+  const sceneRect = scene.getBoundingClientRect();
+  const left = rect.left - sceneRect.left;
+  const top = rect.top - sceneRect.top;
+  resizeState = {
+    windowElement: win, pointerId: event.pointerId, direction: handle.dataset.windowResize,
+    startX: event.clientX, startY: event.clientY, left, top,
+    width: rect.width, height: rect.height, right: left + rect.width, bottom: top + rect.height
+  };
+  desktop.classList.add('is-window-resizing');
+  desktop.classList.remove('topbar-open', 'sidebar-open', 'dock-open');
+  win.classList.add('resizing');
+  try { scene.setPointerCapture(event.pointerId); } catch (error) { /* Pointer capture is optional. */ }
+}
+
+function moveWindowResize(event) {
+  if (!resizeState || (event.pointerId !== undefined && event.pointerId !== resizeState.pointerId)) return;
+  event.preventDefault();
+  const current = resizeState;
+  const sceneRect = elements.scene.getBoundingClientRect();
+  const direction = current.direction;
+  const dx = event.clientX - current.startX;
+  const dy = event.clientY - current.startY;
+  const minWidth = Math.min(220, Math.max(48, sceneRect.width - 12));
+  const minHeight = Math.min(150, Math.max(48, sceneRect.height - 12));
+  let width = current.width, height = current.height, left = current.left, top = current.top;
+  if (direction.includes('e')) {
+    const maxWidth = Math.max(minWidth, sceneRect.width - current.left - 6);
+    width = Math.max(minWidth, Math.min(maxWidth, current.width + dx));
+  }
+  if (direction.includes('w')) {
+    const maxWidth = Math.max(minWidth, current.right - 6);
+    width = Math.max(minWidth, Math.min(maxWidth, current.width - dx));
+    left = current.right - width;
+  }
+  if (direction.includes('s')) {
+    const maxHeight = Math.max(minHeight, sceneRect.height - current.top - 6);
+    height = Math.max(minHeight, Math.min(maxHeight, current.height + dy));
+  }
+  if (direction.includes('n')) {
+    const maxHeight = Math.max(minHeight, current.bottom - 6);
+    height = Math.max(minHeight, Math.min(maxHeight, current.height - dy));
+    top = current.bottom - height;
+  }
+  left = Math.max(6, Math.min(Math.max(6, sceneRect.width - width - 6), left));
+  top = Math.max(6, Math.min(Math.max(6, sceneRect.height - height - 6), top));
+  const win = current.windowElement;
+  win.style.setProperty('width', Math.round(width) + 'px', 'important');
+  win.style.setProperty('height', Math.round(height) + 'px', 'important');
+  win.style.setProperty('min-width', Math.round(minWidth) + 'px', 'important');
+  win.style.setProperty('min-height', Math.round(minHeight) + 'px', 'important');
+  win.style.left = Math.round(left) + 'px';
+  win.style.top = Math.round(top) + 'px';
+  win.style.right = 'auto';
+}
+
+function finishWindowResize(event) {
+  if (!resizeState || (event?.pointerId !== undefined && event.pointerId !== resizeState.pointerId)) return;
+  const current = resizeState;
+  const win = current.windowElement;
+  resizeState = null;
+  elements.desktop.classList.remove('is-window-resizing');
+  win.classList.remove('resizing');
+  try {
+    if (elements.scene.hasPointerCapture(current.pointerId)) elements.scene.releasePointerCapture(current.pointerId);
+  } catch (error) { /* Pointer capture may already have been released. */ }
+  commitWindowPosition(win);
+  clampWindow(win);
+}
+
 export function handleWindowControls(event) {
   const close = event.target.closest('[data-close]');
   const minimize = event.target.closest('[data-min]');
@@ -230,10 +311,12 @@ export function initializeWindowManager() {
   elements = { desktop: $('#desktop'), scene: $('#scene'), fullLayer: $('#fullscreenLayer'), closeTarget: $('#closeTarget') };
   const { desktop, scene } = elements;
   if (!desktop || !scene || !elements.fullLayer || !elements.closeTarget) throw new Error('Galaxy Legacy window manager could not find its required desktop elements.');
+  scene.addEventListener('pointerdown', beginWindowResize, true);
   scene.addEventListener('pointerdown', beginWindowDrag, true);
+  document.addEventListener('pointermove', moveWindowResize, { passive: false });
   document.addEventListener('pointermove', moveWindowDrag, { passive: false });
-  document.addEventListener('pointerup', event => finishWindowDrag(event, false));
-  document.addEventListener('pointercancel', event => finishWindowDrag(event, true));
+  document.addEventListener('pointerup', event => { finishWindowResize(event); finishWindowDrag(event, false); });
+  document.addEventListener('pointercancel', event => { finishWindowResize(event); finishWindowDrag(event, true); });
   scene.addEventListener('dblclick', event => {
     const head = event.target.closest('.window-head');
     if (head && !event.target.closest('button')) enterFullscreen(head.closest('.window'));
