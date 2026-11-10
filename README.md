@@ -1,11 +1,11 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Versão:** v0.5.0  
+**Versão:** v0.6.0  
 **Plataforma principal:** Chromebook / ChromeOS  
 **Tecnologia:** HTML, CSS e JavaScript nativos; ES Modules; PWA preparada para HTTPS  
 **Identidade:** pixel art + coquette + kawaii desktop
 
-Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/ChromeOS. Ele não substitui o sistema operacional nem exige APK, root ou instalação Linux.
+Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/ChromeOS. Ele não substitui o sistema operacional nem exige APK, root ou instalação Linux. A versão publicada pode ser aberta diretamente em https://galaxy-legacy-chromeos.vercel.app/ sem iniciar o Linux ou um servidor local.
 
 ## O que já funciona
 
@@ -14,7 +14,7 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 - Barra superior, atalhos laterais e dock que se revelam ao aproximar o ponteiro das bordas.
 - Layout fluido, sem resolução fixa, acompanhando o espaço disponível.
 - Aplicativos internos: Mail demonstrativo, Trash, Files demonstrativo, Save Center, Internet, Notes, Personalize e Picatsso.
-- Internet v0.5.0: navegador interno experimental com voltar/avançar/recarregar, atalhos para Tumblr, Neocities e Internet Archive, páginas Neocities selecionadas e conversão de links de YouTube, Internet Archive, Spotify e CodePen para embeds quando possível; abertura externa no Chrome como fallback.
+- Internet v0.6.0: blogoteca com quatro páginas Neocities testadas e pesquisa própria no Internet Archive por filmes, vídeos, áudio, livros, textos, software e imagens; resultados abrem no player/leitor do acervo.
 - Temas, escala da interface, grade, decorações, wallpaper e perfis JSON.
 - Notes v0.4.0: biblioteca de notas com autosave, busca, checklist, cores, favoritos, arquivamento, duplicação, importação/exportação JSON e papéis adesivos fixados no desktop.
 - Wallpaper armazenado no IndexedDB local.
@@ -52,7 +52,7 @@ O workflow também executa automaticamente em cada novo push. A URL pública só
 
 ## Limites atuais
 
-Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notificações, Wi-Fi, Bluetooth ou launcher nativo. A nuvem e a sincronização ainda não estão conectadas; Files apenas mostra nomes e tamanhos de arquivos escolhidos localmente. Alguns sites bloqueiam incorporação por iframe e precisam abrir em uma nova aba do Chrome.
+Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notificações, Wi-Fi, Bluetooth ou launcher nativo. A nuvem e a sincronização ainda não estão conectadas; Files apenas mostra nomes e tamanhos de arquivos escolhidos localmente. Na Internet v0.6.0 não há navegador geral nem abertura de endereços arbitrários: somente os blogs selecionados e o acervo do Internet Archive.
 
 ## Documentação
 
@@ -61,7 +61,8 @@ Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notific
 - [Interações e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md)
 - [Pesquisa de referências open source](docs/PESQUISA_REFERENCIAS_DESKTOP_WEB.md)
 - [Pesquisa de Notes e papéis adesivos](docs/PESQUISA_NOTES_E_STICKY_DESKTOP.md)
-- [Pesquisa de sites incorporáveis na Internet](docs/PESQUISA_INTERNET_EMBEDS_E_SITES.md)
+- [Internet v0.6.0 — Neocities + Internet Archive](docs/INTERNET_V0.6.0.md)
+- [Pesquisa de sites incorporáveis na Internet (histórico)](docs/PESQUISA_INTERNET_EMBEDS_E_SITES.md)
 - [Notes v0.4.0 e Sticky Desktop](docs/NOTES_V0.4.0.md)
 - [Refatoração modular](docs/MODULARIZACAO_V0.3.0.md)
 - [Correção do hover dos painéis](docs/BUGFIX_V0.3.4_HOVER_PAINES.md)
@@ -72,11 +73,11 @@ Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notific
 O `index.html` é a entrada do projeto modular e usa ES Modules. Ele deve ser servido por HTTPS ou por um servidor local (ex.: `python3 -m http.server 8000`); abrir por duplo clique em `file://` pode bloquear os módulos no Chrome. O `standalone.html` é uma edição independente com CSS/JS incorporados, adequada para abrir diretamente. As duas edições compartilham a mesma direção visual, mas seus dados locais podem ficar em contextos de armazenamento diferentes.
 
 
-## Internet v0.5.0
+## Internet v0.6.0
 
-A janela Internet tenta abrir páginas compatíveis em um iframe isolado. Inclui atalhos para Tumblr, Neocities e Internet Archive, um campo dedicado para carregar blogs públicos Tumblr via widget oficial e uma seleção de páginas Neocities; links de vídeo do YouTube, itens do Internet Archive, conteúdo do Spotify e projetos do CodePen são convertidos para endpoints de incorporação quando reconhecidos. Os controles voltar/avançar acompanham as navegações feitas pelos atalhos e pela barra do Galaxy.
+A janela Internet tem apenas dois espaços. **Neocities** reúne quatro blogs selecionados e testados, abertos dentro da própria janela. **Internet Archive** consulta a API pública de busca do Archive.org e permite filtrar por filmes/vídeos, áudio, livros/textos, software/jogos e imagens. Ao escolher um resultado, o Galaxy carrega o player ou leitor oficial do item. Não há pesquisa Google, tags Neocities, campo para endereços genéricos, Tumblr, YouTube, Spotify ou navegação para sites aleatórios.
 
-A exibição interna é experimental: o evento de carregamento do iframe não garante que o conteúdo foi renderizado. Sites podem bloquear enquadramento, exigir autenticação/cookies ou impedir recursos de terceiros. **ABRIR NO CHROME** permanece disponível como alternativa. O Galaxy não injeta scripts de terceiros no DOM principal nem tenta contornar políticas de segurança dos sites. Veja [INTERNET_V0.5.0.md](docs/INTERNET_V0.5.0.md) e [a pesquisa de embeds](docs/PESQUISA_INTERNET_EMBEDS_E_SITES.md).
+A busca usa `advancedsearch.php` do Internet Archive, e a visualização usa o endereço de incorporação `archive.org/embed/IDENTIFIER`. Alguns itens podem não ter player, estar indisponíveis ou possuir restrições específicas; nesse caso, o botão **PÁGINA COMPLETA** abre a ficha do próprio item no Archive.org. Os blogs Neocities também podem mudar suas políticas ou sair do ar. Veja [INTERNET_V0.6.0.md](docs/INTERNET_V0.6.0.md).
 
 ## Notes v0.4.0
 
