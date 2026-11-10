@@ -117,3 +117,16 @@ O modelo de janelas deve seguir o protótipo anterior do tablet, adaptado ao Chr
 O shell deve ocupar a área disponível, usar linhas flexíveis e rolagem interna por janela. Não deve produzir rolagem horizontal em telas estreitas. Os testes automatizados preliminares de 1280×800, 1280×540 e 390×844 estão registrados em [Interações de janelas e layout responsivo](INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md).
 
 A homologação no Chromebook real continua pendente. As medições automatizadas não comprovam desempenho físico nem a instalação PWA via HTTPS.
+
+
+## 11. Workspace imersivo e painéis auto-ocultáveis — v0.2.1
+
+A área de trabalho usa todo o viewport. A barra superior, o painel lateral e o dock são camadas sobrepostas, não colunas/linhas reservadas do layout. Permanecem completamente fora da área visível até o ponteiro aproximar-se da borda correspondente:
+
+- Borda superior revela a barra superior.
+- Borda esquerda revela os atalhos laterais.
+- Borda inferior revela o dock.
+
+Cada painel permanece visível enquanto o ponteiro estiver sobre ele e se recolhe quando o ponteiro sai. Em telas touch, o usuário pode tocar na borda para alternar a visibilidade. Durante o arraste de janelas, as barras se recolhem para deixar livres os gestos de maximização e fechamento.
+
+A mudança não substitui a área de trabalho pelo ChromeOS: é uma organização visual dentro da janela do Galaxy Legacy.
