@@ -21,3 +21,15 @@ jobs:
           node-version: 22
       - name: Verify JavaScript, structure and Internet embeds
         run: npm run verify
+
+      - name: Package Galaxy Legacy v0.5.0
+        run: |
+          zip -r Galaxy-Legacy-ChromeOS-v0.5.0.zip . \
+            -x ".git/*" "node_modules/*" "Galaxy-Legacy-ChromeOS-v0.5.0.zip"
+      - name: Upload ZIP package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Galaxy-Legacy-ChromeOS-v0.5.0
+          path: Galaxy-Legacy-ChromeOS-v0.5.0.zip
+          if-no-files-found: error
+          retention-days: 14
