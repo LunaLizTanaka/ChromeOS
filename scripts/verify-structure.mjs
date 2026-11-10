@@ -10,6 +10,10 @@ const packageJson = JSON.parse(read('package.json'));
 
 const appRegistry = read('src/apps/app-registry.js');
 const edgePanelManager = read('src/managers/edge-panel-manager.js');
+const paintApp = read('src/apps/paint-app.js');
+if (!paintApp.includes("$$('[data-color]', root).forEach") || !paintApp.includes("$$('[data-tool]', root).forEach")) {
+  throw new Error('Picatsso lists of color swatches and tools must use multi-element selectors.');
+}
 if (!edgePanelManager.includes("const pointerWithinSidebar = desktop.classList.contains('sidebar-open')")) {
   throw new Error('Opening the dock must not cover the sidebar actions.');
 }
