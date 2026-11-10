@@ -6,6 +6,6 @@
   "description": "Galaxy Legacy ChromeOS pixel coquette desktop with multi-note library and pinned sticky papers",
   "scripts": {
     "check": "node --check src/main.js && node --check src/core/dom.js && node --check src/core/notifications.js && node --check src/core/settings.js && node --check src/core/storage.js && node --check src/managers/desktop-manager.js && node --check src/managers/edge-panel-manager.js && node --check src/managers/window-manager.js && node --check src/apps/app-registry.js && node --check src/apps/app-templates.js && node --check src/apps/notes-manager.js && node --check src/apps/paint-app.js && node --check src/apps/internet-manager.js",
-    "verify": "npm run check && node scripts/verify-structure.mjs"
+    "verify": "npm run check && node scripts/verify-structure.mjs && node scripts/verify-internet.mjs"
   }
 }
