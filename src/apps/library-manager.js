@@ -53,6 +53,16 @@ function safeUrl(value) {
   catch { return ''; }
 }
 
+export function isInternalLibraryUrl(value) {
+  const safe = safeUrl(value);
+  if (!safe) return false;
+  const hostname = new URL(safe).hostname.toLowerCase().replace(/^www\\./, '');
+  const allowedHosts = LIBRARY_PLATFORMS
+    .filter(platform => platform.mode !== 'external')
+    .map(platform => new URL(platform.url).hostname.toLowerCase().replace(/^www\\./, ''));
+  return allowedHosts.some(domain => hostname === domain || hostname.endsWith('.' + domain));
+}
+
 function el(tag, className, value) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -124,18 +134,9 @@ export function initializeLibraryApp(win) {
   const readerBrowserReload = $('#libraryBrowserReload');
   const readerTitle = $('#libraryReaderTitle');
   const readerStatus = $('#libraryReaderStatus');
-  const internalHosts = LIBRARY_PLATFORMS
-    .filter(platform => platform.mode !== 'external')
-    .map(platform => new URL(platform.url).hostname.toLowerCase().replace(/^www\\./, ''));
   let readerHistory = [];
   let readerHistoryIndex = -1;
-
-  const isAllowedLibraryAddress = value => {
-    const safe = safeUrl(value);
-    if (!safe) return false;
-    const hostname = new URL(safe).hostname.toLowerCase().replace(/^www\\./, '');
-    return internalHosts.some(domain => hostname === domain || hostname.endsWith('.' + domain));
-  };
+  const isAllowedLibraryAddress = isInternalLibraryUrl;
 
   const updateReaderNavigation = () => {
     if (readerBrowserBack) readerBrowserBack.disabled = readerHistoryIndex <= 0;
