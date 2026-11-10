@@ -86,3 +86,17 @@
   .archive-results-grid{grid-template-columns:1fr 1fr;}
   .internet-blog-art{width:36px;height:36px;flex-basis:36px;}
 }
+
+
+/* Resize-aware viewers: embedded pages follow the actual Internet window dimensions. */
+.internet-app{height:100%;min-height:0;overflow:hidden;}
+.internet-panel{flex:1 1 auto;min-height:0;}
+#neocitiesPanel .internet-blog-viewer,
+#archivePanel .archive-item-viewer{flex:1 1 auto;min-height:0;}
+#neocitiesPanel .internet-frame,
+#archivePanel .internet-frame{flex:1 1 0;height:auto;min-height:0;max-height:none;}
+#neocitiesPanel .internet-frame iframe,
+#archivePanel .internet-frame iframe{width:100%;height:100%;min-height:0;}
+#archivePanel .archive-results-area{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;}
+#archivePanel .archive-search-status{flex:0 0 auto;}
+.archive-result-subject{color:#947587;font-size:8px;line-height:1.35;overflow-wrap:anywhere;}
