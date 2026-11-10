@@ -42,7 +42,8 @@ const unknownTypeSearch = new URL(buildArchiveSearchUrl('classic cinema', 'unkno
 assert.equal(unknownTypeSearch.searchParams.get('q'), '(title:"classic cinema" OR creator:"classic cinema")');
 
 const escapedSearch = new URL(buildArchiveSearchUrl('music "live"'));
-assert.equal(escapedSearch.searchParams.get('q'), '"music \\"live\\""');
+const escapedTerm = 'music "live"'.replace(/"/g, '\\"');
+assert.equal(escapedSearch.searchParams.get('q'), '(title:"' + escapedTerm + '" OR creator:"' + escapedTerm + '")');
 
 assert.equal(buildArchiveEmbedUrl('Night.Of.The.Living.Dead_1080p'),
   'https://archive.org/embed/Night.Of.The.Living.Dead_1080p');
