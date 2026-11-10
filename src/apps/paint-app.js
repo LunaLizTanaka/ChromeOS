@@ -43,15 +43,15 @@ export function initializePaintApp(root = document) {
   canvas.addEventListener('pointerup', stopDrawing);
   canvas.addEventListener('pointercancel', stopDrawing);
   canvas.addEventListener('lostpointercapture', stopDrawing);
-  $('[data-color]', root).forEach(button => {
+  $$('[data-color]', root).forEach(button => {
     button.addEventListener('click', () => {
-      $('[data-color]', root).forEach(item => item.classList.remove('selected'));
+      $$('[data-color]', root).forEach(item => item.classList.remove('selected'));
       button.classList.add('selected');
       paintColor = button.dataset.color;
       tool = 'pen';
     });
   });
-  $('[data-tool]', root).forEach(button => {
+  $$('[data-tool]', root).forEach(button => {
     button.addEventListener('click', () => {
       tool = button.dataset.tool;
       toast(`Tool: ${tool}`);
