@@ -26,24 +26,24 @@ assert.equal(buildArchiveDetailsUrl(''), 'https://archive.org/');
 const audioSearch = new URL(buildArchiveSearchUrl('Moonlight Sonata', 'audio', 2));
 assert.equal(audioSearch.origin, 'https://archive.org');
 assert.equal(audioSearch.pathname, '/advancedsearch.php');
-assert.equal(audioSearch.searchParams.get('q'), '(title:"Moonlight Sonata" OR creator:"Moonlight Sonata") AND mediatype:audio');
+assert.equal(audioSearch.searchParams.get('q'), '(Moonlight Sonata) AND mediatype:audio');
 assert.equal(audioSearch.searchParams.get('output'), 'json');
-assert.equal(audioSearch.searchParams.get('rows'), '12');
+assert.equal(audioSearch.searchParams.get('rows'), '18');
 assert.equal(audioSearch.searchParams.get('page'), '2');
 assert.deepEqual(audioSearch.searchParams.getAll('fl[]'), [
-  'identifier', 'title', 'creator', 'year', 'mediatype'
+  'identifier', 'title', 'creator', 'date', 'year', 'mediatype', 'subject'
 ]);
 
 const allSearch = new URL(buildArchiveSearchUrl('Pride and Prejudice'));
-assert.equal(allSearch.searchParams.get('q'), '(title:"Pride and Prejudice" OR creator:"Pride and Prejudice")');
+assert.equal(allSearch.searchParams.get('q'), 'Pride and Prejudice');
 assert.equal(allSearch.searchParams.get('page'), '1');
 
 const unknownTypeSearch = new URL(buildArchiveSearchUrl('classic cinema', 'unknown'));
-assert.equal(unknownTypeSearch.searchParams.get('q'), '(title:"classic cinema" OR creator:"classic cinema")');
+assert.equal(unknownTypeSearch.searchParams.get('q'), 'classic cinema');
 
 const escapedSearch = new URL(buildArchiveSearchUrl('music "live"'));
-const escapedTerm = 'music "live"'.replace(/"/g, '\\"');
-assert.equal(escapedSearch.searchParams.get('q'), '(title:"' + escapedTerm + '" OR creator:"' + escapedTerm + '")');
+const escapedTerm = 'music ' + '\\' + '"live' + '\\' + '"';
+assert.equal(escapedSearch.searchParams.get('q'), escapedTerm);
 
 assert.equal(buildArchiveEmbedUrl('Night.Of.The.Living.Dead_1080p'),
   'https://archive.org/embed/Night.Of.The.Living.Dead_1080p');
