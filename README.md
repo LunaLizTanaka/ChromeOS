@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Estado:** protótipo funcional v0.2.0 (janelas e responsividade)  
+**Estado:** protótipo funcional v0.2.1 (workspace imersivo e barras auto-ocultáveis)  
 **Plataforma principal:** Chromebook com ChromeOS  
 **Formato:** website/PWA, sem aplicativo Android nativo  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -100,3 +100,16 @@ O modo de tela cheia é interno ao Galaxy Legacy e não substitui a tela cheia g
 Consulte [Interações de janelas e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md).
 
 **Entrega de teste v0.2.0:** HTML independente e pacote ZIP disponibilizados nesta conversa. O código ainda precisa ser sincronizado como fonte versionado do repositório antes de publicar a PWA.
+
+
+## v0.2.1 — workspace imersivo
+
+- Removida a faixa superior de apresentação com o texto “Chantei's sticker club” e a frase complementar.
+- A área de trabalho agora ocupa 100% da janela da aplicação.
+- Barra superior, lateral de atalhos e dock ficam completamente escondidos por padrão, fora da área visível.
+- O ponteiro revela a barra correspondente ao alcançar a borda superior, esquerda ou inferior; a barra se recolhe quando o ponteiro sai de sua área.
+- Em telas sensíveis ao toque, as bordas podem ser tocadas para revelar os painéis.
+- As barras se recolhem durante o arraste das janelas para não interferir com maximização e fechamento.
+- Janelas móveis, minimizar, fechar, modo de tela cheia e retorno preservando conteúdo foram mantidos.
+
+Consulte [Interações de janelas e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md) para critérios e resultados de validação.
