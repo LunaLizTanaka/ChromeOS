@@ -202,18 +202,7 @@ export function initializeLibraryApp(win) {
     showFrame(new URL(value).hostname, value, 'Navegação pela barra interna');
   });
 
-  readerBrowserBack?.addEventListener('click', () => {
-    const frame = readerHost.querySelector('iframe');
-    try {
-      const childHistory = frame?.contentWindow?.history;
-      if (childHistory && childHistory.length > 1) {
-        childHistory.back();
-        return;
-      }
-    } catch { /* Cross-origin pages keep their own private history. */ }
-    navigateReaderHistory(readerHistoryIndex - 1);
-  });
-
+  readerBrowserBack?.addEventListener('click', () => navigateReaderHistory(readerHistoryIndex - 1));
   readerBrowserForward?.addEventListener('click', () => navigateReaderHistory(readerHistoryIndex + 1));
   readerBrowserReload?.addEventListener('click', () => {
     const entry = readerHistory[readerHistoryIndex];
