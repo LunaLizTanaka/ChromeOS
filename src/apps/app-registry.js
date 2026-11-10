@@ -6,6 +6,7 @@ import { appTitles, renderAppContent, escapeHtml } from './app-templates.js';
 import { initializePaintApp } from './paint-app.js';
 import { initializeNotesApp } from './notes-manager.js';
 import { initializeInternetApp } from './internet-manager.js';
+import { initializeLibraryApp } from './library-manager.js';
 
 function normalizeWebAddress(value) {
   const input = String(value || '').trim();
@@ -33,6 +34,7 @@ function bindApp(name, win) {
   if (name === 'notes') initializeNotesApp(win);
 
   if (name === 'internet') initializeInternetApp(win);
+  if (name === 'library') initializeLibraryApp(win);
 
   if (name === 'files') {
     $('#localFiles', win).addEventListener('change', event => {
