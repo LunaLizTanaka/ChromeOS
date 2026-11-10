@@ -9,6 +9,10 @@ const manifest = JSON.parse(read('manifest.webmanifest'));
 const packageJson = JSON.parse(read('package.json'));
 
 const appRegistry = read('src/apps/app-registry.js');
+const edgePanelManager = read('src/managers/edge-panel-manager.js');
+if (!edgePanelManager.includes("const pointerWithinSidebar = desktop.classList.contains('sidebar-open')")) {
+  throw new Error('Opening the dock must not cover the sidebar actions.');
+}
 if (!appRegistry.includes("const openCount = $$('#scene > .window:not(.hidden)').length;")) {
   throw new Error('App window count must use the multi-element selector so the first application can open.');
 }
