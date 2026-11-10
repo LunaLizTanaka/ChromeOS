@@ -8,7 +8,7 @@
 - Navegação interna por iframe isolado, mantendo a opção de abrir o endereço em uma nova aba do Chrome.
 - Barra de endereço que aceita URLs e termos de pesquisa.
 - Botões Voltar, Avançar e Recarregar para as navegações iniciadas pela própria janela Internet.
-- Atalhos para Tumblr, Neocities e Internet Archive.
+- Atalhos para Tumblr, Neocities e Internet Archive. Para blogs públicos no formato nome.tumblr.com, o campo dedicado usa o widget oficial /js dentro de um iframe com sandbox isolado.
 - Diretórios Neocities por tags e uma seleção inicial: Sweet-pea, Sakura Dreams, Pixel Safari e Neocities RSS List.
 - Atalhos de descoberta para YouTube, itch.io, CodePen e Spotify.
 - Conversão automática de URLs reconhecidas:
@@ -20,7 +20,7 @@
 
 ## Limites reais
 
-A janela utiliza iframe e não é um navegador Chromium independente. Sites podem enviar X-Frame-Options ou CSP frame-ancestors para bloquear a incorporação. O Galaxy não tenta contornar essas políticas. Login, cookies de terceiros, reprodução de mídia e interações podem funcionar de forma diferente dentro de um iframe.
+A janela utiliza iframe e não é um navegador Chromium independente. Sites podem enviar X-Frame-Options ou CSP frame-ancestors para bloquear a incorporação. O Galaxy não tenta contornar essas políticas. O widget público do Tumblr não equivale ao dashboard completo nem garante interações que exigem login. Cookies de terceiros, reprodução de mídia e outros recursos podem funcionar de forma diferente dentro de um iframe.
 
 O evento load do iframe não confirma que o conteúdo ficou visível. Por isso, a interface avisa a pessoa usuária para verificar o resultado e mantém a opção ABRIR NO CHROME. Links internos clicados dentro de páginas externas não são adicionados ao histórico do Galaxy; Voltar/Avançar acompanham apenas as navegações iniciadas pelos controles e atalhos do Galaxy.
 
