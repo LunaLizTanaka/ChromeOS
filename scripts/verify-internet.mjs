@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
-import { buildEmbeddableUrl, normalizeWebAddress } from '../src/apps/internet-manager.js';
+import { buildEmbeddableUrl, getTumblrBlogName, normalizeWebAddress } from '../src/apps/internet-manager.js';
 
-assert.equal(normalizeWebAddress(''), '');
+assert.equal(normalizeWebAddress(''), '');\nassert.equal(getTumblrBlogName('https://your-blog.tumblr.com/'), 'your-blog');\nassert.equal(getTumblrBlogName('https://www.tumblr.com/'), '');\nassert.equal(getTumblrBlogName('https://your-blog.tumblr.com/post/123'), '');
 assert.equal(normalizeWebAddress('neocities.org/browse'), 'https://neocities.org/browse');
 assert.equal(normalizeWebAddress('flores kawaii'), 'https://www.google.com/search?q=flores%20kawaii');
 assert.equal(normalizeWebAddress('javascript:alert(1)'), 'https://www.google.com/search?q=javascript%3Aalert(1)');
