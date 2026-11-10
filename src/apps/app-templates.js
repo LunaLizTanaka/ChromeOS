@@ -55,6 +55,13 @@ function renderInternet() {
             <span class="internet-site-symbol archive-symbol">▣</span><span><strong>INTERNET ARCHIVE</strong><small>Livros, mídia e Wayback Machine</small></span>
           </button>
         </div>
+        <div class="internet-tumblr-box">
+          <div><strong>Incorporar um blog público do Tumblr</strong><small>Digite o nome do blog ou o domínio, como nome-do-blog.tumblr.com.</small></div>
+          <div class="internet-tumblr-row">
+            <input class="field" id="tumblrBlogInput" type="text" placeholder="nome-do-blog.tumblr.com" aria-label="Nome ou domínio do blog Tumblr">
+            <button class="pixel-btn" type="button" id="openTumblrBlog">VER BLOG AQUI</button>
+          </div>
+        </div>
         <div class="internet-section-heading internet-subheading"><div><span class="internet-kicker">NEOCITIES · PÁGINAS PARA EXPLORAR</span><h3>Pequenos cantinhos da web</h3></div></div>
         <div class="internet-link-grid">
           <button type="button" data-internet-url="https://sweet-pea.neocities.org/"><strong>Sweet-pea</strong><small>Pastel, kawaii, layouts e graphics</small></button>
