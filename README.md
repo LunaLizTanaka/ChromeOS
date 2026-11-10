@@ -74,7 +74,7 @@ O `index.html` é a entrada do projeto modular e usa ES Modules. Ele deve ser se
 
 ## Internet v0.5.0
 
-A janela Internet tenta abrir páginas compatíveis em um iframe isolado. Inclui atalhos para Tumblr, Neocities, Internet Archive e uma seleção de páginas Neocities; links de vídeo do YouTube, itens do Internet Archive, conteúdo do Spotify e projetos do CodePen são convertidos para endpoints de incorporação quando reconhecidos. Os controles voltar/avançar acompanham as navegações feitas pelos atalhos e pela barra do Galaxy.
+A janela Internet tenta abrir páginas compatíveis em um iframe isolado. Inclui atalhos para Tumblr, Neocities e Internet Archive, um campo dedicado para carregar blogs públicos Tumblr via widget oficial e uma seleção de páginas Neocities; links de vídeo do YouTube, itens do Internet Archive, conteúdo do Spotify e projetos do CodePen são convertidos para endpoints de incorporação quando reconhecidos. Os controles voltar/avançar acompanham as navegações feitas pelos atalhos e pela barra do Galaxy.
 
 A exibição interna é experimental: o evento de carregamento do iframe não garante que o conteúdo foi renderizado. Sites podem bloquear enquadramento, exigir autenticação/cookies ou impedir recursos de terceiros. **ABRIR NO CHROME** permanece disponível como alternativa. O Galaxy não injeta scripts de terceiros no DOM principal nem tenta contornar políticas de segurança dos sites. Veja [INTERNET_V0.5.0.md](docs/INTERNET_V0.5.0.md) e [a pesquisa de embeds](docs/PESQUISA_INTERNET_EMBEDS_E_SITES.md).
 
