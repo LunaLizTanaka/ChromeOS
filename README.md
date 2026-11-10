@@ -61,6 +61,7 @@ Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notific
 - [Interações e layout responsivo](docs/INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md)
 - [Pesquisa de referências open source](docs/PESQUISA_REFERENCIAS_DESKTOP_WEB.md)
 - [Pesquisa de Notes e papéis adesivos](docs/PESQUISA_NOTES_E_STICKY_DESKTOP.md)
+- [Pesquisa de sites incorporáveis na Internet](docs/PESQUISA_INTERNET_EMBEDS_E_SITES.md)
 - [Notes v0.4.0 e Sticky Desktop](docs/NOTES_V0.4.0.md)
 - [Refatoração modular](docs/MODULARIZACAO_V0.3.0.md)
 - [Correção do hover dos painéis](docs/BUGFIX_V0.3.4_HOVER_PAINES.md)
