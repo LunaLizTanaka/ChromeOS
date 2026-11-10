@@ -38,8 +38,9 @@ export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1) {
   // Search a quoted phrase in the Archive's own metadata index.
   const escapedPhrase = cleanTerm.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
   const phrase = '"' + escapedPhrase + '"';
+  const titleAndCreator = '(title:' + phrase + ' OR creator:' + phrase + ')';
   const type = ARCHIVE_MEDIA_TYPES.has(mediaType) ? mediaType : 'all';
-  const query = type === 'all' ? phrase : phrase + ' AND mediatype:' + type;
+  const query = type === 'all' ? titleAndCreator : titleAndCreator + ' AND mediatype:' + type;
   const safePage = Math.max(1, Math.floor(Number(page) || 1));
 
   const url = new URL('https://archive.org/advancedsearch.php');
