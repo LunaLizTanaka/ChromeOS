@@ -59,6 +59,17 @@ if (!internetTemplate.includes('data-library-tab="sites"') || !internetTemplate.
 if (!libraryManager.includes('https://openlibrary.org/search.json') || !libraryManager.includes('https://archive.org/stream/') || !libraryManager.includes('gl-library-v1')) {
   throw new Error('The Library must retain Open Library search, BookReader links and local shelf storage.');
 }
+if (!internetTemplate.includes('id="libraryReaderAddressForm"') ||
+    !internetTemplate.includes('id="libraryBrowserBack"') ||
+    !internetTemplate.includes('id="libraryBrowserForward"') ||
+    !internetTemplate.includes('id="libraryBrowserReload"')) {
+  throw new Error('The Library must expose internal navigation controls.');
+}
+if (!libraryManager.includes('isInternalLibraryUrl') ||
+    !libraryManager.includes('readerHistory') ||
+    !libraryManager.includes('ABRIR NA BIBLIOTECA')) {
+  throw new Error('The Library must validate internal addresses and keep its own navigation history.');
+}
 if (!libraryStyles.includes('.library-platform-grid') || !libraryStyles.includes('.library-reader-frame')) {
   throw new Error('Library styles are incomplete.');
 }
@@ -76,7 +87,7 @@ if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-re
     !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
   throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
 }
-if (packageJson.version !== '0.7.0' || manifest.version !== '0.7.0' || !html.includes('v0.7.0')) {
+if (packageJson.version !== '0.8.0' || manifest.version !== '0.8.0' || !html.includes('v0.8.0')) {
   throw new Error('Project package, manifest and page title must match version 0.6.0.');
 }
 
