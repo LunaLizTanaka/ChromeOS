@@ -1,5 +1,14 @@
 # Histórico de versões — Galaxy Legacy
 
+## v0.7.0 — Biblioteca de leitura
+- Aplicativo independente Biblioteca para livros, mangás, novels e fanfics.
+- Catálogo de 16 plataformas, incluindo AO3, Novel Updates, Wattpad, Spirit Fanfics, MANGA Plus, Comikey, WEBTOON, VIZ, Wuxiaworld, Royal Road, Scribble Hub e Ciweimao.
+- Busca no Internet Archive e Open Library; BookReader oficial quando há item disponível.
+- Estante local com favoritos por link e importação/exportação JSON.
+- Mantido o aplicativo Internet e suas funções existentes.
+
+# Histórico de versões — Galaxy Legacy
+
 ## v0.4.0 — Notes e papéis adesivos
 - Biblioteca com várias notas independentes.
 - Autosave, busca, cores, checklist, favoritas, arquivamento e duplicação.
