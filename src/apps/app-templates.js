@@ -12,80 +12,55 @@ export function escapeHtml(value) {
 
 
 function renderInternet() {
-  return `
-    <div class="internet-app" id="internetApp">
-      <div class="internet-intro">
-        <div><strong>♡ INTERNET</strong><p class="muted">Seu pequeno portal para blogs, arquivos, jogos e descobertas da web.</p></div>
-        <span class="internet-version">INTERNAL WEB</span>
-      </div>
-      <form class="internet-search" id="internetForm">
-        <label class="field-label" for="webAddress">ENDEREÇO OU PESQUISA</label>
-        <div class="internet-address-row">
-          <input class="field" id="webAddress" type="text" inputmode="url" placeholder="Cole um link ou digite um endereço…" autocomplete="url" aria-label="Endereço ou pesquisa">
-          <button class="pixel-btn" id="openHere" type="submit">ABRIR AQUI</button>
-          <button class="pixel-btn secondary" id="goWeb" type="button">ABRIR NO CHROME ↗</button>
-        </div>
-      </form>
-      <div class="internet-toolbar" aria-label="Controles de navegação">
-        <div class="internet-history">
-          <button class="internet-control" type="button" id="internetBack" title="Voltar" aria-label="Voltar" disabled>←</button>
-          <button class="internet-control" type="button" id="internetForward" title="Avançar" aria-label="Avançar" disabled>→</button>
-          <button class="internet-control" type="button" id="internetReload" title="Recarregar" aria-label="Recarregar" disabled>⟳</button>
-        </div>
-        <button class="pixel-btn secondary internet-current-external" id="openChrome" type="button" hidden>ABRIR ESTA PÁGINA NO CHROME ↗</button>
-        <span class="internet-status" id="internetStatus" role="status" aria-live="polite">Escolha um site ou cole um endereço para começar.</span>
-      </div>
-      <div class="internet-view" id="browserView">
-        <div class="internet-placeholder">
-          <span class="internet-placeholder-symbol">୨୧</span>
-          <strong>SEU ESPAÇO NA INTERNET</strong>
-          <p class="muted">Escolha um atalho abaixo. O Galaxy tentará carregar a página nesta janela.</p>
-        </div>
-      </div>
-      <section class="internet-catalog" aria-labelledby="internetMainSites">
-        <div class="internet-section-heading"><div><span class="internet-kicker">COMECE POR AQUI</span><h3 id="internetMainSites">Seus sites</h3></div><span class="muted">Abertura interna experimental</span></div>
-        <div class="internet-site-grid">
-          <button class="internet-site" type="button" data-internet-url="https://www.tumblr.com/">
-            <span class="internet-site-symbol tumblr-symbol">t</span><span><strong>TUMBLR</strong><small>Blogs, posts e inspirações</small></span>
-          </button>
-          <button class="internet-site" type="button" data-internet-url="https://neocities.org/browse">
-            <span class="internet-site-symbol neocities-symbol">✿</span><span><strong>NEOCITIES</strong><small>Descubra sites independentes</small></span>
-          </button>
-          <button class="internet-site" type="button" data-internet-url="https://archive.org/">
-            <span class="internet-site-symbol archive-symbol">▣</span><span><strong>INTERNET ARCHIVE</strong><small>Livros, mídia e Wayback Machine</small></span>
-          </button>
-        </div>
-        <div class="internet-tumblr-box">
-          <div><strong>Incorporar um blog público do Tumblr</strong><small>Digite o nome do blog ou o domínio, como nome-do-blog.tumblr.com.</small></div>
-          <div class="internet-tumblr-row">
-            <input class="field" id="tumblrBlogInput" type="text" placeholder="nome-do-blog.tumblr.com" aria-label="Nome ou domínio do blog Tumblr">
-            <button class="pixel-btn" type="button" id="openTumblrBlog">VER BLOG AQUI</button>
-          </div>
-        </div>
-        <div class="internet-section-heading internet-subheading"><div><span class="internet-kicker">NEOCITIES · PÁGINAS PARA EXPLORAR</span><h3>Pequenos cantinhos da web</h3></div></div>
-        <div class="internet-link-grid">
-          <button type="button" data-internet-url="https://sweet-pea.neocities.org/"><strong>Sweet-pea</strong><small>Pastel, kawaii, layouts e graphics</small></button>
-          <button type="button" data-internet-url="https://sakuradreams.neocities.org/"><strong>Sakura Dreams</strong><small>Pixel art, stickers e coleções</small></button>
-          <button type="button" data-internet-url="https://pixelsafari.neocities.org/"><strong>Pixel Safari</strong><small>Dividers, favicons e blinkies</small></button>
-          <button type="button" data-internet-url="https://rss-list.neocities.org/"><strong>Neocities RSS List</strong><small>Diretório de sites pessoais</small></button>
-          <button type="button" data-internet-url="https://neocities.org/browse?tag=cute"><strong>Tag · cute</strong><small>Sites marcados como cute</small></button>
-          <button type="button" data-internet-url="https://neocities.org/browse?tag=kawaii"><strong>Tag · kawaii</strong><small>Sites marcados como kawaii</small></button>
-          <button type="button" data-internet-url="https://neocities.org/browse?tag=pixels"><strong>Tag · pixels</strong><small>Arte e páginas pixeladas</small></button>
-          <button type="button" data-internet-url="https://neocities.org/browse?tag=pastel"><strong>Tag · pastel</strong><small>Paletas e páginas pastel</small></button>
-        </div>
-        <div class="internet-section-heading internet-subheading"><div><span class="internet-kicker">CONTEÚDO INCORPORÁVEL</span><h3>Vídeos, música, jogos e criação</h3></div></div>
-        <div class="internet-link-grid internet-tools-grid">
-          <button type="button" data-internet-url="https://www.youtube.com/"><strong>YouTube</strong><small>Links de vídeos abrem no player incorporado</small></button>
-          <button type="button" data-internet-url="https://itch.io/"><strong>itch.io</strong><small>Experimente páginas de jogos HTML5</small></button>
-          <button type="button" data-internet-url="https://codepen.io/"><strong>CodePen</strong><small>Projetos e demonstrações de código</small></button>
-          <button type="button" data-internet-url="https://open.spotify.com/"><strong>Spotify</strong><small>Links de faixas e playlists viram players</small></button>
-        </div>
-        <p class="internet-footnote muted">Dica: cole o link de um vídeo do YouTube, item do Internet Archive, música/playlist do Spotify ou Pen do CodePen para abrir o player/visualização correspondente. Para Google Forms e Sheets, use o endereço de incorporação/publicação fornecido pelo próprio serviço.</p>
-      </section>
-      <p class="internet-disclaimer muted">Alguns sites bloqueiam iframes, exigem login ou dependem de cookies. O Galaxy Legacy não consegue remover essas restrições. Quando a janela ficar vazia, use ABRIR NO CHROME.</p>
-    </div>`;
+  return [
+    '<div class="internet-app" id="internetApp">',
+      '<div class="internet-intro">',
+        '<div><strong>♡ INTERNET</strong><p class="muted">Uma blogoteca independente e uma coleção de livros, filmes, músicas e arquivos.</p></div>',
+        '<span class="internet-version">V0.6.0</span>',
+      '</div>',
+      '<div class="internet-tabs" role="tablist" aria-label="Espaços da Internet">',
+        '<button class="internet-tab active" id="internetTabBlogs" type="button" role="tab" aria-selected="true" aria-controls="neocitiesPanel">NEOCITIES</button>',
+        '<button class="internet-tab" id="internetTabArchive" type="button" role="tab" aria-selected="false" aria-controls="archivePanel">INTERNET ARCHIVE</button>',
+      '</div>',
+      '<section class="internet-panel" id="neocitiesPanel" role="tabpanel" aria-labelledby="internetTabBlogs">',
+        '<div class="internet-section-heading"><div><span class="internet-kicker">BLOGOTECA SELECIONADA</span><h3>Pequenos cantinhos da web</h3></div><span class="muted">4 blogs verificados</span></div>',
+        '<p class="internet-panel-copy muted">Escolha um blog para abrir aqui dentro do Galaxy. Esta lista contém apenas páginas Neocities testadas.</p>',
+        '<div class="internet-blog-grid" id="neocitiesCatalog">',
+          '<button class="internet-blog-card" type="button" data-blog-id="sweet-pea"><span class="internet-blog-art sweet-pea-art">✿</span><span class="internet-blog-copy"><strong>Sweet-pea</strong><small>Layouts, graphics e um cantinho pessoal</small></span><span class="internet-blog-arrow">›</span></button>',
+          '<button class="internet-blog-card" type="button" data-blog-id="sakura-dreams"><span class="internet-blog-art sakura-art">❀</span><span class="internet-blog-copy"><strong>Sakura Dreams</strong><small>Pixel art, stickers e coleções</small></span><span class="internet-blog-arrow">›</span></button>',
+          '<button class="internet-blog-card" type="button" data-blog-id="pixel-safari"><span class="internet-blog-art safari-art">▧</span><span class="internet-blog-copy"><strong>Pixel Safari</strong><small>Divisórias, favicons e blinkies</small></span><span class="internet-blog-arrow">›</span></button>',
+          '<button class="internet-blog-card" type="button" data-blog-id="rss-list"><span class="internet-blog-art rss-art">⌁</span><span class="internet-blog-copy"><strong>Neocities RSS List</strong><small>Um diretório de páginas pessoais</small></span><span class="internet-blog-arrow">›</span></button>',
+        '</div>',
+        '<div class="internet-blog-viewer" id="neocitiesViewer" hidden>',
+          '<div class="internet-viewer-toolbar"><button class="pixel-btn secondary" id="neocitiesBack" type="button">← BLOGOTECA</button><strong id="neocitiesCurrentTitle">BLOG</strong><button class="internet-control" id="neocitiesReload" type="button" title="Recarregar blog" aria-label="Recarregar blog">⟳</button></div>',
+          '<div class="internet-frame" id="neocitiesFrameHost"><div class="internet-placeholder"><span class="internet-placeholder-symbol">୨୧</span><strong>ABRINDO BLOG</strong></div></div>',
+        '</div>',
+      '</section>',
+      '<section class="internet-panel" id="archivePanel" role="tabpanel" aria-labelledby="internetTabArchive" hidden>',
+        '<div class="internet-section-heading"><div><span class="internet-kicker">BIBLIOTECA DIGITAL</span><h3>Explore o Internet Archive</h3></div><span class="muted">Busca exclusiva no Archive.org</span></div>',
+        '<p class="internet-panel-copy muted">Pesquise no próprio acervo: filmes, vídeos, músicas, gravações, livros, textos e software.</p>',
+        '<form class="archive-search-form" id="archiveSearchForm">',
+          '<label class="field-label" for="archiveSearchInput">O QUE VOCÊ QUER ENCONTRAR?</label>',
+          '<div class="archive-search-row">',
+            '<input class="field" id="archiveSearchInput" type="search" placeholder="Ex.: Night of the Living Dead, Beethoven…" autocomplete="off">',
+            '<select class="field" id="archiveMediaType" aria-label="Tipo de conteúdo"><option value="all">Tudo</option><option value="movies">Filmes e vídeos</option><option value="audio">Áudio e música</option><option value="texts">Livros e textos</option><option value="software">Software e jogos</option><option value="image">Imagens</option></select>',
+            '<button class="pixel-btn" id="archiveSearchButton" type="submit">PESQUISAR</button>',
+          '</div>',
+        '</form>',
+        '<div class="archive-search-status" id="archiveSearchStatus" role="status" aria-live="polite">Digite algo para pesquisar dentro do Internet Archive.</div>',
+        '<div class="archive-results-area" id="archiveResultsArea">',
+          '<div class="archive-results-grid" id="archiveResults"></div>',
+          '<button class="pixel-btn secondary archive-more" id="archiveMore" type="button" hidden>CARREGAR MAIS RESULTADOS</button>',
+        '</div>',
+        '<div class="archive-item-viewer" id="archiveViewer" hidden>',
+          '<div class="internet-viewer-toolbar archive-viewer-toolbar"><button class="pixel-btn secondary" id="archiveBackResults" type="button">← RESULTADOS</button><strong id="archiveViewerTitle">ITEM DO ACERVO</strong><a class="archive-original-link" id="archiveOpenItem" href="https://archive.org/" target="_blank" rel="noopener noreferrer">PÁGINA COMPLETA ↗</a></div>',
+          '<div class="internet-frame archive-frame" id="archiveFrameHost"><div class="internet-placeholder"><span class="internet-placeholder-symbol">▣</span><strong>ABRINDO ITEM</strong></div></div>',
+        '</div>',
+        '<p class="archive-footnote muted">A pesquisa e os resultados vêm do Internet Archive. A reprodução depende do formato do item, da disponibilidade do arquivo e das permissões definidas pelo próprio acervo.</p>',
+      '</section>',
+    '</div>'
+  ].join('');
 }
-
 function renderPaint() {
   return `<div class="paint-layout"><div class="tools"><button title="Lápis" data-tool="pen">✎</button><button title="Borracha" data-tool="erase">▱</button><button title="Pincel" data-tool="brush">✿</button><button title="Limpar" id="clearCanvas">⌫</button></div><div class="paint-canvas-wrap"><canvas class="paint-canvas" id="paintCanvas" width="620" height="360"></canvas></div></div><div class="palette" id="palette"><button class="swatch selected" style="background:#f5a9c8" data-color="#f5a9c8"></button><button class="swatch" style="background:#ffd98c" data-color="#ffd98c"></button><button class="swatch" style="background:#fff0b9" data-color="#fff0b9"></button><button class="swatch" style="background:#bdebe5" data-color="#bdebe5"></button><button class="swatch" style="background:#b9c9f2" data-color="#b9c9f2"></button><button class="swatch" style="background:#c9c4e9" data-color="#c9c4e9"></button><button class="swatch" style="background:#fff" data-color="#fff"></button><button class="swatch" style="background:#765064" data-color="#765064"></button></div><div class="paint-bottom"><span>♡ draw something sweet</span><button class="pixel-btn" id="downloadArt">SAVE ART</button></div>`;
 }
