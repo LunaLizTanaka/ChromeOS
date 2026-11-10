@@ -16,8 +16,9 @@
 
 ## Internet Archive
 - A busca anterior usava uma frase entre aspas e limitava os campos a `title` e `creator`. Isso excluía ocorrências em assuntos e outros metadados.
-- A busca nova usa o índice geral de metadados do Archive e mantém o filtro opcional de tipo de mídia.
-- Cada página passa de 12 para 18 itens; os cartões também podem exibir assuntos e data.
+- A busca mantém a consulta precisa em título/criador e executa uma segunda consulta complementar no campo de assunto.
+- As duas listas são combinadas por identificador para remover duplicados; cada consulta carrega até 18 itens por página e mantém o filtro opcional de tipo de mídia.
+- Os cartões também podem exibir assuntos e data.
 - A busca continua sendo de metadados do catálogo. Não consulta o OCR do interior dos livros.
 - Os itens seguem abrindo pelo embed com link para a página completa como alternativa.
 
