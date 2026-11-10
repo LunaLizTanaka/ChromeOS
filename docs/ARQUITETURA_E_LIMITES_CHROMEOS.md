@@ -100,3 +100,20 @@ Uma integração de wallpaper nativo pode ser pesquisada como extensão opcional
 **Direção aprovada:** PWA/website desktop-first para ChromeOS, visual pixel + coquette e personalização profunda.
 
 **Pendente:** implementação completa, publicação HTTPS, instalação e teste no Chromebook real, consumo de RAM e qualquer integração nativa de wallpaper.
+
+
+## 10. Comportamento de janelas — v0.2.0
+
+O modelo de janelas deve seguir o protótipo anterior do tablet, adaptado ao Chromebook:
+
+- Drag-and-drop pela barra de título com Pointer Events.
+- Controles de minimizar, maximizar e fechar.
+- Alvo inferior opcional para fechar ao soltar uma janela.
+- Tela cheia interna por controle, duplo clique ou arraste até o topo.
+- Botão de retorno e Esc para voltar ao desktop.
+- Preservação do mesmo nó DOM ao alternar para tela cheia, mantendo o estado em memória.
+- Limites e reposicionamento das janelas após redimensionamento da viewport.
+
+O shell deve ocupar a área disponível, usar linhas flexíveis e rolagem interna por janela. Não deve produzir rolagem horizontal em telas estreitas. Os testes automatizados preliminares de 1280×800, 1280×540 e 390×844 estão registrados em [Interações de janelas e layout responsivo](INTERACOES_JANELAS_E_LAYOUT_RESPONSIVO.md).
+
+A homologação no Chromebook real continua pendente. As medições automatizadas não comprovam desempenho físico nem a instalação PWA via HTTPS.
