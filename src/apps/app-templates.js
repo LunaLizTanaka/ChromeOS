@@ -76,7 +76,7 @@ function renderLibrary() {
         <div class="library-section-title"><h3>Explore plataformas</h3><small>Catálogos oficiais e leitores compatíveis</small></div>
         <div class="library-featured"><span class="library-featured-art">LT</span><span class="library-featured-copy"><strong>Little Tyrant Doesn’t Want to Meet with a Bad End</strong><small>Novel chinesa · 670 capítulos concluídos na origem · ficha do Novel Updates</small></span><span class="library-featured-actions"><button class="pixel-btn secondary" id="libraryLittleTyrantLink" type="button">VER FICHA</button><button class="pixel-btn" id="libraryOpenLittleTyrant" type="button">＋ ESTANTE</button></span></div>
         <div class="library-toolbar"><input class="field" id="libraryPlatformSearch" type="search" placeholder="Pesquisar plataforma…" aria-label="Pesquisar plataforma"><select class="field" id="libraryCategory" aria-label="Filtrar categoria"><option value="all">Todas as categorias</option><option value="books">Livros</option><option value="manga">Mangás / manhwas</option><option value="novels">Novels</option><option value="fanfic">Fanfics</option></select></div>
-        <p class="library-footnote">“Tentar nesta janela” é apenas um teste visual de iframe: alguns sites bloqueiam incorporação, login ou cookies de terceiros. Se a página ficar vazia, abra-a no Chrome. Serviços com restrições conhecidas permanecem como acesso externo oficial.</p>
+        <p class="library-footnote">“Abrir na Biblioteca” tenta carregar a página oficial em um iframe: alguns sites bloqueiam incorporação, login ou cookies de terceiros. Se a página ficar vazia, abra-a no Chrome. Serviços com restrições conhecidas permanecem como acesso externo oficial.</p>
         <div class="library-platform-grid" id="libraryPlatforms"></div>
       </section>
       <section class="library-panel" data-library-panel="archive" role="tabpanel" hidden>
@@ -101,8 +101,22 @@ function renderLibrary() {
         <p class="library-footnote">A estante guarda títulos e links; não copia capítulos nem acessa contas. Os dados ficam localmente neste navegador. Use exportação JSON para fazer backup.</p>
       </section>
       <section class="library-panel library-reader-panel" id="libraryReaderPanel" data-library-panel="reader" role="tabpanel" hidden>
-        <div class="library-reader-toolbar"><button class="pixel-btn secondary" id="libraryReaderBack" type="button">← BIBLIOTECA</button><strong id="libraryReaderTitle">LEITOR</strong><button class="pixel-btn secondary" id="libraryReaderExternal" type="button">ABRIR NO CHROME ↗</button></div>
-        <p class="library-reader-status" id="libraryReaderStatus">Aguarde o carregamento do leitor.</p><div class="library-reader-host" id="libraryReaderHost"></div>
+        <div class="library-reader-toolbar">
+          <button class="pixel-btn secondary library-reader-home" id="libraryReaderBack" type="button">← BIBLIOTECA</button>
+          <div class="library-browser-nav">
+            <button class="pixel-btn secondary" id="libraryBrowserBack" type="button" aria-label="Voltar" title="Voltar">‹</button>
+            <button class="pixel-btn secondary" id="libraryBrowserForward" type="button" aria-label="Avançar" title="Avançar">›</button>
+            <button class="pixel-btn secondary" id="libraryBrowserReload" type="button" aria-label="Atualizar" title="Atualizar">↻</button>
+            <form id="libraryReaderAddressForm" class="library-browser-address">
+              <input id="libraryReaderAddress" type="url" inputmode="url" autocomplete="url" placeholder="Endereço de uma plataforma da Biblioteca…" aria-label="Endereço para navegar dentro da Biblioteca">
+              <button class="pixel-btn" type="submit">IR</button>
+            </form>
+          </div>
+          <strong id="libraryReaderTitle">LEITOR</strong>
+          <button class="pixel-btn secondary library-reader-external" id="libraryReaderExternal" type="button">ABRIR NO CHROME ↗</button>
+        </div>
+        <p class="library-reader-status" id="libraryReaderStatus">A navegação interna depende de cada plataforma permitir iframe. Sites que bloqueiam continuarão disponíveis no Chrome.</p>
+        <div class="library-reader-host" id="libraryReaderHost"></div>
       </section>
     </div>`;
 }
