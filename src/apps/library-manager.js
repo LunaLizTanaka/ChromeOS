@@ -56,10 +56,10 @@ function safeUrl(value) {
 export function isInternalLibraryUrl(value) {
   const safe = safeUrl(value);
   if (!safe) return false;
-  const hostname = new URL(safe).hostname.toLowerCase().replace(/^www\\./, '');
+  const hostname = new URL(safe).hostname.toLowerCase().replace(/^www\./, '');
   const allowedHosts = LIBRARY_PLATFORMS
     .filter(platform => platform.mode !== 'external')
-    .map(platform => new URL(platform.url).hostname.toLowerCase().replace(/^www\\./, ''));
+    .map(platform => new URL(platform.url).hostname.toLowerCase().replace(/^www\./, ''));
   return allowedHosts.some(domain => hostname === domain || hostname.endsWith('.' + domain));
 }
 
