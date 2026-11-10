@@ -55,6 +55,10 @@ if (!windowManager.includes('beginWindowResize') || !windowManager.includes('mov
 if (!html.includes('./styles/window-resize.css')) {
   throw new Error('index.html must load the resizable-window stylesheet.');
 }
+if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-resize'") ||
+    !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
+  throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
+}
 if (packageJson.version !== '0.6.0' || manifest.version !== '0.6.0' || !html.includes('v0.6.0')) {
   throw new Error('Project package, manifest and page title must match version 0.6.0.');
 }
