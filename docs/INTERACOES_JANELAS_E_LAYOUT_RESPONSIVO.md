@@ -84,3 +84,34 @@ A versão de teste v0.2.0 foi entregue como HTML independente e pacote ZIP com e
 **Implementado no protótipo v0.2.0:** janelas móveis, minimizar, fechar pelo X, fechar pelo alvo inferior, modo fullscreen de aplicativo, retorno preservando DOM e layout adaptável.
 
 **Pendente:** homologação no Chromebook físico, validação da instalação PWA via HTTPS, testes de persistência na origem definitiva e ajustes finos de usabilidade.
+
+
+## 7. v0.2.1 — workspace imersivo e barras auto-ocultáveis
+
+- Removida a área de boas-vindas do topo para liberar espaço.
+- Área principal ampliada para 100% do viewport, sem reservar espaço permanente para cabeçalho, lateral ou dock.
+- Barra superior, sidebar e dock ficam inteiramente fora da tela por padrão.
+- A barra superior aparece ao chegar à borda superior; a sidebar aparece pela borda esquerda; o dock aparece pela borda inferior.
+- Cada barra se recolhe quando o ponteiro sai de sua área.
+- Foco de teclado pode revelar os controles; após abrir um aplicativo por um atalho, o foco do botão é liberado para permitir recolhimento.
+- Em telas touch, tocar na borda alterna a exibição do painel correspondente.
+- Durante o arraste de uma janela, todas as barras periféricas permanecem escondidas.
+
+### Validação v0.2.1
+
+Testes automatizados em Chromium headless (com armazenamento em memória durante o teste em documento de origem opaca):
+
+| Verificação | Resultado |
+|---|---|
+| Desktop e workspace em 1280 × 800 | Aprovado |
+| Texto de boas-vindas removido | Aprovado |
+| Barra superior: oculta/revela/recolhe | Aprovado |
+| Sidebar: oculta/revela/recolhe | Aprovado |
+| Dock: oculto/revela/recolhe | Aprovado |
+| Arrastar janelas | Aprovado |
+| Maximizar e restaurar preservando o mesmo DOM | Aprovado |
+| Fechar e reabrir janelas | Aprovado |
+| Viewport 390 × 844 sem overflow | Aprovado |
+| Erros JavaScript nos fluxos testados | Nenhum observado |
+
+A ativação touch foi simulada com PointerEvent; precisa de homologação em tela sensível ao toque real. A publicação HTTPS e o desempenho no Chromebook físico continuam pendentes.
