@@ -9,7 +9,7 @@ const manifest = JSON.parse(read('manifest.webmanifest'));
 const packageJson = JSON.parse(read('package.json'));
 
 const appRegistry = read('src/apps/app-registry.js');
-if (!appRegistry.includes("const openCount = $('#scene > .window:not(.hidden)').length;")) {
+if (!appRegistry.includes("const openCount = $$('#scene > .window:not(.hidden)').length;")) {
   throw new Error('App window count must use the multi-element selector so the first application can open.');
 }
 
