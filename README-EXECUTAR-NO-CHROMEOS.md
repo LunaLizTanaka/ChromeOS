@@ -1,4 +1,4 @@
-# Galaxy Legacy v0.4.0 — executar no ChromeOS
+# Galaxy Legacy v0.8.0 — executar no ChromeOS
 
 ## Executar a versão modular completa
 
@@ -22,7 +22,7 @@ Use o arquivo standalone incluído em `standalone/` e abra-o pelo aplicativo Arq
 
 ## Biblioteca de leitura
 
-Abra **Biblioteca** pelo atalho lateral ou pelo dock. Ela reúne 16 plataformas, pesquisas no Internet Archive e Open Library e uma estante local. Alguns sites bloqueiam incorporação; nesses casos, use **ABRIR NO CHROME**. Consulte `docs/BIBLIOTECA_V0.7.0.md` para detalhes.
+Abra **Biblioteca** pelo atalho lateral ou pelo dock. Ela reúne 16 plataformas, pesquisas no Internet Archive e Open Library e uma estante local. A Biblioteca agora inclui barra de endereço, voltar, avançar e atualizar. A navegação aceita apenas os domínios HTTPS cadastrados; cada página ainda pode bloquear iframe ou login. Nesses casos, use **ABRIR NO CHROME**. Consulte `docs/BIBLIOTECA_V0.8.0.md` para detalhes.
 
 ## Abrir os menus
 
