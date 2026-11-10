@@ -13,6 +13,8 @@ const edgePanelManager = read('src/managers/edge-panel-manager.js');
 const paintApp = read('src/apps/paint-app.js');
 const internetTemplate = read('src/apps/app-templates.js');
 const internetManager = read('src/apps/internet-manager.js');
+const libraryManager = read('src/apps/library-manager.js');
+const libraryStyles = read('styles/library.css');
 const internetStyles = read('styles/internet.css');
 const windowManager = read('src/managers/window-manager.js');
 const resizeStyles = read('styles/window-resize.css');
@@ -48,6 +50,21 @@ if (!internetManager.includes('https://archive.org/advancedsearch.php') ||
 if (!internetStyles.includes('.archive-results-grid') || !internetStyles.includes('.internet-blog-grid')) {
   throw new Error('Internet v0.6.0 styles are incomplete.');
 }
+if (!appRegistry.includes("initializeLibraryApp(win)") || !appRegistry.includes("name === 'library'")) {
+  throw new Error('The Library app must be registered.');
+}
+if (!internetTemplate.includes('data-library-tab="sites"') || !internetTemplate.includes('id="libraryPlatforms"') || !internetTemplate.includes('id="libraryShelfList"')) {
+  throw new Error('The Library template is missing its platform catalog or local shelf.');
+}
+if (!libraryManager.includes('https://openlibrary.org/search.json') || !libraryManager.includes('https://archive.org/stream/') || !libraryManager.includes('gl-library-v1')) {
+  throw new Error('The Library must retain Open Library search, BookReader links and local shelf storage.');
+}
+if (!libraryStyles.includes('.library-platform-grid') || !libraryStyles.includes('.library-reader-frame')) {
+  throw new Error('Library styles are incomplete.');
+}
+if (!html.includes('./styles/library.css') || !html.includes('data-app="library"')) {
+  throw new Error('index.html must expose the Library app and load its stylesheet.');
+}
 if (!windowManager.includes('beginWindowResize') || !windowManager.includes('moveWindowResize') || !windowManager.includes('finishWindowResize') ||
     !appRegistry.includes('data-window-resize="se"') || !resizeStyles.includes('.window-resize-handle.resize-se')) {
   throw new Error('Resizable windows must expose pointer-driven resize handles and matching styles.');
@@ -59,7 +76,7 @@ if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-re
     !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
   throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
 }
-if (packageJson.version !== '0.6.0' || manifest.version !== '0.6.0' || !html.includes('v0.6.0')) {
+if (packageJson.version !== '0.7.0' || manifest.version !== '0.7.0' || !html.includes('v0.7.0')) {
   throw new Error('Project package, manifest and page title must match version 0.6.0.');
 }
 
@@ -84,7 +101,8 @@ const sourceFiles = [
   'src/apps/app-templates.js',
   'src/apps/notes-manager.js',
   'src/apps/paint-app.js',
-  'src/apps/internet-manager.js'
+  'src/apps/internet-manager.js',
+  'src/apps/library-manager.js'
 ];
 const missing = [];
 for (const file of sourceFiles) {
@@ -104,6 +122,7 @@ for (const asset of manifest.icons.map(icon => icon.src)) {
 if (!fs.existsSync(path.join(root, 'styles/main.css'))) throw new Error('Missing styles/main.css');
 if (!fs.existsSync(path.join(root, 'styles/notes.css'))) throw new Error('Missing styles/notes.css');
 if (!fs.existsSync(path.join(root, 'styles/internet.css'))) throw new Error('Missing styles/internet.css');
+if (!fs.existsSync(path.join(root, 'styles/library.css'))) throw new Error('Missing styles/library.css');
 if (!fs.existsSync(path.join(root, 'styles/window-resize.css'))) throw new Error('Missing styles/window-resize.css');
 if (!html.includes('id="stickyLayer"')) throw new Error('index.html must include the sticky desktop layer.');
 
