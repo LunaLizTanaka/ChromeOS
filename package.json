@@ -1,6 +1,6 @@
 {
   "name": "galaxy-legacy-chromeos",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "type": "module",
   "description": "Galaxy Legacy ChromeOS pixel coquette desktop with multi-note library and pinned sticky papers",
