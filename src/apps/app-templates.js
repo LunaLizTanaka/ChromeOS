@@ -40,7 +40,6 @@ function renderInternet() {
           <button class="internet-browser-control" id="internetFindButton" type="button" title="Pesquisar nesta página (Ctrl+F)" aria-label="Pesquisar nesta página">⌕</button>
           <button class="internet-browser-control" id="internetImmersiveButton" type="button" title="Modo imersivo" aria-label="Modo imersivo">⛶</button>
           <button class="internet-browser-control internet-open-external" id="internetOpenExternal" type="button" title="Abrir no Chrome" aria-label="Abrir no Chrome" disabled>↗</button>
-          <button class="internet-browser-control internet-close-window" id="internetCloseWindow" type="button" title="Fechar janela Internet" aria-label="Fechar janela Internet">×</button>
         </form>
         <div class="internet-browser-bookmarkbar">
           <span>FAVORITOS</span>
