@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Versão:** v1.0.0  
+**Versão:** v1.0.1  
 **Plataforma principal:** Chromebook / ChromeOS  
 **Tecnologia:** HTML, CSS e JavaScript nativos; ES Modules; PWA preparada para HTTPS  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -17,7 +17,7 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 - Barra superior, atalhos laterais e dock que se revelam ao aproximar o ponteiro das bordas.
 - Layout fluido, sem resolução fixa, acompanhando o espaço disponível.
 - Aplicativos internos: Mail demonstrativo, Trash, Files demonstrativo, Save Center, Internet, Biblioteca, Notes, Personalize e Picatsso.
-- Internet v1.0.0: navegador integrado com abas, barra de endereço e busca geral (Google/Bing/DuckDuckGo), voltar/avançar/recarregar, favoritos e histórico locais, localizar na página, modo imersivo, homepage rosa, Archive.org e Neocities.
+- Internet v1.0.1: navegador integrado com abas, barra de endereço e busca geral (Google/Bing/DuckDuckGo), histórico local, favoritos, localizar na página, modo imersivo, busca pública do Archive.org e banner personalizável.
 - Temas, escala da interface, grade, decorações, wallpaper e perfis JSON.
 - Notes v0.4.0: biblioteca de notas com autosave, busca, checklist, cores, favoritos, arquivamento, duplicação, importação/exportação JSON e papéis adesivos fixados no desktop.
 - Wallpaper armazenado no IndexedDB local.
@@ -91,6 +91,12 @@ O `index.html` é a entrada do projeto modular e usa ES Modules. Ele deve ser se
 A janela Internet tem apenas dois espaços. **Neocities** reúne quatro blogs selecionados e testados, abertos dentro da própria janela. **Internet Archive** consulta a API pública de busca do Archive.org e permite filtrar por filmes/vídeos, áudio, livros/textos, software/jogos e imagens. Ao escolher um resultado, o Galaxy carrega o player ou leitor oficial do item. Não há pesquisa Google, tags Neocities, campo para endereços genéricos, Tumblr, YouTube, Spotify ou navegação para sites aleatórios.
 
 A busca usa `advancedsearch.php` do Internet Archive, e a visualização usa o endereço de incorporação `archive.org/embed/IDENTIFIER`. Alguns itens podem não ter player, estar indisponíveis ou possuir restrições específicas; nesse caso, o botão **PÁGINA COMPLETA** abre a ficha do próprio item no Archive.org. Os blogs Neocities também podem mudar suas políticas ou sair do ar. Veja [INTERNET_V0.6.0.md](docs/INTERNET_V0.6.0.md).
+
+## Internet v1.0.1 — correções
+
+A busca da homepage abre diretamente a página de resultados pública do Archive.org no navegador interno. O banner aceita imagens PNG/JPG/WebP/GIF/AVIF de até 2 MB, salvas no armazenamento local, com botão para restaurar o desenho original. O fechamento da janela Internet ganhou um controle adicional e os controles padrão das janelas recebem eventos diretos.
+
+O botão voltar/avançar controla o histórico de endereços abertos pela barra, favoritos e atalhos do Galaxy. O navegador do Chrome não permite que a aplicação leia o histórico dos links percorridos dentro de páginas de outra origem; nesses casos, use a navegação oferecida pelo próprio site. Consulte [INTERNET_BROWSER_V1.0.1.md](docs/INTERNET_BROWSER_V1.0.1.md).
 
 ## Internet v1.0.0 — navegador integrado
 
