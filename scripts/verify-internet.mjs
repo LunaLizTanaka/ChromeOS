@@ -5,6 +5,7 @@ import {
   normalizeBrowserUrl,
   resolveBrowserInput,
   buildArchiveSearchUrl,
+  buildArchivePublicSearchUrl,
   buildArchiveEmbedUrl,
   buildArchiveDetailsUrl
 } from '../src/apps/internet-manager.js';
@@ -57,6 +58,18 @@ assert.equal(resolveBrowserInput('file:///etc/passwd').kind, 'blocked');
 assert.equal(resolveBrowserInput('ftp://example.org').kind, 'blocked');
 assert.equal(resolveBrowserInput('https://').kind, 'blocked');
 
+assert.equal(buildArchivePublicSearchUrl(''), '');
+const archivePublicAll = new URL(buildArchivePublicSearchUrl('The Little Tyrant'));
+assert.equal(archivePublicAll.origin, 'https://archive.org');
+assert.equal(archivePublicAll.pathname, '/search.php');
+assert.equal(archivePublicAll.searchParams.get('query'), 'The Little Tyrant');
+
+const archivePublicTexts = new URL(buildArchivePublicSearchUrl('The Little Tyrant', 'texts'));
+assert.equal(archivePublicTexts.searchParams.get('query'), '(The Little Tyrant) AND mediatype:texts');
+
+const archivePublicUnknown = new URL(buildArchivePublicSearchUrl('classic novel', 'unknown'));
+assert.equal(archivePublicUnknown.searchParams.get('query'), 'classic novel');
+
 assert.equal(buildArchiveSearchUrl('', 'all'), '');
 assert.equal(buildArchiveEmbedUrl(''), '');
 assert.equal(buildArchiveDetailsUrl(''), 'https://archive.org/');
@@ -93,4 +106,4 @@ assert.equal(buildArchiveEmbedUrl('a/b c'),
 assert.equal(buildArchiveDetailsUrl('prideprejudice00aust'),
   'https://archive.org/details/prideprejudice00aust');
 
-console.log('Internet checks OK: browser URL/search routing, safe schemes, tabs/search engines and preserved Archive/Neocities functions.');
+console.log('Internet checks OK: browser URL/search routing, Archive.org public search, safe schemes, tabs/search engines and preserved Archive/Neocities functions.');
