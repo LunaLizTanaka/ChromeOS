@@ -56,7 +56,7 @@ export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1) {
   return url.href;
 }
 export function buildArchivePublicSearchUrl(term, mediaType = 'all') {
-  const cleanTerm = String(term || '').trim().replace(/\\s+/g, ' ');
+  const cleanTerm = String(term || '').trim().replace(/\s+/g, ' ');
   if (!cleanTerm) return '';
   const type = ARCHIVE_MEDIA_TYPES.has(mediaType) ? mediaType : 'all';
   const query = type === 'all'
