@@ -7,26 +7,13 @@ export const LIBRARY_PLATFORMS = Object.freeze([
   { id:'gutenberg', name:'Project Gutenberg', category:'books', url:'https://www.gutenberg.org/', mode:'try', badge:'Teste interno', description:'Livros eletrônicos gratuitos, principalmente obras em domínio público nos EUA.', note:'Pode abrir no iframe ou exigir uma aba externa.' },
   { id:'wikisource', name:'Wikisource', category:'books', url:'https://pt.wikisource.org/', mode:'try', badge:'Teste interno', description:'Biblioteca livre de textos e documentos em português.', note:'Pode abrir no iframe ou exigir uma aba externa.' },
   { id:'ao3', name:'Archive of Our Own (AO3)', category:'fanfic', url:'https://archiveofourown.org/', mode:'try', badge:'Teste interno', description:'Arquivo comunitário de fanworks, fanfics e obras transformativas.', note:'Mantém avisos, classificações e exigências próprias de acesso.' },
-  { id:'novelupdates', name:'Novel Updates', category:'novels', url:'https://www.novelupdates.com/', mode:'try', badge:'Catálogo', description:'Índice de web novels, traduções, gêneros e grupos de tradução.', note:'Lista de leitura e conta permanecem no próprio Novel Updates.' },
   { id:'wattpad', name:'Wattpad', category:'fanfic', url:'https://www.wattpad.com/', mode:'try', badge:'Teste interno', description:'Histórias originais, romances, fantasia e fanfics.', note:'Login, cookies ou políticas de enquadramento podem exigir o Chrome.' },
   { id:'spirit', name:'Spirit Fanfics', category:'fanfic', url:'https://www.spiritfanfiction.com/', mode:'try', badge:'Teste interno', description:'Plataforma brasileira de histórias e fanfics.', note:'Os termos mencionam um player incorporável; ele não foi integrado nesta versão.' },
-  { id:'mangaplus', name:'MANGA Plus', category:'manga', url:'https://mangaplus.shueisha.co.jp/', mode:'try', badge:'Teste interno', description:'Mangás oficiais publicados pela Shueisha.', note:'Leitura e disponibilidade regional são controladas pela plataforma.' },
-  { id:'comikey', name:'Comikey Brasil', category:'manga', url:'https://comikey.com.br/', mode:'try', badge:'Teste interno', description:'Mangás, manhwas, manhuas e webcomics licenciados.', note:'Conteúdo destinado à visualização nos serviços oficiais Comikey.' },
-  { id:'webtoon', name:'WEBTOON', category:'manga', url:'https://www.webtoons.com/pt-br/', mode:'try', badge:'Teste interno', description:'Webtoons, romances, fantasia, ação e histórias originais.', note:'Catálogo e disponibilidade variam por região e licença.' },
-  { id:'viz', name:'VIZ / Shonen Jump', category:'manga', url:'https://www.viz.com/', mode:'try', badge:'Teste interno', description:'Catálogo oficial de mangás e publicações da VIZ.', note:'O serviço digital pode não estar disponível para contas no Brasil.' },
   { id:'wuxiaworld', name:'Wuxiaworld', category:'novels', url:'https://www.wuxiaworld.com/', mode:'external', badge:'Acesso oficial', description:'Web novels chinesas e coreanas com traduções licenciadas.', note:'Os termos proíbem enquadrar ou incorporar a plataforma sem autorização escrita.' },
   { id:'royalroad', name:'Royal Road', category:'novels', url:'https://www.royalroad.com/', mode:'try', badge:'Teste interno', description:'Ficção original, fantasia, LitRPG e histórias de progressão.', note:'Incorporação não confirmada; abra no Chrome se o quadro não carregar.' },
   { id:'scribblehub', name:'Scribble Hub', category:'novels', url:'https://www.scribblehub.com/', mode:'try', badge:'Teste interno', description:'Histórias originais em inglês, fantasia, romance e ficção científica.', note:'Os termos exigem permissão de responsável para menores de 18 anos.' },
   { id:'ciweimao', name:'Ciweimao', category:'novels', url:'https://www.ciweimao.com/', mode:'try', badge:'Teste interno', description:'Plataforma chinesa de publicação original de web novels.', note:'Interface e conteúdo predominantemente em chinês.' }
 ]);
-
-export const FEATURED_READING = Object.freeze([{
-  id:'little-tyrant',
-  title:'Little Tyrant Doesn’t Want to Meet with a Bad End',
-  url:'https://www.novelupdates.com/series/little-tyrant-doesnt-want-to-meet-with-a-bad-end/',
-  source:'Novel Updates',
-  type:'Novel'
-}]);
 
 const SHELF_KEY = 'gl-library-v1';
 const PAGE_SIZE = 18;
@@ -390,8 +377,6 @@ export function initializeLibraryApp(win) {
   $('#libraryCategory')?.addEventListener('change', renderPlatforms);
   $('#libraryReaderBack')?.addEventListener('click', () => { readerHost.replaceChildren(); readerHistory = []; readerHistoryIndex = -1; updateReaderNavigation(); setTab('sites'); });
   $('#libraryReaderExternal')?.addEventListener('click', () => { const url = readerAddress?.value || readerHistory[readerHistoryIndex]?.url; if (url) openExternal(url); });
-  $('#libraryOpenLittleTyrant')?.addEventListener('click', () => save({...FEATURED_READING[0]}));
-  $('#libraryLittleTyrantLink')?.addEventListener('click', () => openExternal(FEATURED_READING[0].url));
 
   renderPlatforms();
   renderShelf();
