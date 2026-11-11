@@ -147,7 +147,7 @@ export function closeWindow(windowElement) {
 function pointerPoint(event) { return { x: event.clientX, y: event.clientY }; }
 
 function beginWindowDrag(event) {
-  const head = event.target.closest?.('.window-head');
+  const head = event.target.closest?.('.window-head, [data-window-drag-handle]');
   if (!head || event.target.closest?.('.window-actions, button, input, select, textarea, a, [data-no-window-drag]') || dragState || resizeState || event.isPrimary === false || (event.button !== undefined && event.button !== 0)) return;
   const windowElement = head.closest('.window');
   const { scene, desktop, closeTarget } = elements;
@@ -327,7 +327,7 @@ export function initializeWindowManager() {
   document.addEventListener('pointerup', event => { finishWindowResize(event); finishWindowDrag(event, false); });
   document.addEventListener('pointercancel', event => { finishWindowResize(event); finishWindowDrag(event, true); });
   scene.addEventListener('dblclick', event => {
-    const head = event.target.closest('.window-head');
+    const head = event.target.closest('.window-head, [data-window-drag-handle]');
     if (head && !event.target.closest('button')) enterFullscreen(head.closest('.window'));
   });
   const syncLayout = () => window.requestAnimationFrame(clampAllWindows);
