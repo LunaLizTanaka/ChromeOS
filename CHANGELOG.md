@@ -1,5 +1,18 @@
 # Histórico de versões — Galaxy Legacy
 
+## v1.0.0 — navegador integrado na Internet
+- Barra de endereço com reconhecimento de URLs e pesquisas gerais.
+- Mecanismos de pesquisa configuráveis: Google, Bing e DuckDuckGo.
+- Abas independentes, criar/fechar/alternar, página inicial e histórico de endereços por aba.
+- Navegação voltar/avançar/recarregar e abrir a página no Chrome como alternativa.
+- Favoritos e histórico persistidos localmente com remoção e limpeza.
+- Sugestões de endereços com base no histórico.
+- Localizar texto na página quando o navegador permite acesso ao contexto do iframe.
+- Modo imersivo e páginas externas ocupando a área de leitura inteira.
+- Preservados a homepage rosa, quatro atalhos Neocities, busca/paginação do Archive.org e leitor de itens.
+- Documentadas as limitações de iframe, cookies de terceiros e política de mesma origem.
+
+
 ## v0.9.0 — Internet coquette e Biblioteca simplificada
 - Internet redesenhada como homepage pessoal rosa, com banner ilustrado, divisórias decorativas, perfil de boas-vindas e navegação entre Archive e Neocities.
 - Pesquisa do Internet Archive no topo, quatro atalhos Neocities logo abaixo e chips de categoria que preselecionam filtros.
