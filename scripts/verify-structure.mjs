@@ -29,6 +29,14 @@ if (!appRegistry.includes("const openCount = $$('#scene > .window:not(.hidden)')
 }
 
 const requiredInternetIds = [
+  'internetBrowserTabs', 'internetNewTab', 'internetAddressForm', 'internetAddressInput',
+  'internetAddressSuggestions', 'internetSearchEngine', 'internetBrowserBack',
+  'internetBrowserForward', 'internetBrowserReload', 'internetBrowserHome',
+  'internetBookmarkCurrent', 'internetShowBookmarks', 'internetShowHistory',
+  'internetFindButton', 'internetImmersiveButton', 'internetOpenExternal',
+  'internetBookmarkBar', 'internetBookmarksPanel', 'internetHistoryPanel',
+  'internetFindBar', 'internetBrowserStatus', 'internetPageHost',
+  'internetHomeBrowserPage', 'internetHomePage', 'internetImmersiveHint',
   'internetTabBlogs', 'internetTabArchive', 'neocitiesPanel', 'archivePanel',
   'neocitiesCatalog', 'archiveSearchForm', 'archiveSearchInput', 'archiveMediaType',
   'archiveResults', 'archiveViewer', 'archiveFrameHost'
@@ -63,10 +71,28 @@ if (!internetTemplate.includes('class="internet-hero-banner"') ||
     !internetTemplate.includes('data-archive-type="texts"')) {
   throw new Error('Internet v0.9.0 must show its banner, Archive search, Neocities favorites and media shortcuts.');
 }
-if (!internetManager.includes("win.querySelectorAll('[data-blog-id]')") ||
-    !internetManager.includes("win.querySelectorAll('[data-archive-type]')") ||
+if (!internetManager.includes("event.target.closest('[data-blog-id]')") ||
+    !internetManager.includes("event.target.closest('[data-archive-type]')") ||
     !internetManager.includes("setSection('archive')")) {
   throw new Error('Internet shortcuts must open Neocities and media shortcuts must preselect Archive filters.');
+}
+if (!internetManager.includes('export function resolveBrowserInput') ||
+    !internetManager.includes('BROWSER_SEARCH_ENGINES') ||
+    !internetManager.includes('function navigateTo') ||
+    !internetManager.includes('function createTab') ||
+    !internetManager.includes('function renderHistory') ||
+    !internetManager.includes('function renderBookmarks') ||
+    !internetManager.includes('function findText') ||
+    !internetManager.includes('function toggleImmersive')) {
+  throw new Error('Internet v1.0.0 must expose general search, tabs, history, bookmarks, in-page search and immersive mode.');
+}
+if (!internetTemplate.includes('id="internetBrowserTabs"') ||
+    !internetTemplate.includes('id="internetAddressInput"') ||
+    !internetTemplate.includes('id="internetPageHost"') ||
+    !internetTemplate.includes('id="internetOpenExternal"') ||
+    !internetStyles.includes('.internet-web-frame{') ||
+    !internetStyles.includes('.internet-app.is-immersive')) {
+  throw new Error('The browser UI must include a full-size page host, address field, tab strip and immersive layout.');
 }
 for (const removed of ["id:'novelupdates'","id:'mangaplus'","id:'comikey'","id:'webtoon'","id:'viz'","FEATURED_READING"]) {
   if (libraryManager.includes(removed)) throw new Error('Excluded novel/manga provider remains: ' + removed);
@@ -105,7 +131,7 @@ if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-re
     !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
   throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
 }
-if (packageJson.version !== '0.9.0' || manifest.version !== '0.9.0' || !html.includes('v0.9.0')) {
+if (packageJson.version !== '1.0.0' || manifest.version !== '1.0.0' || !html.includes('v1.0.0')) {
   throw new Error('Project package, manifest and page title must match version 0.6.0.');
 }
 
