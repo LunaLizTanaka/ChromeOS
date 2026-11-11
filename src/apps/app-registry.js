@@ -128,6 +128,21 @@ export function openApp(name) {
     enterFullscreen(windowElement);
   });
 
+  // The Internet app uses its pink browser tab strip as the window's drag header.
+  // Keep the original window controls (and their direct handlers) beside the new-tab button.
+  if (name === 'internet') {
+    const windowHead = windowElement.querySelector('.window-head');
+    const browserTabStrip = windowElement.querySelector('.internet-browser-tabstrip');
+    const windowActions = windowHead?.querySelector('.window-actions');
+    if (windowHead && browserTabStrip && windowActions) {
+      windowActions.classList.add('internet-window-actions');
+      browserTabStrip.append(windowActions);
+      browserTabStrip.dataset.windowDragHandle = '';
+      browserTabStrip.title = windowHead.title;
+      windowHead.remove();
+    }
+  }
+
   activateWindow(windowElement);
   bindApp(name, windowElement);
   return windowElement;
