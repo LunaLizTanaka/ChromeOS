@@ -16,9 +16,9 @@ function exposeDiagnostics() {
     }
   };
   window.GalaxyLegacy = {
-    version: '1.0.1',
+    version: '1.0.2',
     openApp,
-    getVersion() { return '1.0.1'; }
+    getVersion() { return '1.0.2'; }
   };
 }
 
