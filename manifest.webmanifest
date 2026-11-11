@@ -1,7 +1,7 @@
 {
   "name": "Galaxy Legacy — ChromeOS Edition",
   "short_name": "Galaxy Legacy",
-  "description": "Galaxy Legacy — desktop coquette com navegador de abas, busca geral, favoritos, histórico e Biblioteca.",
+  "description": "Galaxy Legacy — desktop coquette com navegador de abas, busca Archive.org, banner personalizável e Biblioteca.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
@@ -32,5 +32,5 @@
       "purpose": "any"
     }
   ],
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
