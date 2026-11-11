@@ -1,5 +1,11 @@
 # Histórico de versões — Galaxy Legacy
 
+## v1.0.3 — fechamento da janela Internet
+- Corrigida a especificidade CSS que mantinha a janela Internet visível depois de receber a classe `hidden`.
+- Fechar pelo X superior, pelo controle na barra do navegador e pelo alvo de arraste agora usa a mesma classe visual de fechamento sem ser anulada pelo layout flex.
+- Adicionado teste de regressão para garantir que a janela Internet desapareça quando fechada.
+
+
 ## v1.0.2 — pesquisa do Archive.org em novas abas
 - O campo de pesquisa da nova aba criada pelo botão + agora consulta o Internet Archive por padrão.
 - Endereços HTTP/HTTPS continuam sendo abertos diretamente a partir da mesma caixa.
