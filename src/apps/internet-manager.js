@@ -224,6 +224,7 @@ export function initializeInternetApp(win) {
 
   function openBlog(blog) {
     if (!blog) return;
+    setSection('blogs');
     currentBlog = blog;
     elements.blogTitle.textContent = blog.name;
     elements.blogCatalog.hidden = true;
@@ -239,7 +240,7 @@ export function initializeInternetApp(win) {
     elements.blogFrameHost.appendChild(frame);
   }
 
-  elements.blogCatalog.querySelectorAll('[data-blog-id]').forEach(button => {
+  win.querySelectorAll('[data-blog-id]').forEach(button => {
     button.addEventListener('click', () => {
       openBlog(blogsById.get(button.dataset.blogId));
     });
@@ -374,7 +375,15 @@ export function initializeInternetApp(win) {
     }
   });
 
-  // Keep the blog library as the initial screen; no general web search or arbitrary URLs.
+  win.querySelectorAll('[data-archive-type]').forEach(button => {
+    button.addEventListener('click', () => {
+      elements.archiveType.value = button.dataset.archiveType;
+      elements.archiveInput.focus();
+      setArchiveStatus('Categoria selecionada: ' + button.textContent.trim() + '. Digite um termo para pesquisar.');
+    });
+  });
+
+  // Start on Archive search; Neocities favorites are placed directly under its search bar.
   showBlogCatalog();
-  setSection('blogs');
+  setSection('archive');
 }
