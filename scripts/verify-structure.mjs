@@ -146,6 +146,22 @@ if (internetTemplate.includes('id="internetCloseWindow"') ||
     !windowManager.includes('pointerOverTarget || windowOverTarget')) {
   throw new Error('Internet window controls must sit in the pink tab strip, remain functional and preserve window dragging.');
 }
+
+if (!windowManager.includes("const isInternetBrowser = windowElement.dataset.window === 'app-internet';") ||
+    !windowManager.includes('if (!isInternetBrowser) {') ||
+    !windowManager.includes("windowElement.classList.add('browser-fullscreen')") ||
+    !windowManager.includes('syncInternetWindowControls(windowElement, true)') ||
+    !windowManager.includes('syncInternetWindowControls(windowElement, false)') ||
+    !windowManager.includes("if (windowElement.parentNode === elements.fullLayer) restoreFullscreen(windowElement)") ||
+    !internetStyles.includes('.fullscreen-layer > .window[data-window="app-internet"].browser-fullscreen > .window-body') ||
+    !internetStyles.includes('padding:0!important')) {
+  throw new Error('Internet fullscreen must use the full browser surface without a generic APPLICATION header or outer body padding.');
+}
+if (!windowManager.includes("minimize: isFullscreen ? 'Ocultar / minimizar navegador' : 'Minimizar navegador'") ||
+    !windowManager.includes("maximize: isFullscreen ? 'Restaurar janela' : 'Abrir navegador em tela cheia'") ||
+    !windowManager.includes("close: 'Fechar navegador'")) {
+  throw new Error('The Internet yellow, green and pink controls must identify hide/minimize, restore/fullscreen and close actions.');
+}
 for (const removed of ["id:'novelupdates'","id:'mangaplus'","id:'comikey'","id:'webtoon'","id:'viz'","FEATURED_READING"]) {
   if (libraryManager.includes(removed)) throw new Error('Excluded novel/manga provider remains: ' + removed);
 }
@@ -183,8 +199,8 @@ if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-re
     !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
   throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
 }
-if (packageJson.version !== '1.0.5' || manifest.version !== '1.0.5' || !html.includes('v1.0.5')) {
-  throw new Error('Project package, manifest and page title must match version 1.0.5.');
+if (packageJson.version !== '1.0.6' || manifest.version !== '1.0.6' || !html.includes('v1.0.6')) {
+  throw new Error('Project package, manifest and page title must match version 1.0.6.');
 }
 
 if (!/<script\s+type=["']module["']\s+src=["']\.\/src\/main\.js["']\s*>/i.test(html)) {
