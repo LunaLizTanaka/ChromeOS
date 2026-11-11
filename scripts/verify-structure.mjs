@@ -56,6 +56,24 @@ if (!appRegistry.includes("initializeLibraryApp(win)") || !appRegistry.includes(
 if (!internetTemplate.includes('data-library-tab="sites"') || !internetTemplate.includes('id="libraryPlatforms"') || !internetTemplate.includes('id="libraryShelfList"')) {
   throw new Error('The Library template is missing its platform catalog or local shelf.');
 }
+
+if (!internetTemplate.includes('class="internet-hero-banner"') ||
+    !internetTemplate.includes('id="archiveSearchForm"') ||
+    !internetTemplate.includes('id="archiveNeocitiesShortcuts"') ||
+    !internetTemplate.includes('data-archive-type="texts"')) {
+  throw new Error('Internet v0.9.0 must show its banner, Archive search, Neocities favorites and media shortcuts.');
+}
+if (!internetManager.includes("win.querySelectorAll('[data-blog-id]')") ||
+    !internetManager.includes("win.querySelectorAll('[data-archive-type]')") ||
+    !internetManager.includes("setSection('archive')")) {
+  throw new Error('Internet shortcuts must open Neocities and media shortcuts must preselect Archive filters.');
+}
+for (const removed of ["id:'novelupdates'","id:'mangaplus'","id:'comikey'","id:'webtoon'","id:'viz'","FEATURED_READING"]) {
+  if (libraryManager.includes(removed)) throw new Error('Excluded novel/manga provider remains: ' + removed);
+}
+if (internetTemplate.includes('library-featured') || internetTemplate.includes('value="manga"')) {
+  throw new Error('Library must not show the removed novel card or manga filters.');
+}
 if (!libraryManager.includes('https://openlibrary.org/search.json') || !libraryManager.includes('https://archive.org/stream/') || !libraryManager.includes('gl-library-v1')) {
   throw new Error('The Library must retain Open Library search, BookReader links and local shelf storage.');
 }
@@ -87,7 +105,7 @@ if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-re
     !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
   throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
 }
-if (packageJson.version !== '0.8.0' || manifest.version !== '0.8.0' || !html.includes('v0.8.0')) {
+if (packageJson.version !== '0.9.0' || manifest.version !== '0.9.0' || !html.includes('v0.9.0')) {
   throw new Error('Project package, manifest and page title must match version 0.6.0.');
 }
 
