@@ -1,5 +1,12 @@
 # Histórico de versões — Galaxy Legacy
 
+## v1.0.6 — tela cheia nativa da Internet
+- Ao maximizar a Internet, removida a barra externa “APPLICATION”; o navegador passa a ocupar a tela inteira com sua própria faixa rosada de abas e controles.
+- A área de conteúdo da Internet usa toda a altura e largura, sem o padding geral aplicado aos outros aplicativos em tela cheia.
+- Botão amarelo: minimiza/oculta o navegador sem fechar seu estado. Botão verde: alterna entre tela cheia e janela. Botão rosa: fecha o navegador. Os rótulos acessíveis e dicas dos controles acompanham o modo atual.
+- Os demais aplicativos continuam usando o cabeçalho genérico de tela cheia.
+
+
 ## v1.0.5 — Internet com interface de navegador
 - Removida a barra verde com o título “INTERNET.EXE” da janela Internet.
 - Movidos os controles reais de minimizar, maximizar e fechar para a faixa rosada das abas, posicionados ao lado do botão +.
