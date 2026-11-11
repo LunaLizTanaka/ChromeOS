@@ -12,60 +12,77 @@ export function escapeHtml(value) {
 
 
 function renderInternet() {
-  return [
-    '<div class="internet-app" id="internetApp">',
-      '<div class="internet-intro">',
-        '<div><strong>♡ INTERNET</strong><p class="muted">Uma blogoteca independente e uma coleção de livros, filmes, músicas e arquivos.</p></div>',
-        '<span class="internet-version">V0.6.0</span>',
-      '</div>',
-      '<div class="internet-tabs" role="tablist" aria-label="Espaços da Internet">',
-        '<button class="internet-tab active" id="internetTabBlogs" type="button" role="tab" aria-selected="true" aria-controls="neocitiesPanel">NEOCITIES</button>',
-        '<button class="internet-tab" id="internetTabArchive" type="button" role="tab" aria-selected="false" aria-controls="archivePanel">INTERNET ARCHIVE</button>',
-      '</div>',
-      '<section class="internet-panel" id="neocitiesPanel" role="tabpanel" aria-labelledby="internetTabBlogs">',
-        '<div class="internet-section-heading"><div><span class="internet-kicker">BLOGOTECA SELECIONADA</span><h3>Pequenos cantinhos da web</h3></div><span class="muted">4 blogs verificados</span></div>',
-        '<p class="internet-panel-copy muted">Escolha um blog para abrir aqui dentro do Galaxy. Esta lista contém apenas páginas Neocities testadas.</p>',
-        '<div class="internet-blog-grid" id="neocitiesCatalog">',
-          '<button class="internet-blog-card" type="button" data-blog-id="sweet-pea"><span class="internet-blog-art sweet-pea-art">✿</span><span class="internet-blog-copy"><strong>Sweet-pea</strong><small>Layouts, graphics e um cantinho pessoal</small></span><span class="internet-blog-arrow">›</span></button>',
-          '<button class="internet-blog-card" type="button" data-blog-id="sakura-dreams"><span class="internet-blog-art sakura-art">❀</span><span class="internet-blog-copy"><strong>Sakura Dreams</strong><small>Pixel art, stickers e coleções</small></span><span class="internet-blog-arrow">›</span></button>',
-          '<button class="internet-blog-card" type="button" data-blog-id="pixel-safari"><span class="internet-blog-art safari-art">▧</span><span class="internet-blog-copy"><strong>Pixel Safari</strong><small>Divisórias, favicons e blinkies</small></span><span class="internet-blog-arrow">›</span></button>',
-          '<button class="internet-blog-card" type="button" data-blog-id="rss-list"><span class="internet-blog-art rss-art">⌁</span><span class="internet-blog-copy"><strong>Neocities RSS List</strong><small>Um diretório de páginas pessoais</small></span><span class="internet-blog-arrow">›</span></button>',
-        '</div>',
-        '<div class="internet-blog-viewer" id="neocitiesViewer" hidden>',
-          '<div class="internet-viewer-toolbar"><button class="pixel-btn secondary" id="neocitiesBack" type="button">← BLOGOTECA</button><strong id="neocitiesCurrentTitle">BLOG</strong><button class="internet-control" id="neocitiesReload" type="button" title="Recarregar blog" aria-label="Recarregar blog">⟳</button></div>',
-          '<div class="internet-frame" id="neocitiesFrameHost"><div class="internet-placeholder"><span class="internet-placeholder-symbol">୨୧</span><strong>ABRINDO BLOG</strong></div></div>',
-        '</div>',
-      '</section>',
-      '<section class="internet-panel" id="archivePanel" role="tabpanel" aria-labelledby="internetTabArchive" hidden>',
-        '<div class="internet-section-heading"><div><span class="internet-kicker">BIBLIOTECA DIGITAL</span><h3>Explore o Internet Archive</h3></div><span class="muted">Busca exclusiva no Archive.org</span></div>',
-        '<p class="internet-panel-copy muted">A busca percorre os metadados do acervo, incluindo títulos, criadores, assuntos e outras descrições. Você também pode filtrar por tipo de conteúdo.</p>',
-        '<form class="archive-search-form" id="archiveSearchForm">',
-          '<label class="field-label" for="archiveSearchInput">O QUE VOCÊ QUER ENCONTRAR?</label>',
-          '<div class="archive-search-row">',
-            '<input class="field" id="archiveSearchInput" type="search" placeholder="Ex.: Beethoven, Studio Ghibli, horror, manga…" autocomplete="off">',
-            '<select class="field" id="archiveMediaType" aria-label="Tipo de conteúdo"><option value="all">Tudo</option><option value="movies">Filmes e vídeos</option><option value="audio">Áudio e música</option><option value="texts">Livros e textos</option><option value="software">Software e jogos</option><option value="image">Imagens</option></select>',
-            '<button class="pixel-btn" id="archiveSearchButton" type="submit">PESQUISAR</button>',
-          '</div>',
-        '</form>',
-        '<div class="archive-search-status" id="archiveSearchStatus" role="status" aria-live="polite">Digite algo para pesquisar dentro do Internet Archive.</div>',
-        '<div class="archive-results-area" id="archiveResultsArea">',
-          '<div class="archive-results-grid" id="archiveResults"></div>',
-          '<button class="pixel-btn secondary archive-more" id="archiveMore" type="button" hidden>CARREGAR MAIS RESULTADOS</button>',
-        '</div>',
-        '<div class="archive-item-viewer" id="archiveViewer" hidden>',
-          '<div class="internet-viewer-toolbar archive-viewer-toolbar"><button class="pixel-btn secondary" id="archiveBackResults" type="button">← RESULTADOS</button><strong id="archiveViewerTitle">ITEM DO ACERVO</strong><a class="archive-original-link" id="archiveOpenItem" href="https://archive.org/" target="_blank" rel="noopener noreferrer">PÁGINA COMPLETA ↗</a></div>',
-          '<div class="internet-frame archive-frame" id="archiveFrameHost"><div class="internet-placeholder"><span class="internet-placeholder-symbol">▣</span><strong>ABRINDO ITEM</strong></div></div>',
-        '</div>',
-        '<p class="archive-footnote muted">A pesquisa consulta os metadados do catálogo do Internet Archive (não o texto OCR de dentro de cada livro). A reprodução depende do formato, da disponibilidade do arquivo e das permissões do acervo.</p>',
-      '</section>',
-    '</div>'
-  ].join('');
+  return \`
+    <div class="internet-app" id="internetApp">
+      <header class="internet-hero-banner">
+        <svg class="internet-hero-illustration" viewBox="0 0 1000 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs><linearGradient id="glInternetBannerWash" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3b8d0"/><stop offset=".48" stop-color="#ffe4ee"/><stop offset="1" stop-color="#e9cbe9"/></linearGradient><radialGradient id="glInternetPetal"><stop offset="0" stop-color="#fff8fc"/><stop offset="1" stop-color="#d987aa"/></radialGradient></defs>
+          <rect width="1000" height="180" fill="url(#glInternetBannerWash)"/>
+          <path d="M-20 160Q90 30 190 115T385 105M1020 165Q920 25 820 113T620 110" fill="none" stroke="#a96e8d" stroke-width="3" opacity=".35"/>
+          <g fill="#94a57f" stroke="#80936f" stroke-width="1.5" opacity=".72"><ellipse cx="94" cy="85" rx="22" ry="9" transform="rotate(-28 94 85)"/><ellipse cx="151" cy="51" rx="23" ry="9" transform="rotate(34 151 51)"/><ellipse cx="193" cy="128" rx="24" ry="9" transform="rotate(-45 193 128)"/><ellipse cx="893" cy="70" rx="25" ry="9" transform="rotate(27 893 70)"/><ellipse cx="835" cy="134" rx="22" ry="8" transform="rotate(-35 835 134)"/><ellipse cx="940" cy="116" rx="24" ry="8" transform="rotate(45 940 116)"/></g>
+          <g fill="url(#glInternetPetal)" stroke="#c982a2" stroke-width="2" opacity=".9"><g transform="translate(111 91)"><ellipse cy="-19" rx="11" ry="19"/><ellipse cy="19" rx="11" ry="19"/><ellipse cx="-19" rx="19" ry="11"/><ellipse cx="19" rx="19" ry="11"/><circle r="8" fill="#fff4bd"/></g><g transform="translate(885 101) scale(.8)"><ellipse cy="-19" rx="11" ry="19"/><ellipse cy="19" rx="11" ry="19"/><ellipse cx="-19" rx="19" ry="11"/><ellipse cx="19" rx="19" ry="11"/><circle r="8" fill="#fff4bd"/></g><g transform="translate(760 37) scale(.5)"><ellipse cy="-19" rx="11" ry="19"/><ellipse cy="19" rx="11" ry="19"/><ellipse cx="-19" rx="19" ry="11"/><ellipse cx="19" rx="19" ry="11"/><circle r="8" fill="#fff4bd"/></g></g>
+          <g fill="#fff" opacity=".8"><path d="M265 36l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="M710 118l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/><circle cx="340" cy="146" r="3"/><circle cx="661" cy="31" r="3"/></g>
+          <g fill="#b97d9a" opacity=".75"><path d="M72 142q-18-21-35 0q17-4 25 13q0-12 10-13z"/><path d="M955 45q-18-21-35 0q17-4 25 13q0-12 10-13z"/></g>
+        </svg>
+        <div class="internet-hero-ornaments" aria-hidden="true"><span>✿</span><span>୨୧</span><span>❀</span><span>♡</span><span>✧</span></div>
+        <div class="internet-hero-title"><small>BEM-VINDA AO MEU CANTINHO</small><strong>Galaxy Web</strong><span>pequenas descobertas em um cantinho da internet</span></div>
+        <div class="internet-hero-seal" aria-hidden="true"><span>♡</span><small>DESDE</small><b>2026</b></div>
+      </header>
+      <div class="internet-lace-divider" aria-hidden="true">❀ · · · ୨୧ · · · ♡ · · · ୨୧ · · · ❀</div>
+      <div class="internet-site-shell">
+        <nav class="internet-tabs" role="tablist" aria-label="Espaços da Internet">
+          <button class="internet-tab active" id="internetTabArchive" type="button" role="tab" aria-selected="true" aria-controls="archivePanel"><span>⌂</span> INÍCIO / ARCHIVE</button>
+          <button class="internet-tab" id="internetTabBlogs" type="button" role="tab" aria-selected="false" aria-controls="neocitiesPanel"><span>✿</span> NEOCITIES</button>
+          <span class="internet-nav-note">♡ sua pequena janela para a web ♡</span>
+        </nav>
+        <section class="internet-panel internet-archive-panel" id="archivePanel" role="tabpanel" aria-labelledby="internetTabArchive">
+          <div class="internet-archive-layout">
+            <aside class="internet-profile-card">
+              <div class="internet-profile-avatar" aria-hidden="true"><span>✿</span><i>୨୧</i></div>
+              <strong>Bem-vinda, visitante!</strong><p>Faça uma pausa, explore os arquivos antigos e encontre algo especial para ler, ouvir ou assistir.</p>
+              <div class="internet-profile-divider">୨୧ · · · ୨୧</div><div class="internet-profile-info"><span>♡ DIGITAL CORNER</span><b>Feito com carinho</b><small>Archive.org · Neocities</small></div><div class="internet-profile-stamps" aria-hidden="true"><span>✧</span><span>♡</span><span>✿</span></div>
+            </aside>
+            <div class="internet-archive-content">
+              <div class="internet-section-heading archive-heading"><div><span class="internet-kicker">PESQUISA DO ARQUIVO</span><h3>O que vamos descobrir hoje?</h3></div><span class="internet-heading-note">pesquisa do Archive.org ♡</span></div>
+              <form class="archive-search-form" id="archiveSearchForm">
+                <label class="field-label" for="archiveSearchInput">O QUE VOCÊ PROCURA HOJE?</label>
+                <div class="archive-search-row"><div class="archive-search-input-wrap"><span aria-hidden="true">⌕</span><input class="field" id="archiveSearchInput" type="search" placeholder="Pesquise livros, filmes, músicas, imagens e mais…" autocomplete="off"></div>
+                  <select class="field" id="archiveMediaType" aria-label="Tipo de conteúdo"><option value="all">Tudo</option><option value="movies">Filmes e vídeos</option><option value="audio">Áudio e música</option><option value="texts">Livros e textos</option><option value="software">Programas e jogos</option><option value="image">Imagens</option></select><button class="pixel-btn" id="archiveSearchButton" type="submit">PESQUISAR ♡</button></div>
+              </form>
+              <div class="archive-neocities-shortcuts"><div class="archive-shortcuts-heading"><div><span class="internet-kicker">ATALHOS RÁPIDOS</span><strong>Seus sites Neocities</strong></div><span>4 favoritos</span></div>
+                <div class="archive-neocities-links" id="archiveNeocitiesShortcuts">
+                  <button type="button" class="archive-neocities-link" data-blog-id="sweet-pea"><span>✿</span><b>Sweet-pea</b></button><button type="button" class="archive-neocities-link" data-blog-id="sakura-dreams"><span>❀</span><b>Sakura Dreams</b></button><button type="button" class="archive-neocities-link" data-blog-id="pixel-safari"><span>▧</span><b>Pixel Safari</b></button><button type="button" class="archive-neocities-link" data-blog-id="rss-list"><span>⌁</span><b>RSS List</b></button>
+                </div>
+              </div>
+              <div class="archive-search-status" id="archiveSearchStatus" role="status" aria-live="polite">Digite uma pesquisa acima ou escolha um dos seus sites favoritos para visitar.</div>
+              <div class="archive-explore-collections" id="archiveExploreCollections"><span>OU EXPLORE POR CATEGORIA</span><button type="button" data-archive-type="texts">▤ Livros</button><button type="button" data-archive-type="audio">♫ Áudio</button><button type="button" data-archive-type="movies">▣ Filmes</button><button type="button" data-archive-type="image">▧ Imagens</button><button type="button" data-archive-type="software">✧ Software</button></div>
+              <div class="archive-results-area" id="archiveResultsArea"><div class="archive-results-grid" id="archiveResults"></div><button class="pixel-btn secondary archive-more" id="archiveMore" type="button" hidden>CARREGAR MAIS RESULTADOS</button></div>
+              <div class="archive-item-viewer" id="archiveViewer" hidden><div class="internet-viewer-toolbar archive-viewer-toolbar"><button class="pixel-btn secondary" id="archiveBackResults" type="button">← RESULTADOS</button><strong id="archiveViewerTitle">ITEM DO ACERVO</strong><a class="archive-original-link" id="archiveOpenItem" href="https://archive.org/" target="_blank" rel="noopener noreferrer">PÁGINA COMPLETA ↗</a></div><div class="internet-frame archive-frame" id="archiveFrameHost"><div class="internet-placeholder"><span class="internet-placeholder-symbol">▣</span><strong>ABRINDO ITEM</strong></div></div></div>
+              <p class="archive-footnote muted">A pesquisa usa os metadados do catálogo do Archive.org. A reprodução ou leitura depende do formato, da disponibilidade e das permissões de cada item.</p>
+            </div>
+          </div>
+        </section>
+        <section class="internet-panel internet-neocities-panel" id="neocitiesPanel" role="tabpanel" aria-labelledby="internetTabBlogs" hidden>
+          <div class="internet-section-heading"><div><span class="internet-kicker">BLOGOTECA SELECIONADA</span><h3>Pequenos cantinhos pela web</h3></div><span class="internet-heading-note">4 páginas Neocities selecionadas</span></div>
+          <p class="internet-panel-copy muted">Escolha um site para abri-lo dentro do Galaxy Legacy. Os quatro atalhos também ficam disponíveis abaixo da pesquisa do Archive.</p>
+          <div class="internet-blog-grid" id="neocitiesCatalog">
+            <button class="internet-blog-card" type="button" data-blog-id="sweet-pea"><span class="internet-blog-art sweet-pea-art">✿</span><span class="internet-blog-copy"><strong>Sweet-pea</strong><small>Layouts, graphics e um cantinho pessoal</small></span><span class="internet-blog-arrow">›</span></button>
+            <button class="internet-blog-card" type="button" data-blog-id="sakura-dreams"><span class="internet-blog-art sakura-art">❀</span><span class="internet-blog-copy"><strong>Sakura Dreams</strong><small>Pixel art, stickers e coleções</small></span><span class="internet-blog-arrow">›</span></button>
+            <button class="internet-blog-card" type="button" data-blog-id="pixel-safari"><span class="internet-blog-art safari-art">▧</span><span class="internet-blog-copy"><strong>Pixel Safari</strong><small>Divisórias, favicons e blinkies</small></span><span class="internet-blog-arrow">›</span></button>
+            <button class="internet-blog-card" type="button" data-blog-id="rss-list"><span class="internet-blog-art rss-art">⌁</span><span class="internet-blog-copy"><strong>Neocities RSS List</strong><small>Um diretório de páginas pessoais</small></span><span class="internet-blog-arrow">›</span></button>
+          </div>
+          <div class="internet-blog-viewer" id="neocitiesViewer" hidden><div class="internet-viewer-toolbar"><button class="pixel-btn secondary" id="neocitiesBack" type="button">← BLOGOTECA</button><strong id="neocitiesCurrentTitle">BLOG</strong><button class="internet-control" id="neocitiesReload" type="button" title="Recarregar blog" aria-label="Recarregar blog">⟳</button></div><div class="internet-frame" id="neocitiesFrameHost"><div class="internet-placeholder"><span class="internet-placeholder-symbol">୨୧</span><strong>ABRINDO BLOG</strong></div></div></div>
+        </section>
+      </div>
+      <div class="internet-lace-divider internet-footer-lace" aria-hidden="true">୨୧ · · · ♡ · · · ❀ · · · ♡ · · · ୨୧</div>
+    </div>
+  \`;
 }
 
 function renderLibrary() {
   return `
     <div class="library-app" id="libraryApp">
-      <div class="library-intro"><div><strong>♡ BIBLIOTECA</strong><p class="muted">Livros, mangás, novels e fanfics em um só lugar.</p></div><span class="library-version">V0.7.0</span></div>
+      <div class="library-intro"><div><strong>♡ BIBLIOTECA</strong><p class="muted">Livros, novels e fanfics em um só lugar.</p></div><span class="library-version">V0.9.0</span></div>
       <div class="library-tabs" role="tablist" aria-label="Seções da Biblioteca">
         <button class="library-tab active" type="button" data-library-tab="sites" role="tab" aria-selected="true">PLATAFORMAS</button>
         <button class="library-tab" type="button" data-library-tab="archive" role="tab" aria-selected="false">INTERNET ARCHIVE</button>
@@ -74,8 +91,7 @@ function renderLibrary() {
       </div>
       <section class="library-panel" data-library-panel="sites" role="tabpanel">
         <div class="library-section-title"><h3>Explore plataformas</h3><small>Catálogos oficiais e leitores compatíveis</small></div>
-        <div class="library-featured"><span class="library-featured-art">LT</span><span class="library-featured-copy"><strong>Little Tyrant Doesn’t Want to Meet with a Bad End</strong><small>Novel chinesa · 670 capítulos concluídos na origem · ficha do Novel Updates</small></span><span class="library-featured-actions"><button class="pixel-btn secondary" id="libraryLittleTyrantLink" type="button">VER FICHA</button><button class="pixel-btn" id="libraryOpenLittleTyrant" type="button">＋ ESTANTE</button></span></div>
-        <div class="library-toolbar"><input class="field" id="libraryPlatformSearch" type="search" placeholder="Pesquisar plataforma…" aria-label="Pesquisar plataforma"><select class="field" id="libraryCategory" aria-label="Filtrar categoria"><option value="all">Todas as categorias</option><option value="books">Livros</option><option value="manga">Mangás / manhwas</option><option value="novels">Novels</option><option value="fanfic">Fanfics</option></select></div>
+        <div class="library-toolbar"><input class="field" id="libraryPlatformSearch" type="search" placeholder="Pesquisar plataforma…" aria-label="Pesquisar plataforma"><select class="field" id="libraryCategory" aria-label="Filtrar categoria"><option value="all">Todas as categorias</option><option value="books">Livros</option><option value="novels">Novels</option><option value="fanfic">Fanfics</option></select></div>
         <p class="library-footnote">“Abrir na Biblioteca” tenta carregar a página oficial em um iframe: alguns sites bloqueiam incorporação, login ou cookies de terceiros. Se a página ficar vazia, abra-a no Chrome. Serviços com restrições conhecidas permanecem como acesso externo oficial.</p>
         <div class="library-platform-grid" id="libraryPlatforms"></div>
       </section>
