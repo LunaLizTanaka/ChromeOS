@@ -182,8 +182,11 @@ function moveWindowDrag(event) {
   windowElement.style.right = 'auto';
   const targetRect = elements.closeTarget.getBoundingClientRect();
   const rect = windowElement.getBoundingClientRect();
-  const overTarget = rect.bottom > targetRect.top + 8 && rect.left < targetRect.right && rect.right > targetRect.left;
-  elements.closeTarget.classList.toggle('over', overTarget);
+  const pointerOverTarget = point.x >= targetRect.left && point.x <= targetRect.right
+    && point.y >= targetRect.top && point.y <= targetRect.bottom;
+  const windowOverTarget = rect.bottom > targetRect.top + 8
+    && rect.top < targetRect.bottom && rect.left < targetRect.right && rect.right > targetRect.left;
+  elements.closeTarget.classList.toggle('over', pointerOverTarget || windowOverTarget);
   windowElement.classList.toggle('near-fullscreen', point.y <= sceneRect.top + 24);
 }
 
@@ -195,7 +198,11 @@ function finishWindowDrag(event, cancelled = false) {
   const sceneRect = elements.scene.getBoundingClientRect();
   const targetRect = elements.closeTarget.getBoundingClientRect();
   const rect = windowElement.getBoundingClientRect();
-  const closeHit = !cancelled && (elements.closeTarget.classList.contains('over') || (rect.bottom > targetRect.top + 8 && rect.left < targetRect.right && rect.right > targetRect.left));
+  const pointerOverTarget = point.x >= targetRect.left && point.x <= targetRect.right
+    && point.y >= targetRect.top && point.y <= targetRect.bottom;
+  const windowOverTarget = rect.bottom > targetRect.top + 8
+    && rect.top < targetRect.bottom && rect.left < targetRect.right && rect.right > targetRect.left;
+  const closeHit = !cancelled && (elements.closeTarget.classList.contains('over') || pointerOverTarget || windowOverTarget);
   const movedToTop = !cancelled && current.moved && (point.y <= sceneRect.top + 18 || rect.top <= sceneRect.top + 3);
   dragState = null;
   elements.desktop.classList.remove('is-window-dragging');
