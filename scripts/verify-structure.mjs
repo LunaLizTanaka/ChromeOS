@@ -15,6 +15,7 @@ const internetTemplate = read('src/apps/app-templates.js');
 const internetManager = read('src/apps/internet-manager.js');
 const libraryManager = read('src/apps/library-manager.js');
 const libraryStyles = read('styles/library.css');
+const mainStyles = read('styles/main.css');
 const internetStyles = read('styles/internet.css');
 const windowManager = read('src/managers/window-manager.js');
 const resizeStyles = read('styles/window-resize.css');
@@ -23,6 +24,16 @@ if (!paintApp.includes("$$('[data-color]', root).forEach") || !paintApp.includes
 }
 if (!edgePanelManager.includes("const pointerWithinSidebar = desktop.classList.contains('sidebar-open')")) {
   throw new Error('Opening the dock must not cover the sidebar actions.');
+}
+
+if (!edgePanelManager.includes('const EDGE_SIZE = 8;') ||
+    !edgePanelManager.includes('const TOUCH_EDGE_SIZE = 32;') ||
+    !edgePanelManager.includes('event.clientY <= rect.top + TOUCH_EDGE_SIZE') ||
+    !edgePanelManager.includes('event.clientX <= rect.left + TOUCH_EDGE_SIZE')) {
+  throw new Error('Mouse edge activation must stay narrow while touch retains a larger tap target.');
+}
+if (!mainStyles.includes('width:min(184px,74vw)') || !mainStyles.includes('width:min(104px,72vw)')) {
+  throw new Error('The revealed sidebar must use the compact desktop and mobile widths.');
 }
 if (!appRegistry.includes("const openCount = $$('#scene > .window:not(.hidden)').length;")) {
   throw new Error('App window count must use the multi-element selector so the first application can open.');
@@ -166,8 +177,8 @@ if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-re
     !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
   throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
 }
-if (packageJson.version !== '1.0.3' || manifest.version !== '1.0.3' || !html.includes('v1.0.3')) {
-  throw new Error('Project package, manifest and page title must match version 0.6.0.');
+if (packageJson.version !== '1.0.4' || manifest.version !== '1.0.4' || !html.includes('v1.0.4')) {
+  throw new Error('Project package, manifest and page title must match version 1.0.4.');
 }
 
 if (!/<script\s+type=["']module["']\s+src=["']\.\/src\/main\.js["']\s*>/i.test(html)) {
