@@ -1,5 +1,12 @@
 # Histórico de versões — Galaxy Legacy
 
+## v1.0.5 — Internet com interface de navegador
+- Removida a barra verde com o título “INTERNET.EXE” da janela Internet.
+- Movidos os controles reais de minimizar, maximizar e fechar para a faixa rosada das abas, posicionados ao lado do botão +.
+- A faixa de abas passa a funcionar como área de arraste e duplo clique para mover/maximizar a janela.
+- Removido o botão de fechamento duplicado da barra de endereço; o controle principal da janela permanece integrado ao cabeçalho de abas.
+- Preservadas a barra de endereço, controles do navegador, favoritos, histórico, busca, Archive.org e Neocities.
+
 ## v1.0.4 — painéis de borda mais precisos
 - Reduzida de 44 px para 8 px a faixa que revela os painéis superior, lateral e inferior com mouse, exigindo que o ponteiro chegue muito mais perto da borda.
 - Mantida uma área de 32 px para ativação por toque, evitando tornar o gesto difícil em telas sensíveis ao toque.
