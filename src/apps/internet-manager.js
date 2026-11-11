@@ -580,9 +580,16 @@ export function initializeInternetApp(win) {
     else renderTabs();
   }
 
-  function addHistoryEntry(tab, url, title) {
+  function addHistoryEntry(tab, url, title, kind = 'web') {
+    if (!tab.entries.length) {
+      tab.entries.push({
+        url: '',
+        title: tab.kind === 'home' ? 'Galaxy Web' : 'Nova aba',
+        kind: 'home'
+      });
+    }
     tab.entries = tab.entries.slice(0, tab.historyIndex + 1);
-    tab.entries.push({ url, title });
+    tab.entries.push({ url, title, kind });
     tab.historyIndex = tab.entries.length - 1;
   }
 
@@ -671,6 +678,12 @@ export function initializeInternetApp(win) {
     if (tab.historyIndex > 0) {
       const index = tab.historyIndex - 1;
       const entry = tab.entries[index];
+      if (entry.kind === 'home' || !entry.url) {
+        tab.historyIndex = index;
+        goHome({ record: false });
+        setStatus('Voltando para ' + entry.title + '…');
+        return;
+      }
       navigateTo(entry.url, entry.title, { record: false, historyIndex: index });
       setStatus('Voltando para ' + entry.title + '…');
       return;
@@ -688,6 +701,12 @@ export function initializeInternetApp(win) {
     if (tab.historyIndex >= 0 && tab.historyIndex < tab.entries.length - 1) {
       const index = tab.historyIndex + 1;
       const entry = tab.entries[index];
+      if (entry.kind === 'home' || !entry.url) {
+        tab.historyIndex = index;
+        goHome({ record: false });
+        setStatus('Avançando para ' + entry.title + '…');
+        return;
+      }
       navigateTo(entry.url, entry.title, { record: false, historyIndex: index });
       setStatus('Avançando para ' + entry.title + '…');
       return;
@@ -718,9 +737,12 @@ export function initializeInternetApp(win) {
     renderTabs();
   }
 
-  function goHome() {
+  function goHome(options = {}) {
     const tab = activeTab();
     if (!tab) return;
+    if (options.record !== false && tab.mode === 'web' && tab.url) {
+      addHistoryEntry(tab, '', tab.kind === 'home' ? 'Galaxy Web' : 'Nova aba', 'home');
+    }
     tab.mode = 'home';
     tab.url = '';
     tab.title = tab.kind === 'home' ? 'Galaxy Web' : 'Nova aba';
