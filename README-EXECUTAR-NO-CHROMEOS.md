@@ -1,4 +1,4 @@
-# Galaxy Legacy v1.0.0 — executar no ChromeOS
+# Galaxy Legacy v1.0.1 — executar no ChromeOS
 
 ## Executar a versão modular completa
 
@@ -30,7 +30,7 @@ Mova o ponteiro até os primeiros 44 pixels da borda esquerda para abrir os atal
 
 ## Internet
 
-O aplicativo Internet agora funciona como navegador integrado: crie abas com ＋ ou Ctrl+T, digite endereço ou pesquisa na barra superior, alterne entre Google, Bing e DuckDuckGo, use voltar/avançar/recarregar, salve favoritos com ☆, consulte o histórico com ◷ e use Ctrl+F quando o site permitir. A homepage rosa, a pesquisa do Archive.org e os atalhos Neocities continuam disponíveis. Use ↗ para abrir no Chrome páginas que bloqueiem incorporação. Mais detalhes em `docs/INTERNET_BROWSER_V1.0.0.md`.
+O aplicativo Internet agora funciona como navegador integrado: crie abas com ＋ ou Ctrl+T, digite endereço ou pesquisa na barra superior, alterne entre Google, Bing e DuckDuckGo, use voltar/avançar/recarregar, salve favoritos com ☆, consulte o histórico com ◷ e use Ctrl+F quando o site permitir. A homepage rosa, a pesquisa do Archive.org e os atalhos Neocities continuam disponíveis. Use ↗ para abrir no Chrome páginas que bloqueiem incorporação. A pesquisa da homepage abre resultados públicos do Archive.org, o banner pode ser alterado pelo botão ESCOLHER IMAGEM e a imagem fica salva localmente. Para voltar em páginas externas, o Galaxy controla o histórico que foi aberto pela própria barra; links internos continuam sob controle do site. Mais detalhes em `docs/INTERNET_BROWSER_V1.0.1.md`.
 
 ## Aplicativos e armazenamento
 
