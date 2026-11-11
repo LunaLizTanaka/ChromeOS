@@ -113,8 +113,10 @@ if (!internetManager.includes("closeWindow(win.closest('.window'))") ||
     !appRegistry.includes('closeControl?.addEventListener') ||
     !appRegistry.includes('minimizeControl?.addEventListener') ||
     !appRegistry.includes('maximizeControl?.addEventListener') ||
-    !windowManager.includes(".window-actions, button, input, select, textarea, a, [data-no-window-drag]")) {
-  throw new Error('Internet and desktop window close/minimize/maximize controls must have direct and drag-safe handlers.');
+    !windowManager.includes(".window-actions, button, input, select, textarea, a, [data-no-window-drag]") ||
+    !windowManager.includes('const pointerOverTarget = point.x >= targetRect.left') ||
+    !windowManager.includes('pointerOverTarget || windowOverTarget')) {
+  throw new Error('Internet and desktop window close/minimize/maximize controls must have direct handlers and a reliable drag-to-close target.');
 }
 for (const removed of ["id:'novelupdates'","id:'mangaplus'","id:'comikey'","id:'webtoon'","id:'viz'","FEATURED_READING"]) {
   if (libraryManager.includes(removed)) throw new Error('Excluded novel/manga provider remains: ' + removed);
