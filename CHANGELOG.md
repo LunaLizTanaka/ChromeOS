@@ -1,5 +1,12 @@
 # Histórico de versões — Galaxy Legacy
 
+## v1.0.2 — pesquisa do Archive.org em novas abas
+- O campo de pesquisa da nova aba criada pelo botão + agora consulta o Internet Archive por padrão.
+- Endereços HTTP/HTTPS continuam sendo abertos diretamente a partir da mesma caixa.
+- A barra de endereço principal mantém a pesquisa geral selecionável (Google, Bing ou DuckDuckGo).
+- Testes adicionados para pesquisa do Archive.org, endereços diretos e bloqueio de esquemas inseguros.
+
+
 ## v1.0.1 — correções de navegação e banner configurável
 - Pesquisa da homepage abre a página pública de resultados do Internet Archive dentro da aba atual, com filtro de mídia aplicado.
 - Banner da homepage pode ser substituído por PNG, JPG, WebP, GIF ou AVIF de até 2 MB; a escolha fica salva localmente e pode ser restaurada.
