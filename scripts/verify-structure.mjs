@@ -48,7 +48,7 @@ const requiredInternetIds = [
   'internetBookmarkBar', 'internetBookmarksPanel', 'internetHistoryPanel',
   'internetFindBar', 'internetBrowserStatus', 'internetPageHost',
   'internetHomeBrowserPage', 'internetHomePage', 'internetImmersiveHint',
-  'internetCloseWindow', 'internetChooseBanner', 'internetResetBanner', 'internetBannerFile',
+  'internetChooseBanner', 'internetResetBanner', 'internetBannerFile',
   'internetTabBlogs', 'internetTabArchive', 'neocitiesPanel', 'archivePanel',
   'neocitiesCatalog', 'archiveSearchForm', 'archiveSearchInput', 'archiveMediaType',
   'archiveResults', 'archiveViewer', 'archiveFrameHost'
@@ -131,14 +131,20 @@ if (!internetManager.includes('gl-internet-banner-v1') ||
     !internetStyles.includes('.internet-hero-custom-image')) {
   throw new Error('The Internet homepage must allow a persistent custom banner image and reset controls.');
 }
-if (!internetManager.includes("closeWindow(win.closest('.window'))") ||
+if (internetTemplate.includes('id="internetCloseWindow"') ||
+    !appRegistry.includes("if (name === 'internet')") ||
+    !appRegistry.includes("browserTabStrip.append(windowActions)") ||
+    !appRegistry.includes("browserTabStrip.dataset.windowDragHandle = ''") ||
+    !appRegistry.includes('windowHead.remove()') ||
     !appRegistry.includes('closeControl?.addEventListener') ||
     !appRegistry.includes('minimizeControl?.addEventListener') ||
     !appRegistry.includes('maximizeControl?.addEventListener') ||
+    !windowManager.includes("closest?.('.window-head, [data-window-drag-handle]')") ||
+    !windowManager.includes("closest('.window-head, [data-window-drag-handle]')") ||
     !windowManager.includes(".window-actions, button, input, select, textarea, a, [data-no-window-drag]") ||
     !windowManager.includes('const pointerOverTarget = point.x >= targetRect.left') ||
     !windowManager.includes('pointerOverTarget || windowOverTarget')) {
-  throw new Error('Internet and desktop window close/minimize/maximize controls must have direct handlers and a reliable drag-to-close target.');
+  throw new Error('Internet window controls must sit in the pink tab strip, remain functional and preserve window dragging.');
 }
 for (const removed of ["id:'novelupdates'","id:'mangaplus'","id:'comikey'","id:'webtoon'","id:'viz'","FEATURED_READING"]) {
   if (libraryManager.includes(removed)) throw new Error('Excluded novel/manga provider remains: ' + removed);
@@ -177,8 +183,8 @@ if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-re
     !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
   throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
 }
-if (packageJson.version !== '1.0.4' || manifest.version !== '1.0.4' || !html.includes('v1.0.4')) {
-  throw new Error('Project package, manifest and page title must match version 1.0.4.');
+if (packageJson.version !== '1.0.5' || manifest.version !== '1.0.5' || !html.includes('v1.0.5')) {
+  throw new Error('Project package, manifest and page title must match version 1.0.5.');
 }
 
 if (!/<script\s+type=["']module["']\s+src=["']\.\/src\/main\.js["']\s*>/i.test(html)) {
