@@ -368,3 +368,55 @@
   #desktop #scene > .window[data-window="app-internet"] .internet-window-actions{gap:3px;margin-left:2px;padding-left:5px}
   #desktop #scene > .window[data-window="app-internet"] .internet-window-actions button{flex-basis:12px;width:12px;height:12px}
 }
+
+
+/* Internet v1.0.6 — fullscreen uses only the native pink browser chrome. */
+.fullscreen-layer > .window[data-window="app-internet"].browser-fullscreen > .window-body{
+  display:flex;
+  flex:1 1 auto;
+  flex-direction:column;
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  max-height:none;
+  overflow:hidden;
+  padding:0!important;
+  background:#fff8fc;
+}
+.fullscreen-layer > .window[data-window="app-internet"].browser-fullscreen > .window-body > .internet-app{
+  flex:1 1 auto;
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+}
+.fullscreen-layer > .window[data-window="app-internet"] .internet-window-actions{
+  display:flex;
+  align-items:center;
+  flex:0 0 auto;
+  gap:5px;
+  margin:0 1px 2px 3px;
+  padding-left:8px;
+  border-left:1px solid #e1b6c9;
+}
+.fullscreen-layer > .window[data-window="app-internet"] .internet-window-actions button{
+  position:relative;
+  display:block;
+  flex:0 0 14px;
+  width:14px;
+  height:14px;
+  padding:0;
+  border:2px solid #b56c89;
+  border-radius:50%;
+  background:#fff0b9;
+}
+.fullscreen-layer > .window[data-window="app-internet"] .internet-window-actions button:nth-child(2){background:#d7f6b8}
+.fullscreen-layer > .window[data-window="app-internet"] .internet-window-actions button:nth-child(3){background:#f5c5d9}
+@media(max-width:560px){
+  .fullscreen-layer > .window[data-window="app-internet"] .internet-window-actions{gap:3px;margin-left:2px;padding-left:5px}
+  .fullscreen-layer > .window[data-window="app-internet"] .internet-window-actions button{flex-basis:12px;width:12px;height:12px}
+}
