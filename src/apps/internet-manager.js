@@ -220,6 +220,16 @@ export function resolveBrowserInput(value, engine = 'google') {
   return { kind: 'search', url: searchBase + encodeURIComponent(raw), query: raw };
 }
 
+export function resolveNewTabInput(value) {
+  const result = resolveBrowserInput(value, 'google');
+  if (result.kind !== 'search') return result;
+  return {
+    kind: 'archive-search',
+    query: result.query,
+    url: buildArchivePublicSearchUrl(result.query, 'all')
+  };
+}
+
 function readStoredList(key, limit) {
   try {
     const parsed = JSON.parse(window.localStorage.getItem(key) || '[]');
@@ -257,8 +267,8 @@ function createLandingPage() {
   const landing = document.createElement('div');
   landing.className = 'internet-newtab-page';
   landing.innerHTML = '<div class="internet-newtab-decoration" aria-hidden="true">✿　୨୧　♡　❀</div>' +
-    '<div class="internet-newtab-card"><span class="internet-kicker">UM NOVO CANTINHO</span><h2>Onde vamos navegar hoje?</h2><p>Digite um endereço ou pesquise na Internet pela barra acima.</p>' +
-    '<form data-newtab-search class="internet-newtab-search"><input type="search" placeholder="Pesquisar na web…" aria-label="Pesquisar na web"><button class="pixel-btn" type="submit">PESQUISAR ♡</button></form>' +
+    '<div class="internet-newtab-card"><span class="internet-kicker">UM NOVO CANTINHO</span><h2>Onde vamos navegar hoje?</h2><p>Pesquise no Internet Archive ou digite o endereço de um site.</p>' +
+    '<form data-newtab-search class="internet-newtab-search"><input type="search" placeholder="Pesquisar no Internet Archive…" aria-label="Pesquisar no Internet Archive"><button class="pixel-btn" type="submit">PESQUISAR ♡</button></form>' +
     '<div class="internet-newtab-links"><strong>Atalhos Neocities</strong><div data-newtab-shortcuts></div></div>' +
     '<p class="internet-newtab-tip">Ctrl+L seleciona o endereço · Ctrl+T abre uma nova aba · Ctrl+F localiza texto na página.</p></div>';
   const webHost = document.createElement('div');
@@ -1093,11 +1103,28 @@ export function initializeInternetApp(win) {
     }
   });
 
+  function navigateFromNewTab(value) {
+    const result = resolveNewTabInput(value);
+    if (result.kind === 'empty') {
+      setStatus('Digite um termo para pesquisar no Internet Archive ou um endereço para abrir.');
+      return;
+    }
+    if (result.kind === 'blocked') {
+      setStatus(result.reason);
+      return;
+    }
+    if (result.kind === 'url') {
+      navigateTo(result.url, titleForUrl(result.url), { record: true });
+      return;
+    }
+    navigateTo(result.url, 'Archive.org · ' + result.query, { record: true });
+  }
+
   win.addEventListener('submit', event => {
     const form = event.target.closest('[data-newtab-search]');
     if (!form) return;
     event.preventDefault();
-    navigateFromInput(form.querySelector('input')?.value || '');
+    navigateFromNewTab(form.querySelector('input')?.value || '');
   });
 
   elements.bookmarksPanel.addEventListener('click', event => event.stopPropagation());
