@@ -99,6 +99,11 @@ if (!internetManager.includes('https://archive.org/search.php') ||
     !internetManager.includes('buildArchivePublicSearchUrl(term, elements.archiveType.value)')) {
   throw new Error('The homepage Archive search must open the public Archive.org search page.');
 }
+if (!internetManager.includes('export function resolveNewTabInput') ||
+    !internetManager.includes('navigateFromNewTab(form.querySelector(\'input\')?.value || \'\')') ||
+    !internetManager.includes('Pesquisar no Internet Archive')) {
+  throw new Error('The new-tab search must route text queries to the Internet Archive while preserving direct URLs.');
+}
 if (internetManager.includes('contentWindow.history.back()') || internetManager.includes('contentWindow.history.forward()')) {
   throw new Error('Cross-origin iframe history must not be accessed directly; use the app-owned history stack.');
 }
@@ -155,7 +160,7 @@ if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-re
     !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
   throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
 }
-if (packageJson.version !== '1.0.1' || manifest.version !== '1.0.1' || !html.includes('v1.0.1')) {
+if (packageJson.version !== '1.0.2' || manifest.version !== '1.0.2' || !html.includes('v1.0.2')) {
   throw new Error('Project package, manifest and page title must match version 0.6.0.');
 }
 
