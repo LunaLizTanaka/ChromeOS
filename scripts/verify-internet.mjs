@@ -4,6 +4,7 @@ import {
   BROWSER_SEARCH_ENGINES,
   normalizeBrowserUrl,
   resolveBrowserInput,
+  resolveNewTabInput,
   buildArchiveSearchUrl,
   buildArchivePublicSearchUrl,
   buildArchiveEmbedUrl,
@@ -58,6 +59,19 @@ assert.equal(resolveBrowserInput('file:///etc/passwd').kind, 'blocked');
 assert.equal(resolveBrowserInput('ftp://example.org').kind, 'blocked');
 assert.equal(resolveBrowserInput('https://').kind, 'blocked');
 
+assert.equal(resolveNewTabInput('').kind, 'empty');
+const newTabArchiveSearch = resolveNewTabInput('The Little Tyrant novel');
+assert.equal(newTabArchiveSearch.kind, 'archive-search');
+assert.equal(new URL(newTabArchiveSearch.url).origin, 'https://archive.org');
+assert.equal(new URL(newTabArchiveSearch.url).pathname, '/search.php');
+assert.equal(new URL(newTabArchiveSearch.url).searchParams.get('query'), 'The Little Tyrant novel');
+
+const newTabDirectUrl = resolveNewTabInput('https://neocities.org');
+assert.equal(newTabDirectUrl.kind, 'url');
+assert.equal(newTabDirectUrl.url, 'https://neocities.org/');
+
+assert.equal(resolveNewTabInput('javascript:alert(1)').kind, 'blocked');
+
 assert.equal(buildArchivePublicSearchUrl(''), '');
 const archivePublicAll = new URL(buildArchivePublicSearchUrl('The Little Tyrant'));
 assert.equal(archivePublicAll.origin, 'https://archive.org');
@@ -106,4 +120,4 @@ assert.equal(buildArchiveEmbedUrl('a/b c'),
 assert.equal(buildArchiveDetailsUrl('prideprejudice00aust'),
   'https://archive.org/details/prideprejudice00aust');
 
-console.log('Internet checks OK: browser URL/search routing, Archive.org public search, safe schemes, tabs/search engines and preserved Archive/Neocities functions.');
+console.log('Internet checks OK: general browser search, Archive.org new-tab search, public Archive routes, safe schemes, tabs and preserved Neocities functions.');
