@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Versão:** v1.0.2  
+**Versão:** v1.0.3  
 **Plataforma principal:** Chromebook / ChromeOS  
 **Tecnologia:** HTML, CSS e JavaScript nativos; ES Modules; PWA preparada para HTTPS  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -17,7 +17,7 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 - Barra superior, atalhos laterais e dock que se revelam ao aproximar o ponteiro das bordas.
 - Layout fluido, sem resolução fixa, acompanhando o espaço disponível.
 - Aplicativos internos: Mail demonstrativo, Trash, Files demonstrativo, Save Center, Internet, Biblioteca, Notes, Personalize e Picatsso.
-- Internet v1.0.2: pesquisa no Archive.org a partir do campo central de novas abas (+), mantendo endereços diretos; navegador integrado com abas, barra de endereço e busca geral (Google/Bing/DuckDuckGo), histórico local, favoritos, localizar na página, modo imersivo, busca pública do Archive.org e banner personalizável.
+- Internet v1.0.3: correção do fechamento da janela; pesquisa no Archive.org a partir do campo central de novas abas (+), mantendo endereços diretos; navegador integrado com abas, barra de endereço e busca geral (Google/Bing/DuckDuckGo), histórico local, favoritos, localizar na página, modo imersivo, busca pública do Archive.org e banner personalizável.
 - Temas, escala da interface, grade, decorações, wallpaper e perfis JSON.
 - Notes v0.4.0: biblioteca de notas com autosave, busca, checklist, cores, favoritos, arquivamento, duplicação, importação/exportação JSON e papéis adesivos fixados no desktop.
 - Wallpaper armazenado no IndexedDB local.
