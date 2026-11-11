@@ -1,5 +1,13 @@
 # Histórico de versões — Galaxy Legacy
 
+## v1.0.1 — correções de navegação e banner configurável
+- Pesquisa da homepage abre a página pública de resultados do Internet Archive dentro da aba atual, com filtro de mídia aplicado.
+- Banner da homepage pode ser substituído por PNG, JPG, WebP, GIF ou AVIF de até 2 MB; a escolha fica salva localmente e pode ser restaurada.
+- Botão dedicado para fechar a janela Internet e handlers diretos para fechar/minimizar/maximizar todas as janelas.
+- Arraste de janelas ignora controles clicáveis para não interceptar seus cliques.
+- Histórico voltar/avançar usa apenas endereços iniciados pela barra e atalhos do Galaxy; a política de mesma origem impede ler o histórico de links internos de sites externos.
+
+
 ## v1.0.0 — navegador integrado na Internet
 - Barra de endereço com reconhecimento de URLs e pesquisas gerais.
 - Mecanismos de pesquisa configuráveis: Google, Bing e DuckDuckGo.
