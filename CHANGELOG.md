@@ -1,5 +1,12 @@
 # Histórico de versões — Galaxy Legacy
 
+## v0.9.0 — Internet coquette e Biblioteca simplificada
+- Internet redesenhada como homepage pessoal rosa, com banner ilustrado, divisórias decorativas, perfil de boas-vindas e navegação entre Archive e Neocities.
+- Pesquisa do Internet Archive no topo, quatro atalhos Neocities logo abaixo e chips de categoria que preselecionam filtros.
+- Removidos Novel Updates, Little Tyrant como destaque e todos os provedores de mangá da Biblioteca.
+- Mantidos livros, novels e fanfics; estante JSON preservada sem apagar favoritos locais.
+
+
 ## v0.8.0 — Navegação interna da Biblioteca
 - Barra de endereço HTTPS com lista permitida limitada às plataformas cadastradas.
 - Controles de voltar, avançar e atualizar o histórico iniciado pela Biblioteca.
