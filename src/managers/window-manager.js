@@ -148,7 +148,7 @@ function pointerPoint(event) { return { x: event.clientX, y: event.clientY }; }
 
 function beginWindowDrag(event) {
   const head = event.target.closest?.('.window-head');
-  if (!head || event.target.closest?.('.window-actions button') || dragState || resizeState || event.isPrimary === false || (event.button !== undefined && event.button !== 0)) return;
+  if (!head || event.target.closest?.('.window-actions, button, input, select, textarea, a, [data-no-window-drag]') || dragState || resizeState || event.isPrimary === false || (event.button !== undefined && event.button !== 0)) return;
   const windowElement = head.closest('.window');
   const { scene, desktop, closeTarget } = elements;
   if (!windowElement || windowElement.parentNode !== scene) return;
