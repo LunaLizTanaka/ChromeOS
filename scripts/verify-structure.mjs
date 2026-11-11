@@ -95,6 +95,12 @@ if (!internetTemplate.includes('id="internetBrowserTabs"') ||
     !internetStyles.includes('.internet-app.is-immersive')) {
   throw new Error('The browser UI must include a full-size page host, address field, tab strip and immersive layout.');
 }
+if (!internetStyles.includes('#desktop #scene > .window[data-window="app-internet"].hidden{') ||
+    !internetStyles.includes('display:none!important') ||
+    !windowManager.includes('export function closeWindow(windowElement)') ||
+    !windowManager.includes("windowElement.classList.add('hidden')")) {
+  throw new Error('The Internet window must remain hidden after closing, despite its custom flex layout.');
+}
 if (!internetManager.includes('https://archive.org/search.php') ||
     !internetManager.includes('buildArchivePublicSearchUrl(term, elements.archiveType.value)')) {
   throw new Error('The homepage Archive search must open the public Archive.org search page.');
@@ -160,7 +166,7 @@ if (!windowManager.includes("desktop.style.cursor = resizeState.direction + '-re
     !windowManager.includes('Math.min(160,') || !windowManager.includes('Math.min(112,')) {
   throw new Error('Window resizing must use a valid directional cursor and support compact window sizes.');
 }
-if (packageJson.version !== '1.0.2' || manifest.version !== '1.0.2' || !html.includes('v1.0.2')) {
+if (packageJson.version !== '1.0.3' || manifest.version !== '1.0.3' || !html.includes('v1.0.3')) {
   throw new Error('Project package, manifest and page title must match version 0.6.0.');
 }
 
