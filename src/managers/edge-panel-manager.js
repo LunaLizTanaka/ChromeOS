@@ -7,7 +7,8 @@ export function initializeEdgePanelManager() {
   const dock = $('.dock');
   if (!desktop || !topbar || !sidebar || !dock) return;
 
-  const EDGE_SIZE = 44;
+  const EDGE_SIZE = 8;
+  const TOUCH_EDGE_SIZE = 32;
   const KEEP_GAP = 14;
 
   function ensureHotspot(className, geometry) {
@@ -114,9 +115,9 @@ export function initializeEdgePanelManager() {
     const pointerWithinSidebar = desktop.classList.contains('sidebar-open')
       && event.clientX <= rect.left + sidebar.offsetWidth + KEEP_GAP;
     if (pointerWithinSidebar) return;
-    if (event.clientY <= rect.top + EDGE_SIZE) reveal('topbar');
-    else if (event.clientX <= rect.left + EDGE_SIZE) reveal('sidebar');
-    else if (event.clientY >= rect.bottom - EDGE_SIZE) reveal('dock');
+    if (event.clientY <= rect.top + TOUCH_EDGE_SIZE) reveal('topbar');
+    else if (event.clientX <= rect.left + TOUCH_EDGE_SIZE) reveal('sidebar');
+    else if (event.clientY >= rect.bottom - TOUCH_EDGE_SIZE) reveal('dock');
     else if (!event.target.closest('.topbar,.sidebar,.dock')) collapsed();
   }, true);
 
