@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Versão:** v0.8.0  
+**Versão:** v0.9.0  
 **Plataforma principal:** Chromebook / ChromeOS  
 **Tecnologia:** HTML, CSS e JavaScript nativos; ES Modules; PWA preparada para HTTPS  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -9,7 +9,7 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 
 ## O que já funciona
 
-- Biblioteca v0.8.0: 16 plataformas de livros, mangás, novels e fanfics; pesquisa no Internet Archive e Open Library; BookReader oficial; janela interna com endereço HTTPS, voltar, avançar e atualizar; estante local JSON.
+- Biblioteca v0.9.0: plataformas de livros, novels e fanfics, sem Novel Updates nem serviços de mangá; pesquisa no Internet Archive e Open Library, BookReader e estante local JSON.
 
 
 - Desktop vazio ao iniciar: nenhum aplicativo abre sem ação da pessoa usuária.
@@ -17,14 +17,18 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 - Barra superior, atalhos laterais e dock que se revelam ao aproximar o ponteiro das bordas.
 - Layout fluido, sem resolução fixa, acompanhando o espaço disponível.
 - Aplicativos internos: Mail demonstrativo, Trash, Files demonstrativo, Save Center, Internet, Biblioteca, Notes, Personalize e Picatsso.
-- Internet v0.6.0: blogoteca com quatro páginas Neocities testadas e pesquisa própria no Internet Archive por filmes, vídeos, áudio, livros, textos, software e imagens; resultados abrem no player/leitor do acervo.
+- Internet v0.9.0: homepage rosa inspirada em uma página pessoal, com banner, pesquisa do Archive.org no topo e quatro atalhos Neocities logo abaixo.
 - Temas, escala da interface, grade, decorações, wallpaper e perfis JSON.
 - Notes v0.4.0: biblioteca de notas com autosave, busca, checklist, cores, favoritos, arquivamento, duplicação, importação/exportação JSON e papéis adesivos fixados no desktop.
 - Wallpaper armazenado no IndexedDB local.
 
+## Biblioteca v0.9.0 — catálogo simplificado
+
+A Biblioteca deixou de listar Novel Updates e provedores de mangá. Permanecem as opções para livros digitais, novels e fanfics. A estante local foi mantida, inclusive links salvos anteriormente.
+
 ## Navegação interna da Biblioteca
 
-A Biblioteca abre no próprio desktop as páginas dos serviços cujo domínio foi incluído na lista permitida. A barra interna aceita somente HTTPS dos domínios cadastrados e fornece histórico próprio de endereços iniciados pela barra ou pelos cartões. Por segurança do navegador, o Galaxy não consegue ler o histórico dos links clicados dentro de páginas de outra origem. Sites que enviam `X-Frame-Options` ou `Content-Security-Policy: frame-ancestors` podem bloquear o iframe; cookies de terceiros também podem impedir login. Wuxiaworld permanece como link externo por restrição explícita dos termos de uso. Veja [documentação da Biblioteca v0.8.0](docs/BIBLIOTECA_V0.8.0.md).
+A Biblioteca abre no próprio desktop as páginas dos serviços cujo domínio foi incluído na lista permitida. A barra interna aceita somente HTTPS dos domínios cadastrados e fornece histórico próprio de endereços iniciados pela barra ou pelos cartões. Por segurança do navegador, o Galaxy não consegue ler o histórico dos links clicados dentro de páginas de outra origem. Sites que enviam `X-Frame-Options` ou `Content-Security-Policy: frame-ancestors` podem bloquear o iframe; cookies de terceiros também podem impedir login. Wuxiaworld permanece como link externo por restrição explícita dos termos de uso. Veja [documentação da Biblioteca v0.8.0](docs/INTERNET_BIBLIOTECA_V0.9.0.md).
 
 ## Executar no Chromebook
 
@@ -87,6 +91,10 @@ O `index.html` é a entrada do projeto modular e usa ES Modules. Ele deve ser se
 A janela Internet tem apenas dois espaços. **Neocities** reúne quatro blogs selecionados e testados, abertos dentro da própria janela. **Internet Archive** consulta a API pública de busca do Archive.org e permite filtrar por filmes/vídeos, áudio, livros/textos, software/jogos e imagens. Ao escolher um resultado, o Galaxy carrega o player ou leitor oficial do item. Não há pesquisa Google, tags Neocities, campo para endereços genéricos, Tumblr, YouTube, Spotify ou navegação para sites aleatórios.
 
 A busca usa `advancedsearch.php` do Internet Archive, e a visualização usa o endereço de incorporação `archive.org/embed/IDENTIFIER`. Alguns itens podem não ter player, estar indisponíveis ou possuir restrições específicas; nesse caso, o botão **PÁGINA COMPLETA** abre a ficha do próprio item no Archive.org. Os blogs Neocities também podem mudar suas políticas ou sair do ar. Veja [INTERNET_V0.6.0.md](docs/INTERNET_V0.6.0.md).
+
+## Internet v0.9.0
+
+A tela Internet usa um visual de homepage pessoal, com banner ilustrado, divisórias decorativas, cartão de boas-vindas e navegação entre Archive e Neocities. A busca do Internet Archive fica no topo; os quatro sites Neocities aparecem logo abaixo como atalhos. Os botões de categoria preselecionam o filtro da busca, sem alterar a pesquisa ampla nem a paginação. Consulte [INTERNET_BIBLIOTECA_V0.9.0.md](docs/INTERNET_BIBLIOTECA_V0.9.0.md).
 
 ## Notes v0.4.0
 
