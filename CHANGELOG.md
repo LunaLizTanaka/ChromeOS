@@ -1,5 +1,12 @@
 # Histórico de versões — Galaxy Legacy
 
+## v1.0.4 — painéis de borda mais precisos
+- Reduzida de 44 px para 8 px a faixa que revela os painéis superior, lateral e inferior com mouse, exigindo que o ponteiro chegue muito mais perto da borda.
+- Mantida uma área de 32 px para ativação por toque, evitando tornar o gesto difícil em telas sensíveis ao toque.
+- Reduzida a largura da barra lateral de 250 px para 184 px em telas maiores e de 116 px para 104 px em telas estreitas.
+- Adicionados testes de regressão para as dimensões e os dois limites de ativação.
+
+
 ## v1.0.3 — fechamento da janela Internet
 - Corrigida a especificidade CSS que mantinha a janela Internet visível depois de receber a classe `hidden`.
 - Fechar pelo X superior, pelo controle na barra do navegador e pelo alvo de arraste agora usa a mesma classe visual de fechamento sem ser anulada pelo layout flex.
