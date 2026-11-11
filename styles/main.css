@@ -133,7 +133,7 @@ body{min-height:100vh;min-height:100dvh;padding:0;background:var(--wallpaper);}
 .workspace>.scene{position:absolute;inset:0;width:auto;height:auto;min-width:0;min-height:0;margin:0;padding:0;overflow:hidden;}
 /* Side shortcuts, top controls and dock do not reserve workspace space. They slide in only at their screen edge. */
 .desktop>.topbar{position:absolute;top:0;left:0;right:0;width:100%;height:clamp(48px,7vh,62px);min-height:0;z-index:160;background:rgba(255,253,251,.98);transform:translateY(-100%);transition:transform .22s ease;box-shadow:0 5px 18px rgba(115,70,90,.13);pointer-events:auto;}
-.desktop>.main>.sidebar{position:absolute;top:0;left:0;bottom:0;width:min(250px,78vw);height:100%;min-height:0;z-index:150;background:rgba(255,253,251,.98);transform:translateX(-100%);transition:transform .22s ease;box-shadow:5px 0 18px rgba(115,70,90,.13);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;}
+.desktop>.main>.sidebar{position:absolute;top:0;left:0;bottom:0;width:min(184px,74vw);height:100%;min-height:0;z-index:150;background:rgba(255,253,251,.98);transform:translateX(-100%);transition:transform .22s ease;box-shadow:5px 0 18px rgba(115,70,90,.13);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;}
 .desktop>.dock{position:absolute;left:0;right:0;bottom:0;width:100%;height:clamp(58px,8vh,70px);min-height:0;z-index:160;background:rgba(255,253,251,.98);transform:translateY(100%);transition:transform .22s ease;box-shadow:0 -5px 18px rgba(115,70,90,.13);}
 .desktop.topbar-open:not(.is-window-dragging)>.topbar{transform:translateY(0);}
 .desktop.sidebar-open:not(.is-window-dragging)>.main>.sidebar{transform:translateX(0);}
@@ -147,7 +147,7 @@ body{min-height:100vh;min-height:100dvh;padding:0;background:var(--wallpaper);}
 /* Panels are completely hidden by default. Their invisible edge zones are detected by pointer events. */
 .desktop>.topbar::after,.desktop>.main>.sidebar::after,.desktop>.dock::before{content:none!important;display:none!important;}
 @media(max-width:650px){
-  .desktop>.main>.sidebar{width:min(116px,72vw);}
+  .desktop>.main>.sidebar{width:min(104px,72vw);}
   .sidebar .side-title{font-size:8px;padding:10px 5px;text-align:center;letter-spacing:0;}
   .side-grid{grid-template-columns:1fr;}
   .app-shortcut{min-height:68px;padding:5px 3px;font-size:8px;gap:2px;letter-spacing:0;}
