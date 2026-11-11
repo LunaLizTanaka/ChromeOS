@@ -1,5 +1,4 @@
 import { toast } from '../core/notifications.js';
-import { closeWindow } from '../managers/window-manager.js';
 
 export const NEOCITIES_BLOGS = Object.freeze([
   {
@@ -307,7 +306,7 @@ export function initializeInternetApp(win) {
     home: $('#internetBrowserHome'), bookmarkCurrent: $('#internetBookmarkCurrent'),
     showBookmarks: $('#internetShowBookmarks'), showHistory: $('#internetShowHistory'),
     findButton: $('#internetFindButton'), immersiveButton: $('#internetImmersiveButton'),
-    openExternal: $('#internetOpenExternal'), closeWindowButton: $('#internetCloseWindow'),
+    openExternal: $('#internetOpenExternal'),
     banner: $('.internet-hero-banner'), chooseBanner: $('#internetChooseBanner'),
     resetBanner: $('#internetResetBanner'), bannerFile: $('#internetBannerFile'),
     bookmarkBar: $('#internetBookmarkBar'),
@@ -985,12 +984,6 @@ export function initializeInternetApp(win) {
   elements.openExternal.addEventListener('click', () => {
     const tab = activeTab();
     if (tab && tab.url) window.open(tab.url, '_blank', 'noopener,noreferrer');
-  });
-
-  elements.closeWindowButton.addEventListener('click', event => {
-    event.preventDefault();
-    event.stopPropagation();
-    closeWindow(win.closest('.window'));
   });
 
   const BANNER_STORAGE_KEY = 'gl-internet-banner-v1';
