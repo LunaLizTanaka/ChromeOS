@@ -22,7 +22,7 @@ Use o arquivo standalone incluído em `standalone/` e abra-o pelo aplicativo Arq
 
 ## Biblioteca de leitura
 
-Abra **Biblioteca** pelo atalho lateral ou pelo dock. Ela reúne 16 plataformas, pesquisas no Internet Archive e Open Library e uma estante local. A Biblioteca agora inclui barra de endereço, voltar, avançar e atualizar. A navegação aceita apenas os domínios HTTPS cadastrados; cada página ainda pode bloquear iframe ou login. Nesses casos, use **ABRIR NO CHROME**. Consulte `docs/BIBLIOTECA_V0.8.0.md` para detalhes.
+Abra **Biblioteca** pelo atalho lateral ou pelo dock. Ela reúne livros, novels e fanfics, sem Novel Updates ou atalhos de mangá. A estante local mantém seus links salvos. Consulte `docs/INTERNET_BIBLIOTECA_V0.9.0.md` para detalhes.
 
 ## Abrir os menus
 
@@ -30,7 +30,7 @@ Mova o ponteiro até os primeiros 44 pixels da borda esquerda para abrir os atal
 
 ## Internet
 
-No aplicativo Internet, digite uma URL ou termo de pesquisa e clique em **NAVEGAR**. O destino abre em uma nova aba do Chrome. **TENTAR ABRIR AQUI** tenta incorporar a página dentro da janela, mas alguns sites bloqueiam esse comportamento. Use **ABRIR NO CHROME** como alternativa.
+O aplicativo Internet abre na tela inicial com banner rosa, pesquisa do Internet Archive no topo e quatro atalhos Neocities logo abaixo. Pesquise no campo e escolha o tipo de conteúdo, ou clique em um favorito Neocities para abri-lo na própria janela.
 
 ## Aplicativos e armazenamento
 
