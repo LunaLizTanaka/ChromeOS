@@ -109,7 +109,7 @@ if (!internetManager.includes('gl-internet-banner-v1') ||
     !internetStyles.includes('.internet-hero-custom-image')) {
   throw new Error('The Internet homepage must allow a persistent custom banner image and reset controls.');
 }
-if (!internetManager.includes('closeWindow(win.closest('.window'))') ||
+if (!internetManager.includes("closeWindow(win.closest('.window'))") ||
     !appRegistry.includes('closeControl?.addEventListener') ||
     !appRegistry.includes('minimizeControl?.addEventListener') ||
     !appRegistry.includes('maximizeControl?.addEventListener') ||
