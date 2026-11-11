@@ -113,3 +113,67 @@
   .archive-search-row .pixel-btn{grid-column:1/-1;width:100%;}
   .archive-results-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;}
 }
+
+
+/* Internet v0.9.0 — pastel coquette homepage inspired by the supplied reference. */
+#desktop #scene > .window[data-window="app-internet"] .window-body{padding:10px;background:#fff7fb;overflow:hidden}
+.internet-app{gap:8px;padding:7px;border:1px solid #efc7d8;border-radius:13px;background:#fff9fc;box-shadow:inset 0 0 0 3px #fff;overflow:hidden}
+.internet-hero-banner{position:relative;display:grid;place-items:center;isolation:isolate;min-height:145px;overflow:hidden;border:4px solid #fff;border-radius:13px;background:linear-gradient(130deg,#f3bed3,#ffe4ee 55%,#eddaef);box-shadow:0 2px 0 #e9bdd0,inset 0 0 0 1px #e7bbcf}
+.internet-hero-illustration{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.92}
+.internet-hero-banner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,244,249,.12),rgba(255,240,247,.48) 48%,rgba(255,244,249,.12));z-index:-1}
+.internet-hero-ornaments{position:absolute;inset:8px 13px;display:flex;align-items:flex-start;justify-content:space-between;color:#fff;font-size:17px;text-shadow:0 1px 3px #bb7c9d;pointer-events:none}
+.internet-hero-ornaments span:nth-child(2),.internet-hero-ornaments span:nth-child(4){align-self:flex-end}
+.internet-hero-title{display:flex;flex-direction:column;align-items:center;gap:3px;max-width:80%;padding:9px 22px;border:1px solid rgba(255,255,255,.82);border-radius:11px;background:rgba(255,244,249,.66);box-shadow:0 2px 10px rgba(163,91,126,.12);text-align:center}
+.internet-hero-title small{color:#a36b84;font-size:8px;font-weight:900;letter-spacing:1.8px}
+.internet-hero-title strong{color:#fff;font-family:Georgia,serif;font-size:clamp(25px,4vw,38px);font-weight:700;letter-spacing:1px;-webkit-text-stroke:.6px #c27e9d;text-shadow:1px 2px 0 #d796b0,2px 3px 0 rgba(255,255,255,.8)}
+.internet-hero-title span{color:#91637a;font-family:Georgia,serif;font-size:9px;font-style:italic}
+.internet-hero-seal{position:absolute;right:13px;bottom:10px;display:grid;place-items:center;width:48px;height:48px;border:2px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(255,239,247,.75);color:#a76e89;box-shadow:0 1px 3px rgba(150,86,116,.13)}
+.internet-hero-seal span{font-size:15px;line-height:1}.internet-hero-seal small{font-size:6px;letter-spacing:1px;font-weight:900}.internet-hero-seal b{font-size:9px;line-height:1}
+.internet-lace-divider{height:13px;overflow:hidden;color:#c58aa5;font-size:10px;letter-spacing:2px;text-align:center;white-space:nowrap}
+.internet-site-shell{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;min-height:0;padding:7px;border:2px solid #f0ccdb;border-radius:10px;background:linear-gradient(180deg,#fffafd,#fff4f8);box-shadow:0 2px 0 rgba(195,126,157,.12)}
+.internet-tabs{align-items:center;gap:7px;margin-bottom:7px;padding:0 4px 7px;border-bottom:2px dotted #ddb0c5}
+.internet-tab{display:flex;flex:0 0 auto;align-items:center;gap:5px;min-height:31px;padding:5px 11px;border:0;border-radius:7px;background:transparent;color:#a1768b;font-size:9px;letter-spacing:.45px}
+.internet-tab span{font-size:14px}.internet-tab.active{background:#f8dce8;color:#87536e;box-shadow:inset 0 -2px #d99ab5}
+.internet-nav-note{margin-left:auto;color:#b17e96;font-family:Georgia,serif;font-size:9px;font-style:italic}
+.internet-panel{gap:9px}
+.internet-archive-layout{display:grid;grid-template-columns:minmax(125px,.72fr) minmax(0,2fr);gap:11px;min-width:0}
+.internet-profile-card{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;padding:10px 9px;border:2px solid #f1c9da;border-radius:9px;background:radial-gradient(circle at 20% 15%,#fff 0 1px,transparent 2px),#fce9f1;text-align:center;box-shadow:inset 0 0 0 3px rgba(255,255,255,.62)}
+.internet-profile-avatar{position:relative;display:grid;place-items:center;width:76px;height:76px;border:4px solid #fff;border-radius:15px;background:linear-gradient(140deg,#f6ccdd,#f8e8ef);box-shadow:0 1px 0 #e7b6cb;color:#bb7e9a}
+.internet-profile-avatar span{font-size:38px;text-shadow:1px 2px #fff}.internet-profile-avatar i{position:absolute;right:-5px;bottom:-4px;font-size:18px;font-style:normal;color:#c48aa5}
+.internet-profile-card>strong{color:#96647c;font-family:Georgia,serif;font-size:12px}
+.internet-profile-card>p{max-width:170px;margin:0;color:#a17b8e;font-family:Georgia,serif;font-size:8px;line-height:1.55}
+.internet-profile-divider{color:#ce9cb3;font-size:9px;letter-spacing:2px}
+.internet-profile-info{display:flex;flex-direction:column;gap:3px;width:100%;padding:7px 5px;border:1px dashed #e4b9cc;border-radius:7px;background:rgba(255,255,255,.55)}
+.internet-profile-info span{color:#bd89a0;font-size:7px;font-weight:900;letter-spacing:.8px}.internet-profile-info b{color:#95627b;font-family:Georgia,serif;font-size:9px}.internet-profile-info small{color:#ad8798;font-size:7px}
+.internet-profile-stamps{display:flex;justify-content:center;gap:6px}.internet-profile-stamps span{display:grid;place-items:center;width:22px;height:22px;border:1px solid #e8bfd0;border-radius:5px;background:#fff7fb;color:#bf7f9d;font-size:12px}
+.internet-archive-content{display:flex;flex-direction:column;gap:8px;min-width:0}
+.internet-section-heading{align-items:center}.internet-section-heading h3{font-family:Georgia,serif;font-size:14px}.internet-kicker{letter-spacing:1.1px}.archive-heading{padding:1px 2px}
+.internet-heading-note{color:#b18298;font-family:Georgia,serif;font-size:8px;font-style:italic;text-align:right}
+.archive-search-form{gap:4px;padding:8px;border:2px solid #e9bfd0;border-radius:8px;background:rgba(255,255,255,.8);box-shadow:0 1px 0 rgba(199,130,161,.12)}
+.archive-search-form .field-label{color:#aa748d;font-size:8px;letter-spacing:.75px}
+.archive-search-row{grid-template-columns:minmax(0,1fr) minmax(102px,138px) auto;gap:5px}
+.archive-search-input-wrap{position:relative;display:flex;align-items:center;min-width:0}
+.archive-search-input-wrap>span{position:absolute;left:9px;top:50%;transform:translateY(-52%);z-index:1;color:#bd86a1;font-size:20px;line-height:1;pointer-events:none}
+.archive-search-input-wrap .field{padding-left:30px}
+.archive-search-row .field{height:34px;border:1px solid #e9c3d3;border-radius:6px;background:#fffafd;color:#855a70;font-size:9px}
+.archive-search-row .pixel-btn{min-height:34px;padding:5px 10px;border:1px solid #d99bb6;border-radius:6px;background:#f4c7da;color:#87536c;font-size:8px;letter-spacing:.5px;box-shadow:0 2px 0 #dfa8bf}
+.archive-neocities-shortcuts{display:flex;flex-direction:column;gap:5px;padding:1px 1px 4px}
+.archive-shortcuts-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.archive-shortcuts-heading>div{display:flex;flex-direction:column;gap:2px}
+.archive-shortcuts-heading strong{color:#90617a;font-family:Georgia,serif;font-size:11px}
+.archive-shortcuts-heading>span{color:#bc8da3;font-size:8px}
+.archive-neocities-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.archive-neocities-link{display:flex;align-items:center;gap:5px;min-width:0;min-height:34px;padding:5px 6px;border:1px solid #e9c1d2;border-radius:6px;background:linear-gradient(135deg,#fff,#fff1f7);color:#8c5d75;text-align:left;box-shadow:0 1px 0 rgba(194,118,153,.12);transition:transform .14s,background .14s}
+.archive-neocities-link:hover{transform:translateY(-1px);background:#ffe9f2}
+.archive-neocities-link>span{display:grid;place-items:center;flex:0 0 23px;width:23px;height:23px;border-radius:5px;background:#f5dce7;color:#b67896;font-size:13px}
+.archive-neocities-link>b{min-width:0;overflow:hidden;color:#94657c;font-size:8px;text-overflow:ellipsis;white-space:nowrap}
+.archive-search-status{min-height:15px;padding:3px 1px;color:#9e748a;font-size:8px}
+.archive-explore-collections{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:5px 0;border-top:1px dotted #e5bfd0;border-bottom:1px dotted #e5bfd0}
+.archive-explore-collections>span{margin-right:2px;color:#b08097;font-size:7px;font-weight:900;letter-spacing:.65px}
+.archive-explore-collections button{min-height:24px;padding:3px 7px;border:1px solid #e7c4d3;border-radius:999px;background:#fff;color:#9a6a81;font-size:8px}
+.archive-explore-collections button:hover,.archive-explore-collections button:focus-visible{border-color:#d394ae;background:#ffeef5}
+.internet-neocities-panel{padding:8px 3px 4px}.internet-neocities-panel .internet-section-heading h3{font-family:Georgia,serif;font-size:15px}.internet-neocities-panel .internet-panel-copy{font-family:Georgia,serif;font-size:9px}
+.internet-blog-card{background:linear-gradient(135deg,#fffafd,#fff0f6);border-color:#e9bfd0}.internet-blog-art{box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
+.archive-result-card{border-color:#e8c1d2;background:#fffafd}.archive-result-card:hover{background:#fff1f7}
+@media(max-width:760px){.internet-archive-layout{grid-template-columns:112px minmax(0,1fr);gap:8px}.internet-profile-card{padding:8px 6px}.internet-profile-avatar{width:62px;height:62px}.archive-neocities-links{grid-template-columns:repeat(2,minmax(0,1fr))}.internet-heading-note{max-width:105px}}
+@media(max-width:560px){.internet-hero-banner{min-height:112px}.internet-hero-seal{width:38px;height:38px;right:7px;bottom:6px}.internet-hero-title{max-width:88%;padding:7px 12px}.internet-hero-title strong{font-size:24px}.internet-site-shell{padding:5px}.internet-tabs{gap:2px}.internet-tab{padding:5px 7px;font-size:8px}.internet-nav-note{font-size:7px}.internet-archive-layout{grid-template-columns:1fr}.internet-profile-card{display:none}.archive-search-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.archive-search-input-wrap{grid-column:1/-1}.archive-search-row .pixel-btn{grid-column:1/-1;width:100%}.archive-neocities-links{grid-template-columns:repeat(2,minmax(0,1fr))}.internet-heading-note{max-width:none}}
