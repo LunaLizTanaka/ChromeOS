@@ -40,6 +40,7 @@ function renderInternet() {
           <button class="internet-browser-control" id="internetFindButton" type="button" title="Pesquisar nesta página (Ctrl+F)" aria-label="Pesquisar nesta página">⌕</button>
           <button class="internet-browser-control" id="internetImmersiveButton" type="button" title="Modo imersivo" aria-label="Modo imersivo">⛶</button>
           <button class="internet-browser-control internet-open-external" id="internetOpenExternal" type="button" title="Abrir no Chrome" aria-label="Abrir no Chrome" disabled>↗</button>
+          <button class="internet-browser-control internet-close-window" id="internetCloseWindow" type="button" title="Fechar janela Internet" aria-label="Fechar janela Internet">×</button>
         </form>
         <div class="internet-browser-bookmarkbar">
           <span>FAVORITOS</span>
@@ -83,6 +84,12 @@ function renderInternet() {
               <div class="internet-hero-title"><small>BEM-VINDA AO MEU CANTINHO</small><strong>Galaxy Web</strong><span>pequenas descobertas em um cantinho da internet</span></div>
               <div class="internet-hero-seal" aria-hidden="true"><span>♡</span><small>DESDE</small><b>2026</b></div>
             </header>
+            <div class="internet-banner-editor" aria-label="Personalizar banner">
+              <span>CAPA DA SUA INTERNET</span>
+              <button type="button" id="internetChooseBanner">✧ ESCOLHER IMAGEM</button>
+              <button type="button" id="internetResetBanner" hidden>RESTAURAR ORIGINAL</button>
+              <input type="file" id="internetBannerFile" accept="image/png,image/jpeg,image/webp,image/gif,image/avif" hidden>
+            </div>
             <div class="internet-lace-divider" aria-hidden="true">❀ · · · ୨୧ · · · ♡ · · · ୨୧ · · · ❀</div>
             <div class="internet-site-shell">
               <nav class="internet-tabs" role="tablist" aria-label="Espaços da Internet">
