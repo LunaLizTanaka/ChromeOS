@@ -177,3 +177,133 @@
 .archive-result-card{border-color:#e8c1d2;background:#fffafd}.archive-result-card:hover{background:#fff1f7}
 @media(max-width:760px){.internet-archive-layout{grid-template-columns:112px minmax(0,1fr);gap:8px}.internet-profile-card{padding:8px 6px}.internet-profile-avatar{width:62px;height:62px}.archive-neocities-links{grid-template-columns:repeat(2,minmax(0,1fr))}.internet-heading-note{max-width:105px}}
 @media(max-width:560px){.internet-hero-banner{min-height:112px}.internet-hero-seal{width:38px;height:38px;right:7px;bottom:6px}.internet-hero-title{max-width:88%;padding:7px 12px}.internet-hero-title strong{font-size:24px}.internet-site-shell{padding:5px}.internet-tabs{gap:2px}.internet-tab{padding:5px 7px;font-size:8px}.internet-nav-note{font-size:7px}.internet-archive-layout{grid-template-columns:1fr}.internet-profile-card{display:none}.archive-search-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.archive-search-input-wrap{grid-column:1/-1}.archive-search-row .pixel-btn{grid-column:1/-1;width:100%}.archive-neocities-links{grid-template-columns:repeat(2,minmax(0,1fr))}.internet-heading-note{max-width:none}}
+
+
+/* Internet v1.0.0 — navegador integrado de abas e páginas completas. */
+#desktop #scene > .window[data-window="app-internet"]{
+  display:flex;flex-direction:column;
+  width:min(1100px,calc(100% - 16px));
+  height:min(820px,calc(100% - 16px));
+  min-width:0;min-height:0;
+  border-radius:17px;
+}
+#desktop #scene > .window[data-window="app-internet"] .window-head{flex:0 0 44px;min-height:44px}
+#desktop #scene > .window[data-window="app-internet"] .window-body{
+  display:flex;flex:1 1 auto;flex-direction:column;
+  width:100%;height:calc(100% - 44px);min-width:0;min-height:0;
+  max-height:none;overflow:hidden;padding:0;background:#fff8fc;
+}
+.internet-app{
+  position:relative;display:flex;flex:1 1 auto;flex-direction:column;
+  width:100%;height:100%;min-width:0;min-height:0;gap:0;padding:0;
+  overflow:hidden;border:0;border-radius:0;background:#fff9fc;
+  box-shadow:none;color:var(--ink);
+}
+.internet-browser-chrome{position:relative;z-index:5;flex:0 0 auto;display:flex;flex-direction:column;gap:0;min-width:0;background:linear-gradient(180deg,#fffafd,#fcebf3);border-bottom:1px solid #e9c4d4}
+.internet-browser-tabstrip{display:flex;align-items:flex-end;gap:5px;min-width:0;min-height:35px;padding:5px 8px 0;background:#f5dce8}
+.internet-browser-tabs{display:flex;align-items:flex-end;gap:4px;flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#dfb3c6 transparent}
+.internet-browser-tab{display:flex;align-items:center;gap:2px;flex:0 1 180px;min-width:92px;max-width:210px;height:30px;padding:0 5px 0 8px;border:1px solid #e3b9cb;border-bottom:0;border-radius:8px 8px 0 0;background:#faedf3;color:#93647b}
+.internet-browser-tab.active{background:#fffafd;color:#74465f;box-shadow:0 -2px 0 #d995b2}
+.internet-browser-tab-select{display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0;height:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left}
+.internet-browser-tab-icon{flex:0 0 auto;color:#ba7895;font-size:12px}
+.internet-browser-tab-label{min-width:0;overflow:hidden;font-size:9px;font-weight:800;text-overflow:ellipsis;white-space:nowrap}
+.internet-browser-tab-close{display:grid;place-items:center;flex:0 0 19px;width:19px;height:19px;border:0;border-radius:5px;background:transparent;color:#a36b84;font-size:15px;line-height:1}
+.internet-browser-tab-close:hover{background:#f5d5e3}
+.internet-new-tab-button{display:grid;place-items:center;flex:0 0 29px;width:29px;height:27px;margin-bottom:2px;border:1px solid #e1b6c9;border-radius:7px;background:#fff7fb;color:#a76785;font-size:19px;line-height:1}
+.internet-new-tab-button:hover{background:#fff}
+.internet-browser-toolbar{display:flex;align-items:center;gap:4px;min-width:0;padding:7px 8px 6px;border-bottom:1px solid #f0d6e1;background:#fffafd}
+.internet-browser-control{display:grid;place-items:center;flex:0 0 30px;width:30px;height:31px;padding:0;border:1px solid #e5bfd0;border-radius:7px;background:#fff7fb;color:#95627c;font-size:17px;line-height:1}
+.internet-browser-control:hover:not(:disabled){border-color:#ce91ab;background:#fbe4ed}
+.internet-browser-control:disabled{opacity:.36;cursor:not-allowed}
+.internet-browser-control.active,.internet-bookmark-current.is-bookmarked{background:#f7dce7;color:#a75c80}
+.internet-address-wrap{position:relative;display:flex;align-items:center;flex:1 1 auto;min-width:90px;height:32px;border:1px solid #e3bdce;border-radius:999px;background:#fff;box-shadow:inset 0 1px 2px rgba(129,76,102,.05)}
+.internet-address-lock{flex:0 0 auto;padding:0 7px 0 10px;color:#bd83a0;font-size:15px}
+.internet-address-wrap input{width:100%;height:100%;min-width:0;padding:0 11px 0 0;border:0;outline:0;border-radius:999px;background:transparent;color:#755066;font-size:10px}
+.internet-address-wrap:focus-within{border-color:#d48cab;box-shadow:0 0 0 2px rgba(221,165,189,.2)}
+.internet-search-engine{flex:0 0 96px;width:96px;min-width:0;height:32px;padding:0 6px;border:1px solid #e6c1d1;border-radius:7px;background:#fff7fb;color:#865a70;font-size:9px}
+.internet-browser-bookmarkbar{display:flex;align-items:center;gap:8px;min-height:27px;padding:3px 10px;background:#fff6fa}
+.internet-browser-bookmarkbar>span{flex:0 0 auto;color:#b17e97;font-size:7px;font-weight:900;letter-spacing:.8px}
+.internet-bookmarkbar-items{display:flex;align-items:center;gap:5px;min-width:0;overflow-x:auto;scrollbar-width:thin}
+.internet-bookmarkbar-items>small{color:#b58ba0;font-size:8px}
+.internet-bookmark-shortcut{max-width:150px;min-height:20px;padding:2px 7px;overflow:hidden;border:1px solid #efd5e0;border-radius:5px;background:#fff;color:#93627a;font-size:8px;text-overflow:ellipsis;white-space:nowrap}
+.internet-bookmark-shortcut:hover{background:#fbe7ef}
+.internet-browser-panels{position:absolute;top:100%;right:8px;z-index:20;max-width:min(420px,calc(100% - 16px))}
+.internet-browser-popover{width:min(390px,calc(100vw - 60px));max-height:min(390px,55vh);overflow:auto;padding:10px;border:1px solid #e5bed0;border-radius:10px;background:rgba(255,250,253,.98);box-shadow:0 8px 25px rgba(102,62,83,.2)}
+.internet-browser-popover[hidden],.internet-findbar[hidden],.internet-web-host[hidden],.internet-browser-page[hidden],.internet-immersive-hint[hidden]{display:none!important}
+.internet-popover-heading{display:flex;align-items:center;gap:8px;padding-bottom:7px;border-bottom:1px dashed #e6bfd0;color:#85566f;font-size:10px}
+.internet-popover-heading strong{flex:1}
+.internet-popover-heading button{padding:3px 7px;border:1px solid #e8c4d3;border-radius:5px;background:#fff4f8;color:#98647d;font-size:9px}
+.internet-popover-list{display:flex;flex-direction:column;gap:5px;padding-top:7px}
+.internet-popover-row{display:flex;align-items:center;gap:5px}
+.internet-popover-open{display:flex;flex:1;flex-direction:column;gap:2px;min-width:0;padding:7px;border:1px solid #f0d7e1;border-radius:6px;background:#fff;text-align:left;color:#80546a;font-size:9px;font-weight:800}
+.internet-popover-open small{overflow:hidden;color:#aa8798;font-size:8px;font-weight:normal;text-overflow:ellipsis;white-space:nowrap}
+.internet-popover-remove{width:28px;height:29px;border:1px solid #edd0dc;border-radius:6px;background:#fff7fa;color:#a56883}
+.internet-popover-empty{margin:0;padding:13px;color:#a77d91;font-size:9px;text-align:center}
+.internet-history-row{display:flex;flex-direction:column;gap:3px;padding:7px;border:1px solid #f0d7e1;border-radius:6px;background:#fff;text-align:left;color:#80546a}
+.internet-history-row strong{font-size:9px}
+.internet-history-row span{overflow:hidden;color:#aa8798;font-size:8px;text-overflow:ellipsis;white-space:nowrap}
+.internet-history-row small{color:#bd91a5;font-size:7px}
+.internet-findbar{display:flex;align-items:center;gap:5px;min-width:0;padding:6px 9px;border-top:1px solid #f0d6e1;background:#fff0f6}
+.internet-findbar>span{flex:0 0 auto;color:#a9758d;font-size:7px;font-weight:900;letter-spacing:.7px}
+.internet-findbar input{flex:0 1 210px;min-width:70px;height:27px;padding:0 8px;border:1px solid #e7bfd0;border-radius:6px;background:#fff;color:#80546a;font-size:9px}
+.internet-findbar button{flex:0 0 auto;min-width:26px;height:27px;border:1px solid #e7bfd0;border-radius:6px;background:#fff;color:#95627c}
+.internet-findbar small{flex:1 1 auto;min-width:50px;overflow:hidden;color:#a17b8e;font-size:8px;text-overflow:ellipsis;white-space:nowrap}
+.internet-browser-status{flex:0 0 auto;min-height:19px;padding:3px 10px;overflow:hidden;background:#fff8fb;color:#a17b8f;font-size:8px;line-height:1.45;text-overflow:ellipsis;white-space:nowrap}
+.internet-page-host{position:relative;display:flex;flex:1 1 auto;flex-direction:column;min-width:0;min-height:0;overflow:hidden;background:#fff9fc}
+.internet-browser-page{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
+.internet-home-content{display:flex;flex:1 1 auto;flex-direction:column;gap:9px;min-width:0;min-height:0;height:100%;overflow:auto;padding:8px;background:#fff8fb}
+.internet-home-content .internet-site-shell{flex:1 1 auto;min-height:0}
+.internet-home-content .internet-archive-layout{min-height:0}
+.internet-home-content .internet-archive-content{min-height:0}
+.internet-web-host{position:relative;display:flex;flex:1 1 auto;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden;background:#fff}
+.internet-web-frame{display:block;flex:1 1 auto;width:100%;height:100%;min-width:0;min-height:0;border:0;background:#fff}
+.internet-newtab-page{display:flex;flex:1 1 auto;flex-direction:column;align-items:center;justify-content:center;gap:15px;min-width:0;min-height:0;overflow:auto;padding:22px;background:radial-gradient(circle at 15% 12%,rgba(255,255,255,.9) 0 2px,transparent 3px),linear-gradient(140deg,#fff5f9,#fce5ef 55%,#f4e9f6)}
+.internet-newtab-decoration{color:#d19ab1;font-family:Georgia,serif;font-size:22px;letter-spacing:8px}
+.internet-newtab-card{display:flex;flex-direction:column;align-items:center;gap:10px;width:min(620px,100%);padding:26px 22px;border:3px solid #fff;border-radius:18px;background:rgba(255,251,253,.88);box-shadow:0 4px 0 #e8bfd0,0 12px 30px rgba(174,113,143,.12);text-align:center}
+.internet-newtab-card h2{margin:0;color:#925f78;font-family:Georgia,serif;font-size:clamp(19px,3vw,26px)}
+.internet-newtab-card p{margin:0;color:#a17e91;font-family:Georgia,serif;font-size:10px;line-height:1.55}
+.internet-newtab-search{display:flex;gap:6px;width:min(480px,100%);margin:6px 0}
+.internet-newtab-search input{flex:1 1 auto;min-width:0;height:38px;padding:0 12px;border:1px solid #e3bfd0;border-radius:999px;background:#fff;color:#80546a;font-size:10px}
+.internet-newtab-search .pixel-btn{min-height:38px;border-width:2px;border-radius:999px;font-size:9px}
+.internet-newtab-links{display:flex;flex-direction:column;gap:7px;width:100%;padding-top:12px;border-top:1px dashed #e7bfd0}
+.internet-newtab-links>strong{color:#a07189;font-size:8px;letter-spacing:.8px;text-transform:uppercase}
+.internet-newtab-links>div{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}
+.internet-newtab-link{min-height:30px;padding:5px 11px;border:1px solid #e9c3d3;border-radius:7px;background:#fff7fb;color:#95627c;font-size:9px}
+.internet-newtab-link:hover{background:#f8dce8}
+.internet-newtab-tip{padding-top:5px;color:#bd94a7!important;font-size:8px!important}
+.internet-immersive-hint{position:absolute;top:8px;right:8px;z-index:30;display:flex;align-items:center;gap:8px;padding:6px 9px;border:1px solid #e2b9cc;border-radius:8px;background:rgba(255,249,252,.94);box-shadow:0 3px 12px rgba(110,69,89,.15);color:#94627b;font-size:8px}
+.internet-immersive-hint button{padding:4px 7px;border:1px solid #dfb2c6;border-radius:5px;background:#f9e0ea;color:#86556f;font-size:8px;font-weight:900}
+.internet-app.is-immersive .internet-browser-chrome,.internet-app.is-immersive .internet-browser-status{display:none}
+.internet-app.is-immersive .internet-page-host{flex:1 1 auto}
+.internet-app.is-immersive .internet-web-host,.internet-app.is-immersive .internet-browser-page{height:100%}
+@media(max-width:760px){
+  #desktop #scene > .window[data-window="app-internet"]{width:calc(100% - 12px);height:calc(100% - 12px)}
+  .internet-browser-toolbar{gap:3px;padding:6px 5px}
+  .internet-browser-control{flex-basis:26px;width:26px;height:29px;font-size:15px}
+  .internet-search-engine{flex-basis:78px;width:78px;font-size:8px}
+  .internet-browser-tab{flex-basis:140px;min-width:78px}
+  .internet-browser-bookmarkbar{min-height:24px;padding:2px 6px}
+  .internet-home-content{padding:5px}
+}
+@media(max-width:560px){
+  #desktop #scene > .window[data-window="app-internet"]{border-width:3px;border-radius:12px}
+  #desktop #scene > .window[data-window="app-internet"] .window-head{flex-basis:38px;min-height:38px;height:38px}
+  #desktop #scene > .window[data-window="app-internet"] .window-body{height:calc(100% - 38px)}
+  .internet-browser-tabstrip{min-height:31px;padding:3px 5px 0}
+  .internet-browser-tab{height:27px;min-width:62px;flex-basis:112px;padding:0 3px 0 5px}
+  .internet-browser-tab-label{font-size:8px}
+  .internet-browser-tab-close{flex-basis:16px;width:16px;height:16px}
+  .internet-new-tab-button{height:24px;flex-basis:25px;width:25px}
+  .internet-browser-toolbar{flex-wrap:wrap}
+  .internet-address-wrap{order:1;flex:1 1 calc(100% - 10px);height:31px}
+  .internet-search-engine{order:2;flex:1 1 82px;width:auto;height:28px}
+  .internet-browser-toolbar .internet-browser-control{order:2;flex-basis:27px;width:27px;height:28px}
+  .internet-browser-status{font-size:7px}
+  .internet-findbar{flex-wrap:wrap}
+  .internet-findbar small{flex-basis:100%}
+  .internet-home-content{gap:6px}
+  .internet-newtab-page{padding:10px}
+  .internet-newtab-card{padding:18px 12px}
+  .internet-newtab-search{flex-wrap:wrap}
+  .internet-newtab-search .pixel-btn{width:100%}
+}
