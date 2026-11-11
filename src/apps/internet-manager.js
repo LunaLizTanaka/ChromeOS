@@ -544,10 +544,6 @@ export function initializeInternetApp(win) {
     elements.pageHost.appendChild(tab.pageRoot);
     tabs.push(tab);
     activateTab(tab.id);
-    tab.landing.querySelector('[data-newtab-search]')?.addEventListener('submit', event => {
-      event.preventDefault();
-      navigateFromInput(tab.landing.querySelector('input')?.value || '');
-    });
     return tab;
   }
 
