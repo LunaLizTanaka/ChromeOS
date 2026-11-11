@@ -1,4 +1,5 @@
 import { toast } from '../core/notifications.js';
+import { closeWindow } from '../managers/window-manager.js';
 
 export const NEOCITIES_BLOGS = Object.freeze([
   {
@@ -54,6 +55,18 @@ export function buildArchiveSearchUrl(term, mediaType = 'all', page = 1) {
   url.searchParams.set('output', 'json');
   return url.href;
 }
+export function buildArchivePublicSearchUrl(term, mediaType = 'all') {
+  const cleanTerm = String(term || '').trim().replace(/\\s+/g, ' ');
+  if (!cleanTerm) return '';
+  const type = ARCHIVE_MEDIA_TYPES.has(mediaType) ? mediaType : 'all';
+  const query = type === 'all'
+    ? escapeArchiveSearchTerm(cleanTerm)
+    : '(' + escapeArchiveSearchTerm(cleanTerm) + ') AND mediatype:' + type;
+  const url = new URL('https://archive.org/search.php');
+  url.searchParams.set('query', query);
+  return url.href;
+}
+
 export function buildArchiveEmbedUrl(identifier) {
   const value = String(identifier || '').trim();
   return value ? 'https://archive.org/embed/' + encodeURIComponent(value) : '';
@@ -284,7 +297,10 @@ export function initializeInternetApp(win) {
     home: $('#internetBrowserHome'), bookmarkCurrent: $('#internetBookmarkCurrent'),
     showBookmarks: $('#internetShowBookmarks'), showHistory: $('#internetShowHistory'),
     findButton: $('#internetFindButton'), immersiveButton: $('#internetImmersiveButton'),
-    openExternal: $('#internetOpenExternal'), bookmarkBar: $('#internetBookmarkBar'),
+    openExternal: $('#internetOpenExternal'), closeWindowButton: $('#internetCloseWindow'),
+    banner: $('.internet-hero-banner'), chooseBanner: $('#internetChooseBanner'),
+    resetBanner: $('#internetResetBanner'), bannerFile: $('#internetBannerFile'),
+    bookmarkBar: $('#internetBookmarkBar'),
     bookmarksPanel: $('#internetBookmarksPanel'), bookmarksList: $('#internetBookmarksList'),
     historyPanel: $('#internetHistoryPanel'), historyList: $('#internetHistoryList'),
     clearHistory: $('#internetClearHistory'), findBar: $('#internetFindBar'),
@@ -466,8 +482,8 @@ export function initializeInternetApp(win) {
     if (!tab) return;
     elements.addressInput.value = tab.url || '';
     elements.addressInput.placeholder = tab.mode === 'web' ? 'Endereço da página aberta' : 'Pesquise ou digite um endereço da web';
-    elements.back.disabled = !(tab.historyIndex > 0 || (tab.mode === 'web' && !!tab.frame));
-    elements.forward.disabled = !(tab.historyIndex >= 0 && tab.historyIndex < tab.entries.length - 1 || (tab.mode === 'web' && !!tab.frame));
+    elements.back.disabled = !(tab.historyIndex > 0);
+    elements.forward.disabled = !(tab.historyIndex >= 0 && tab.historyIndex < tab.entries.length - 1);
     elements.reload.disabled = tab.mode !== 'web' || !tab.frame;
     elements.home.disabled = tab.mode === 'home';
     elements.bookmarkCurrent.disabled = tab.mode !== 'web' || !tab.url;
@@ -660,12 +676,7 @@ export function initializeInternetApp(win) {
       return;
     }
     if (tab.mode === 'web' && tab.frame) {
-      try {
-        tab.frame.contentWindow.history.back();
-        setStatus('Solicitei que a página voltasse no próprio histórico. A barra pode não refletir links internos por segurança do navegador.');
-      } catch (error) {
-        setStatus('O site não disponibilizou o histórico para a janela interna. Use o botão voltar do próprio site ou abra no Chrome.');
-      }
+      setStatus('Não há uma página anterior aberta pela barra do Galaxy. Para voltar entre links clicados dentro deste site, use o botão voltar do próprio site: o Chrome não permite que o Galaxy controle o histórico interno de outra origem.');
       return;
     }
     setStatus('Não há uma página anterior nesta aba.');
@@ -682,12 +693,7 @@ export function initializeInternetApp(win) {
       return;
     }
     if (tab.mode === 'web' && tab.frame) {
-      try {
-        tab.frame.contentWindow.history.forward();
-        setStatus('Solicitei que a página avançasse no próprio histórico.');
-      } catch (error) {
-        setStatus('O site não disponibilizou o histórico para a janela interna.');
-      }
+      setStatus('Não há uma próxima página aberta pela barra do Galaxy. A navegação entre links internos permanece sob controle do próprio site.');
       return;
     }
     setStatus('Não há uma página seguinte nesta aba.');
@@ -948,6 +954,76 @@ export function initializeInternetApp(win) {
     const tab = activeTab();
     if (tab && tab.url) window.open(tab.url, '_blank', 'noopener,noreferrer');
   });
+
+  elements.closeWindowButton.addEventListener('click', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeWindow(win.closest('.window'));
+  });
+
+  const BANNER_STORAGE_KEY = 'gl-internet-banner-v1';
+  let customBannerImage = null;
+
+  function applyBannerImage(dataUrl) {
+    if (!dataUrl || !/^data:image\\/(?:png|jpeg|webp|gif|avif);base64,/i.test(dataUrl)) return false;
+    if (!customBannerImage) {
+      customBannerImage = document.createElement('img');
+      customBannerImage.className = 'internet-hero-custom-image';
+      customBannerImage.alt = '';
+      customBannerImage.setAttribute('aria-hidden', 'true');
+      elements.banner.prepend(customBannerImage);
+    }
+    customBannerImage.src = dataUrl;
+    elements.banner.classList.add('has-custom-banner');
+    elements.resetBanner.hidden = false;
+    return true;
+  }
+
+  try {
+    const savedBanner = window.localStorage.getItem(BANNER_STORAGE_KEY);
+    if (savedBanner) applyBannerImage(savedBanner);
+  } catch (error) {
+    setStatus('O banner personalizado não pôde ser recuperado neste perfil do navegador.');
+  }
+
+  elements.chooseBanner.addEventListener('click', () => elements.bannerFile.click());
+  elements.bannerFile.addEventListener('change', () => {
+    const file = elements.bannerFile.files?.[0];
+    elements.bannerFile.value = '';
+    if (!file) return;
+    if (!/^image\\/(?:png|jpeg|webp|gif|avif)$/i.test(file.type)) {
+      toast('Escolha uma imagem PNG, JPG, WebP, GIF ou AVIF.');
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      toast('A imagem do banner deve ter até 2 MB.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onerror = () => toast('Não foi possível ler essa imagem.');
+    reader.onload = () => {
+      const dataUrl = String(reader.result || '');
+      if (!applyBannerImage(dataUrl)) {
+        toast('Não foi possível aplicar essa imagem ao banner.');
+        return;
+      }
+      try {
+        window.localStorage.setItem(BANNER_STORAGE_KEY, dataUrl);
+        setStatus('Seu banner personalizado foi salvo neste navegador ♡');
+      } catch (error) {
+        toast('A imagem foi aplicada, mas não coube no armazenamento local. Escolha uma imagem menor.');
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+  elements.resetBanner.addEventListener('click', () => {
+    try { window.localStorage.removeItem(BANNER_STORAGE_KEY); } catch (error) { /* Reset visually even if storage is blocked. */ }
+    customBannerImage?.remove();
+    customBannerImage = null;
+    elements.banner.classList.remove('has-custom-banner');
+    elements.resetBanner.hidden = true;
+    setStatus('Banner original restaurado.');
+  });
   elements.searchEngine.addEventListener('change', () => {
     engine = BROWSER_SEARCH_ENGINES[elements.searchEngine.value] ? elements.searchEngine.value : 'google';
     try { window.localStorage.setItem(ENGINE_KEY, engine); } catch (error) { /* Session preference still applies. */ }
@@ -963,7 +1039,14 @@ export function initializeInternetApp(win) {
 
   elements.archiveForm.addEventListener('submit', event => {
     event.preventDefault();
-    performSearch(1, false);
+    const term = elements.archiveInput.value.trim();
+    if (!term) {
+      setArchiveStatus('Digite um título, autor, tema ou palavra para pesquisar no Internet Archive.');
+      elements.archiveInput.focus();
+      return;
+    }
+    const url = buildArchivePublicSearchUrl(term, elements.archiveType.value);
+    navigateTo(url, 'Archive.org · ' + term, { record: true });
   });
   elements.archiveMore.addEventListener('click', () => {
     if (currentSearchTerm && !elements.archiveMore.disabled) performSearch(currentPage + 1, true);
