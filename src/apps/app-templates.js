@@ -12,7 +12,7 @@ export function escapeHtml(value) {
 
 
 function renderInternet() {
-  return \`
+  return `
     <div class="internet-app" id="internetApp">
       <header class="internet-hero-banner">
         <svg class="internet-hero-illustration" viewBox="0 0 1000 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -76,7 +76,7 @@ function renderInternet() {
       </div>
       <div class="internet-lace-divider internet-footer-lace" aria-hidden="true">୨୧ · · · ♡ · · · ❀ · · · ♡ · · · ୨୧</div>
     </div>
-  \`;
+  `;
 }
 
 function renderLibrary() {
