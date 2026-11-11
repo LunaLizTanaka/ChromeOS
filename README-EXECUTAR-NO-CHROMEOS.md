@@ -1,4 +1,4 @@
-# Galaxy Legacy v0.8.0 — executar no ChromeOS
+# Galaxy Legacy v1.0.0 — executar no ChromeOS
 
 ## Executar a versão modular completa
 
@@ -30,7 +30,7 @@ Mova o ponteiro até os primeiros 44 pixels da borda esquerda para abrir os atal
 
 ## Internet
 
-O aplicativo Internet abre na tela inicial com banner rosa, pesquisa do Internet Archive no topo e quatro atalhos Neocities logo abaixo. Pesquise no campo e escolha o tipo de conteúdo, ou clique em um favorito Neocities para abri-lo na própria janela.
+O aplicativo Internet agora funciona como navegador integrado: crie abas com ＋ ou Ctrl+T, digite endereço ou pesquisa na barra superior, alterne entre Google, Bing e DuckDuckGo, use voltar/avançar/recarregar, salve favoritos com ☆, consulte o histórico com ◷ e use Ctrl+F quando o site permitir. A homepage rosa, a pesquisa do Archive.org e os atalhos Neocities continuam disponíveis. Use ↗ para abrir no Chrome páginas que bloqueiem incorporação. Mais detalhes em `docs/INTERNET_BROWSER_V1.0.0.md`.
 
 ## Aplicativos e armazenamento
 
