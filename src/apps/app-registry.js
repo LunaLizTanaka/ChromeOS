@@ -1,7 +1,7 @@
 import { $, $$ } from '../core/dom.js';
 import { toast } from '../core/notifications.js';
 import { bindSettings, exportConfig, importConfig } from '../core/settings.js';
-import { activateWindow, getWindow, showWindow } from '../managers/window-manager.js';
+import { activateWindow, closeWindow, enterFullscreen, getWindow, hideWindow, showWindow } from '../managers/window-manager.js';
 import { appTitles, renderAppContent, escapeHtml } from './app-templates.js';
 import { initializePaintApp } from './paint-app.js';
 import { initializeNotesApp } from './notes-manager.js';
@@ -106,6 +106,28 @@ export function openApp(name) {
     return null;
   }
   scene.appendChild(windowElement);
+
+  // Bind window actions directly as well as keeping the desktop-level delegation.
+  // This keeps the controls responsive even when an app installs its own click handlers.
+  const closeControl = windowElement.querySelector('[data-close]');
+  const minimizeControl = windowElement.querySelector('[data-min]');
+  const maximizeControl = windowElement.querySelector('[data-max]');
+  closeControl?.addEventListener('click', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeWindow(windowElement);
+  });
+  minimizeControl?.addEventListener('click', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    hideWindow(id);
+  });
+  maximizeControl?.addEventListener('click', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    enterFullscreen(windowElement);
+  });
+
   activateWindow(windowElement);
   bindApp(name, windowElement);
   return windowElement;
