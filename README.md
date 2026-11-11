@@ -1,6 +1,6 @@
 # Galaxy Legacy — ChromeOS Edition
 
-**Versão:** v0.9.0  
+**Versão:** v1.0.0  
 **Plataforma principal:** Chromebook / ChromeOS  
 **Tecnologia:** HTML, CSS e JavaScript nativos; ES Modules; PWA preparada para HTTPS  
 **Identidade:** pixel art + coquette + kawaii desktop
@@ -17,7 +17,7 @@ Galaxy Legacy é um desktop web personalizável executado dentro do Chrome/Chrom
 - Barra superior, atalhos laterais e dock que se revelam ao aproximar o ponteiro das bordas.
 - Layout fluido, sem resolução fixa, acompanhando o espaço disponível.
 - Aplicativos internos: Mail demonstrativo, Trash, Files demonstrativo, Save Center, Internet, Biblioteca, Notes, Personalize e Picatsso.
-- Internet v0.9.0: homepage rosa inspirada em uma página pessoal, com banner, pesquisa do Archive.org no topo e quatro atalhos Neocities logo abaixo.
+- Internet v1.0.0: navegador integrado com abas, barra de endereço e busca geral (Google/Bing/DuckDuckGo), voltar/avançar/recarregar, favoritos e histórico locais, localizar na página, modo imersivo, homepage rosa, Archive.org e Neocities.
 - Temas, escala da interface, grade, decorações, wallpaper e perfis JSON.
 - Notes v0.4.0: biblioteca de notas com autosave, busca, checklist, cores, favoritos, arquivamento, duplicação, importação/exportação JSON e papéis adesivos fixados no desktop.
 - Wallpaper armazenado no IndexedDB local.
@@ -28,7 +28,7 @@ A Biblioteca deixou de listar Novel Updates e provedores de mangá. Permanecem a
 
 ## Navegação interna da Biblioteca
 
-A Biblioteca abre no próprio desktop as páginas dos serviços cujo domínio foi incluído na lista permitida. A barra interna aceita somente HTTPS dos domínios cadastrados e fornece histórico próprio de endereços iniciados pela barra ou pelos cartões. Por segurança do navegador, o Galaxy não consegue ler o histórico dos links clicados dentro de páginas de outra origem. Sites que enviam `X-Frame-Options` ou `Content-Security-Policy: frame-ancestors` podem bloquear o iframe; cookies de terceiros também podem impedir login. Wuxiaworld permanece como link externo por restrição explícita dos termos de uso. Veja [documentação da Biblioteca v0.8.0](docs/INTERNET_BIBLIOTECA_V0.9.0.md).
+A Biblioteca abre no próprio desktop as páginas dos serviços cujo domínio foi incluído na lista permitida. A barra interna aceita somente HTTPS dos domínios cadastrados e fornece histórico próprio de endereços iniciados pela barra ou pelos cartões. Por segurança do navegador, o Galaxy não consegue ler o histórico dos links clicados dentro de páginas de outra origem. Sites que enviam `X-Frame-Options` ou `Content-Security-Policy: frame-ancestors` podem bloquear o iframe; cookies de terceiros também podem impedir login. Wuxiaworld permanece como link externo por restrição explícita dos termos de uso. Veja [documentação da Biblioteca v0.8.0](docs/INTERNET_BROWSER_V1.0.0.md).
 
 ## Executar no Chromebook
 
@@ -63,7 +63,7 @@ O workflow também executa automaticamente em cada novo push. A URL pública só
 
 ## Limites atuais
 
-Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notificações, Wi-Fi, Bluetooth ou launcher nativo. A nuvem e a sincronização ainda não estão conectadas; Files apenas mostra nomes e tamanhos de arquivos escolhidos localmente. Na Internet v0.6.0 não há navegador geral nem abertura de endereços arbitrários: somente os blogs selecionados e o acervo do Internet Archive.
+Galaxy Legacy é uma camada visual web dentro do ChromeOS. Não controla notificações, Wi-Fi, Bluetooth ou launcher nativo. A nuvem e a sincronização ainda não estão conectadas; Files apenas mostra nomes e tamanhos de arquivos escolhidos localmente. Na Internet v1.0.0 existe uma camada de navegador dentro da janela do Galaxy. Ela usa iframes para sites externos; páginas que bloqueiam incorporação, logins/cookies de terceiros ou certas navegações podem exigir a opção Abrir no Chrome. Não é um motor Chromium independente.
 
 ## Documentação
 
@@ -91,6 +91,10 @@ O `index.html` é a entrada do projeto modular e usa ES Modules. Ele deve ser se
 A janela Internet tem apenas dois espaços. **Neocities** reúne quatro blogs selecionados e testados, abertos dentro da própria janela. **Internet Archive** consulta a API pública de busca do Archive.org e permite filtrar por filmes/vídeos, áudio, livros/textos, software/jogos e imagens. Ao escolher um resultado, o Galaxy carrega o player ou leitor oficial do item. Não há pesquisa Google, tags Neocities, campo para endereços genéricos, Tumblr, YouTube, Spotify ou navegação para sites aleatórios.
 
 A busca usa `advancedsearch.php` do Internet Archive, e a visualização usa o endereço de incorporação `archive.org/embed/IDENTIFIER`. Alguns itens podem não ter player, estar indisponíveis ou possuir restrições específicas; nesse caso, o botão **PÁGINA COMPLETA** abre a ficha do próprio item no Archive.org. Os blogs Neocities também podem mudar suas políticas ou sair do ar. Veja [INTERNET_V0.6.0.md](docs/INTERNET_V0.6.0.md).
+
+## Internet v1.0.0 — navegador integrado
+
+O aplicativo Internet oferece abas independentes, barra de endereço que diferencia URLs de pesquisas, mecanismos Google/Bing/DuckDuckGo, voltar/avançar/recarregar, botão Página inicial, favoritos e histórico salvos localmente, sugestões com base no histórico, pesquisa dentro da página quando o contexto permite e modo imersivo. A homepage rosa, os atalhos Neocities, a busca e o leitor do Archive.org foram preservados. A área de leitura ocupa o espaço restante da janela e acompanha o redimensionamento. Veja [INTERNET_BROWSER_V1.0.0.md](docs/INTERNET_BROWSER_V1.0.0.md).
 
 ## Internet v0.9.0
 
