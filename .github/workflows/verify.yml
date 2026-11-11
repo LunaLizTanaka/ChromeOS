@@ -34,15 +34,15 @@ jobs:
           mkdir -p package
           git archive HEAD | tar -x -C package
           cp standalone.html package/standalone.html
-          (cd package && zip -qr ../Galaxy-Legacy-ChromeOS-v1.0.2.zip .)
-          cp standalone.html Galaxy-Legacy-standalone-v1.0.2.html
+          (cd package && zip -qr ../Galaxy-Legacy-ChromeOS-v1.0.3.zip .)
+          cp standalone.html Galaxy-Legacy-standalone-v1.0.3.html
 
       - name: Upload standalone and ZIP package
         uses: actions/upload-artifact@v4
         with:
-          name: Galaxy-Legacy-v1.0.2
+          name: Galaxy-Legacy-v1.0.3
           path: |
-            Galaxy-Legacy-ChromeOS-v1.0.2.zip
-            Galaxy-Legacy-standalone-v1.0.2.html
+            Galaxy-Legacy-ChromeOS-v1.0.3.zip
+            Galaxy-Legacy-standalone-v1.0.3.html
           if-no-files-found: error
           retention-days: 30
