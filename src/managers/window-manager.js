@@ -23,6 +23,23 @@ function currentWindowTitle(windowElement) {
   return title ? title.textContent.replace(/\s+/g, ' ').trim() : 'APPLICATION';
 }
 
+function syncInternetWindowControls(windowElement, isFullscreen) {
+  if (windowElement?.dataset.window !== 'app-internet') return;
+  const minimize = windowElement.querySelector('[data-min]');
+  const maximize = windowElement.querySelector('[data-max]');
+  const close = windowElement.querySelector('[data-close]');
+  const labels = {
+    minimize: isFullscreen ? 'Ocultar / minimizar navegador' : 'Minimizar navegador',
+    maximize: isFullscreen ? 'Restaurar janela' : 'Abrir navegador em tela cheia',
+    close: 'Fechar navegador'
+  };
+  for (const [button, label] of [[minimize, labels.minimize], [maximize, labels.maximize], [close, labels.close]]) {
+    if (!button) continue;
+    button.title = label;
+    button.setAttribute('aria-label', label);
+  }
+}
+
 export function clampWindow(windowElement) {
   const { scene } = elements || {};
   if (!scene || !windowElement || windowElement.parentNode !== scene || windowElement.classList.contains('hidden')) return;
@@ -76,6 +93,7 @@ export function restoreFullscreen(windowElement) {
   $('.fullscreen-head', windowElement)?.remove();
   windowElement.classList.remove('fullscreen-window');
   windowElement.className = saved.className || windowElement.className.replace(/\s*fullscreen-window/g, '');
+  syncInternetWindowControls(windowElement, false);
   if (saved.style === null || saved.style === undefined) windowElement.removeAttribute('style');
   else windowElement.setAttribute('style', saved.style);
   scene.appendChild(windowElement);
@@ -91,6 +109,7 @@ export function enterFullscreen(windowElement) {
   if (!windowElement) return null;
   if (windowElement.parentNode === fullLayer) return restoreFullscreen(windowElement);
   if (windowElement.parentNode !== scene) return null;
+  const isInternetBrowser = windowElement.dataset.window === 'app-internet';
   const rect = windowElement.getBoundingClientRect();
   const sceneRect = scene.getBoundingClientRect();
   windowElement._glRestore = {
@@ -101,26 +120,36 @@ export function enterFullscreen(windowElement) {
     width: rect.width,
     height: rect.height
   };
-  const head = document.createElement('div');
-  head.className = 'fullscreen-head';
-  const back = document.createElement('button');
-  back.type = 'button';
-  back.className = 'full-back';
-  back.dataset.restoreWindow = '';
-  back.setAttribute('aria-label', 'Voltar ao desktop');
-  back.title = 'Voltar ao desktop';
-  back.textContent = '‹';
-  const label = document.createElement('strong');
-  label.textContent = currentWindowTitle(windowElement);
-  const close = document.createElement('button');
-  close.type = 'button';
-  close.dataset.closeFullscreen = '';
-  close.setAttribute('aria-label', 'Fechar aplicativo');
-  close.title = 'Fechar';
-  close.textContent = '×';
-  head.append(back, label, close);
-  windowElement.insertBefore(head, windowElement.firstChild);
+
+  // Ordinary apps get the generic APPLICATION header. Internet already has
+  // its own pink browser tab strip, so it must remain the only top bar.
+  if (!isInternetBrowser) {
+    const head = document.createElement('div');
+    head.className = 'fullscreen-head';
+    const back = document.createElement('button');
+    back.type = 'button';
+    back.className = 'full-back';
+    back.dataset.restoreWindow = '';
+    back.setAttribute('aria-label', 'Voltar ao desktop');
+    back.title = 'Voltar ao desktop';
+    back.textContent = '‹';
+    const label = document.createElement('strong');
+    label.textContent = currentWindowTitle(windowElement);
+    const close = document.createElement('button');
+    close.type = 'button';
+    close.dataset.closeFullscreen = '';
+    close.setAttribute('aria-label', 'Fechar aplicativo');
+    close.title = 'Fechar';
+    close.textContent = '×';
+    head.append(back, label, close);
+    windowElement.insertBefore(head, windowElement.firstChild);
+  }
+
   windowElement.classList.add('fullscreen-window');
+  if (isInternetBrowser) {
+    windowElement.classList.add('browser-fullscreen');
+    syncInternetWindowControls(windowElement, true);
+  }
   fullLayer.appendChild(windowElement);
   desktop.classList.add('is-fullscreen');
   closeTarget.classList.remove('visible', 'over');
