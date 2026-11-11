@@ -12,7 +12,7 @@ export function escapeHtml(value) {
 
 
 function renderInternet() {
-  return \`
+  return `
     <div class="internet-app" id="internetApp">
       <div class="internet-browser-chrome">
         <div class="internet-browser-tabstrip">
@@ -135,7 +135,7 @@ function renderInternet() {
       </main>
       <div class="internet-immersive-hint" id="internetImmersiveHint" hidden><span>Modo de leitura imersivo</span><button type="button" id="internetExitImmersive">SAIR DA TELA CHEIA ✕</button></div>
     </div>
-  \`;
+  `;
 }
 
 function renderLibrary() {
