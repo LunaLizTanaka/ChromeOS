@@ -965,7 +965,7 @@ export function initializeInternetApp(win) {
   let customBannerImage = null;
 
   function applyBannerImage(dataUrl) {
-    if (!dataUrl || !/^data:image\\/(?:png|jpeg|webp|gif|avif);base64,/i.test(dataUrl)) return false;
+    if (!dataUrl || !/^data:image\/(?:png|jpeg|webp|gif|avif);base64,/i.test(dataUrl)) return false;
     if (!customBannerImage) {
       customBannerImage = document.createElement('img');
       customBannerImage.className = 'internet-hero-custom-image';
@@ -991,7 +991,7 @@ export function initializeInternetApp(win) {
     const file = elements.bannerFile.files?.[0];
     elements.bannerFile.value = '';
     if (!file) return;
-    if (!/^image\\/(?:png|jpeg|webp|gif|avif)$/i.test(file.type)) {
+    if (!/^image\/(?:png|jpeg|webp|gif|avif)$/i.test(file.type)) {
       toast('Escolha uma imagem PNG, JPG, WebP, GIF ou AVIF.');
       return;
     }
