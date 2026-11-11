@@ -329,3 +329,11 @@
   .internet-banner-editor>span{flex-basis:100%}
   .internet-banner-editor button{flex:1 1 auto}
 }
+
+
+/* Regression fix v1.0.3: keep the Internet window's custom flex layout from overriding .window.hidden. */
+#desktop #scene > .window[data-window="app-internet"].hidden{
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
